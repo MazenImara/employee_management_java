@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+   
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -9,7 +10,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-
 
 
 	<h1 class="ali">test from index</h1>
@@ -35,14 +35,15 @@
 	</form>
 	
 	
-	
-	
-	
-	<!-- End Mohamad -->
-	
-	<h3 style="color:green;">${msg }</h3>
-	
-	<h4 class="ali" id="myh3">this is h4</h4>
+	<c:forEach items="${users}" var="user">
+		<a href="user/?id=${user.id }">${user.name }</a>	<br>
+	</c:forEach>
+		<form method="post" action="getProject">
+		Enter ID: <input type="text" name="id">
+		<input type="submit" value="Get project"><br>
+	    </form>
+	    	<h3 style="color:green;">${msg }</h3>
+	    	<h4 class="ali" id="myh3">this is h4</h4>
 	
 	<h5 style="color:green;">${msg2 }</h5>
 	
@@ -58,9 +59,11 @@
    </form>
    <h8 style="color:green;">${msg3 }</h8>
 	
-	<c:forEach items="${users}" var="user">
-		<a href="user/?id=${user.id }">${user.name }</a>	<br>
-	</c:forEach>
+	<!-- End Mohamad -->
 	
+	
+	
+	
+
 </body>
 </html>

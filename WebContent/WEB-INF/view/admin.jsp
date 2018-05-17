@@ -34,8 +34,8 @@
 	                    <td><input type='text' name="email" value='${project.description}'></td>
 	                    <td><input type='text' name="password" value='${project.status}'></td>
 	                    <td><input type='text' name="address" value='${project.timeSpend}'></td>
-	                    <td style="color:blue"><a  href="getProject?id=${employee.id}" onclick='go'>Go</a></td>
-	                    <td style="color:blue"><a  href="deleteProject?id=${employee.id}">Del</a></td>
+	                    <td style="color:blue"><a  href="getProject?id=${project.id}" >Go</a></td>
+	                    <td style="color:blue"><a  href="deleteProject?id=${project.id}">Del</a></td>
 	                    <td style="color:blue"><input type="submit" value="up date"></td>
                 </tr>
                 
