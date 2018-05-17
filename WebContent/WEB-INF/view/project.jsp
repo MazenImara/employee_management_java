@@ -10,6 +10,7 @@
 <body>
 <!-- ikram project -->
 	<h4>Project</h4>
+	Id: ${project.id }<br>
 	Title: ${project.title }<br>
 	Description: ${project.description }<br>
 	Status: ${project.status }<br>

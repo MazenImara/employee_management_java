@@ -11,14 +11,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-
 import em.dio.Dio;
 
 import em.model.Employee;
 
 import em.model.Project;
 
-import em.model.User;
+
+
 
 
 @Controller
@@ -26,6 +26,92 @@ public class MainController {
 	@Autowired
 	private Dio dio;
 
+	
+	@RequestMapping(value="/admin")
+ 	public ModelAndView project() {
+ 		ModelAndView model = new ModelAndView("admin");
+ 		
+ 	     List<Project>projects = dio.getProjects();
+ 		 List<Employee>employees = dio.listEmployees();
+ 		    
+ 	    model.addObject("projects", projects);	
+ 	    model.addObject("employees", employees);
+ 		
+ 		return model;	
+ 	
+ 	}	
+     
+	
+	@RequestMapping(value="/getproject")
+	public ModelAndView project(@RequestParam(value="id", required=true) int  id) {
+
+		ModelAndView model = new ModelAndView("project");
+		
+		Project project = dio.getProject(id);
+		
+		model.addObject("project", project);
+		return model;	
+	
+	}	
+	@RequestMapping(value = "/updateproject" ,method = RequestMethod.POST)
+	
+	 public String update(@ModelAttribute("project") Project project) {
+	
+	     if(null != project )
+	        dio.updateProject(project);
+	     return "redirect:admin";		     	
+		}
+	 
+
+	@RequestMapping(value="/deleteproject")
+    public String deleteproject(@RequestParam(value="id", required=true) int projectId) {
+    
+        dio.deleteEmployee(projectId);
+        return "redirect:admin";	
+	 
+   }	
+
+     
+	
+	@RequestMapping(value="/getemployee")
+	public ModelAndView emp(@RequestParam(value="id", required=true) int  id) {
+
+		ModelAndView model = new ModelAndView("employee");
+		
+		Employee employee = dio.getEmployee(id);
+		
+		
+		model.addObject("employee", employee);
+		return model;	
+	
+	}	
+	@RequestMapping(value = "/updateemployee" ,method = RequestMethod.POST)
+	
+	 public String update(@ModelAttribute("employee") Employee employee) {
+	
+	     if(null != employee )
+	        dio.updateEmployee(employee);
+	    
+	     return "redirect:admin";	
+	    
+		}
+	 
+
+	@RequestMapping(value="/deleteemployee")
+    public String delete(@RequestParam(value="id", required=true) int employeeId) {
+    
+        dio.deleteEmployee(employeeId);
+        return "redirect:admin";	
+	 
+   }
+	// End 	MOHAMAD
+	
+	
+	
+	
+}	
+/*	
+	
 	@RequestMapping(value="/jon")
 	public ModelAndView list() {
 		ModelAndView model = new ModelAndView("index");
@@ -122,73 +208,11 @@ public class MainController {
     public String delete(@RequestParam(value="id", required=true) int employeeId) {
     
         dio.deleteEmployee(employeeId);
-       
-
-      
         return "redirect:employeeList";	
 	 
    }
 	// End 	MOHAMAD
 	
 	
-//for project
-//ikram
-	@RequestMapping(value="/")
-	public ModelAndView getProject() {
-		ModelAndView model = new ModelAndView("index");
-		Project project = new Project();
-		model.addObject("project", project);
-		return model;			
-	}
-		
-	@RequestMapping(value="/getProject")
-	public ModelAndView getProject(@RequestParam(value="id", required=true) int id) {
-		System.out.println(id);
-		ModelAndView model = new ModelAndView("project");
-		Project project = dio.getProject(id);
-		model.addObject("project", project);
-		return model;			
-	}
-
-	@RequestMapping(value = "/addProject", method = RequestMethod.POST)
-	public ModelAndView addProject(@ModelAttribute("project") Project project) {
-		System.out.println(project.getTitle());
-		dio.addProject(project);
-		ModelAndView model = new ModelAndView("index");
-		project=new Project();
-		model.addObject("project", project);
-		List<Project> getProjects = dio.getProjects();
-		model.addObject("getProjects", getProjects);
-		return model;			
-	}
-	
-    @RequestMapping(value="/deleteProject")
-    public String  deleteProject(@RequestParam(value="id", required=true) int id) {
-        dio.deleteProject(id);
-        return "redirect:projectList";
-    }
-    
-    @RequestMapping(value = "/updateProject", method = RequestMethod.POST)
-    public ModelAndView updateProject(@ModelAttribute("project") Project project) {
-        System.out.println(project.getTitle());
-        if(null != project )
-        dio.updateProject(project);
-        ModelAndView model = new ModelAndView("index");
-        project=new Project();
-        model.addObject("project", project);
-        List<Project> getProjects = dio.getProjects();
-        model.addObject("getProjects", getProjects);
-        return model;
-    }
-    
-    @RequestMapping(value="/projectsList")
-    public ModelAndView projectsList() {	
-    	List<Project> getProjects = dio.getProjects();
-    	ModelAndView model = new ModelAndView("projectsList");
-        model.addObject("getProjects", getProjects );
-        return model;
-    }
-//end ikram
-    
-
 }
+*/
