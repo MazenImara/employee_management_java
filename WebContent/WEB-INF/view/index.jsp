@@ -5,6 +5,9 @@
 <html>
 <head>
 <style><%@include file="/WEB-INF/css/mystyle.css"%></style>
+<style><%@include file="/WEB-INF/css/bootstrap.css"%></style>
+<style><%@include file="/WEB-INF/css/jquery.min.js"%></style>
+<style><%@include file="/WEB-INF/css/bootstrap.min.js"%></style>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
 </head>
@@ -28,6 +31,20 @@
 	<c:forEach items="${users}" var="user">
 		<a href="user/?id=${user.id }">${user.name }</a>	<br>
 	</c:forEach>
+	
+	
+	
+	<div class="container">
+	  <h2>Button Styles</h2>
+	  <button type="button" class="btn">Basic</button>
+	  <button type="button" class="btn btn-default">Default</button>
+	  <button type="button" class="btn btn-primary">Primary</button>
+	  <button type="button" class="btn btn-success">Success</button>
+	  <button type="button" class="btn btn-info">Info</button>
+	  <button type="button" class="btn btn-warning">Warning</button>
+	  <button type="button" class="btn btn-danger">Danger</button>
+	  <button type="button" class="btn btn-link">Link</button>      
+	</div>
 	
 </body>
 </html>
