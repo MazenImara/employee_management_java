@@ -6,7 +6,7 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
-
+import em.model.Task;
 import em.model.User;
 
 public class DioImpl implements Dio  {
@@ -79,6 +79,52 @@ public class DioImpl implements Dio  {
 	    session.getTransaction().commit();
 
 	    return users;
+	}
+
+	@Override
+	public Task getTask(int id) {
+		Session session = sessionFactory.getCurrentSession();
+	    Task task=null;
+	    try {
+	        System.out.println("IN GetIteam");
+	        session.beginTransaction();
+	        task = (Task) session.get(Task.class, id);
+	    } catch (HibernateException e) {
+	        e.printStackTrace();
+	        session.getTransaction().rollback();
+	    }
+	    session.getTransaction().commit();
+	    return task;
+	}
+
+	@Override
+	public void addTask(Task task) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void deleteTask(int id) {
+		Session session = sessionFactory.getCurrentSession();
+		session.beginTransaction();
+		Task task = (Task) session.get(Task.class, id);
+    if(null != task) {
+        session.delete(task);
+    }
+    session.getTransaction().commit();
+		
+	}
+
+	@Override
+	public void updatetask(Task task) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public List<Task> getTasks() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
