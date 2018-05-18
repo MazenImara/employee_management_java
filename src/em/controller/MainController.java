@@ -40,14 +40,18 @@ public class MainController {
 	@RequestMapping(value = "/updateproject" ,method = RequestMethod.POST)	
 	 public String update(@ModelAttribute("project") Project project) {	
 		System.out.println(project.id);
-	     if(null != project )
+	     if(null != project ) {	
 	        dio.updateProject(project);
+	     }
 	     return "redirect:admin";		     	
     }
 	
 	@RequestMapping(value = "/addproject" ,method = RequestMethod.POST)
 	 public String addProject(@ModelAttribute("project") Project project) {
+		project.status="New";
+        project.timeSpend=0;
 	     dio.addProject(project);
+	     
 	     return "redirect:admin";
 	} 
 
@@ -74,6 +78,7 @@ public class MainController {
 	 public String updateEmployee(@ModelAttribute("employee") Employee employee) {
 	     if(null != employee )
 	        dio.updateEmployee(employee);
+	        
 	     return "redirect:admin";
 	 }
 

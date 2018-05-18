@@ -33,7 +33,7 @@
 				              <td><input type='text' name="timeSpend" value='${project.timeSpend}'/></td>
 				              <td style="color:blue"><a href="getproject?id=${project.id}">GO</a></td>
 				              <td style="color:blue"><a href="deleteproject?id=${project.id}">DEL</a></td>	                   
-				              <td style="color:blue"><input type="submit" value="UP DATE"/></td>
+				              <td style="color:blue"><input type="submit" value="UPDATE"/></td>
 					      </tr>
 		              </form:form>
 			      </c:forEach>   
@@ -41,9 +41,11 @@
 	                    <td> </td>
 	                    <td> <input type='text' name="title" value='${project.title}'/></td>
 	                    <td> <input type='text' name="description" value='${project.description}'/></td>
-	                    <td> <input type='text' name="status" value='${project.status}'/></td>
-	                    <td> <input type='text' name="timeSpend" value='${project.timeSpend}'/></td>
-	                    <td style="color:blue"><input type="submit" value="add Project "/></td>
+	                     ${project.status}
+	                     ${project.timeSpend}
+	                     <td><strike>New</strike></td>
+	                     <td><strike>New</strike></td>
+	                    <td style="color:blue"><input type="submit" value="ADD Project "/></td>
 		                               
 		           </form:form>            
 	            </table>
@@ -72,9 +74,9 @@
 		                    <td><input type='text' name="password" value='${employee.password}'/></td>
 		                    <td><input type='text' name="address" value='${employee.address}'/></td>
 		                    <td><input type='text' name="phone" value='${employee.phone}'/></td>
-		                    <td style="color:blue"><a  href="getemployee?id=${employee.id}">Go</a></td>
-		                    <td style="color:blue"><a  href="deleteemployee?id=${employee.id}">Del</a></td>
-		                    <td style="color:blue"><input type="submit" value="up date"/></td>
+		                    <td style="color:blue"><a  href="getemployee?id=${employee.id}">GO</a></td>
+		                    <td style="color:blue"><a  href="deleteemployee?id=${employee.id}">DELETE</a></td>
+		                    <td style="color:blue"><input type="submit" value="UPDATE"/></td>
 			            </tr>
 			        </form:form>
 			        </c:forEach>
@@ -85,7 +87,7 @@
 	                    <td> <input type='text' name="password" value='${employee.password}'/></td>
 	                    <td> <input type='text' name="address" value='${employee.address}'/></td>
 	                    <td> <input type='text' name="phone" value='${employee.phone}'/></td>
-	                    <td style="color:blue"><input type="submit" value="add Employee     "/></td>            
+	                    <td style="color:blue"><input type="submit" value="ADD Employee     "/></td>            
                     </form:form>       
 	            </table>
         </div>
