@@ -33,7 +33,7 @@ public class Project implements Serializable{
 	public String status;
 	
 	@Column(name="timeSpend")
-	public String timeSpend;
+	public int timeSpend;
 	
 	public int getId() {
 		return id;
@@ -59,10 +59,10 @@ public class Project implements Serializable{
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	public String getTimeSpend() {
+	public int getTimeSpend() {
 		return timeSpend;
 	}
-	public void setTimeSpend(String timeSpend) {
+	public void setTimeSpend(int timeSpend) {
 		this.timeSpend = timeSpend;
 	}
 }

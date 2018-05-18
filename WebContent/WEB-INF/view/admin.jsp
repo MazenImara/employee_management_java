@@ -29,11 +29,11 @@
 				              <input type='hidden' name="id" value='${project.id}'/>
 				              <td><input type='text' name="title" value='${project.title}'/></td>
 				              <td><input type='text' name="description" value='${project.description}'/></td>
-				              <td><input type='text' name="status" value='${project.status}'></td>
-				              <td><input type='text' name="timeSpend " value='${project.timeSpend}'/> </td>
-				              <td style="color:blue"><a href="getproject?id=${project.id}">Go</a></td>
-				              <td style="color:blue"><a href="deleteproject?id=${project.id}">Del</a></td>	                   
-				              <td style="color:blue"><input type="submit" value="up date"/></td>
+				              <td><input type='text' name="status" value='${project.status}'/></td>
+				              <td><input type='text' name="timeSpend" value='${project.timeSpend}'/></td>
+				              <td style="color:blue"><a href="getproject?id=${project.id}">GO</a></td>
+				              <td style="color:blue"><a href="deleteproject?id=${project.id}">DEL</a></td>	                   
+				              <td style="color:blue"><input type="submit" value="UP DATE"/></td>
 					      </tr>
 		              </form:form>
 			      </c:forEach>   
@@ -41,10 +41,8 @@
 	                    <td> </td>
 	                    <td> <input type='text' name="title" value='${project.title}'/></td>
 	                    <td> <input type='text' name="description" value='${project.description}'/></td>
-	                    <input type='hidden' name="status" value='New'/>
-	                    <input type='hidden' name="timeSpend" value='0'/>
-	                    <td>Status</td>
-	                    <td>TimeSpend</td>
+	                    <td> <input type='text' name="status" value='${project.status}'/></td>
+	                    <td> <input type='text' name="timeSpend" value='${project.timeSpend}'/></td>
 	                    <td style="color:blue"><input type="submit" value="add Project "/></td>
 		                               
 		           </form:form>            

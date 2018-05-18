@@ -107,6 +107,7 @@ public class DioImpl implements Dio  {
 
 	@Override
 	public void updateProject(Project project) {
+	
 	    Session session = sessionFactory.getCurrentSession();
 	    try {
 	        System.out.println("IN Update");
