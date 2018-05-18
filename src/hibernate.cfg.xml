@@ -8,7 +8,7 @@
 			com.mysql.jdbc.Driver
 		</property>
 		<property name="connection.url">
-			jdbc:mysql://localhost:3306/employee_management
+			jdbc:mysql://localhost:3306/employee_management_java
 		</property>
 
 		<property name="connection.pool_size">1</property>
@@ -26,7 +26,7 @@
 			org.hibernate.cache.NoCacheProvider
 		</property>
 
-		<!-- Display all generated SQL to stdout -->
+		<!-- Display all generated SQL to stout -->
 		<property name="show_sql">true</property>
 
 

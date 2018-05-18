@@ -19,10 +19,7 @@
 	
 	</form>
 	
-	<h3 class="ali" id="myh3">this is h3</h3>
-	
-	
-	
+	<h3 class="ali" id="myh3">nidal</h3>
 	
 	
 	<c:forEach items="${users}" var="user">
