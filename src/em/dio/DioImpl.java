@@ -138,6 +138,11 @@ public class DioImpl implements Dio  {
 	    return projects;
 	}
 	
+
+	//end ikram
+	
+	//Gab Starting
+	
 	@Override
 	public Task getTask(int id) {
 		Session session = sessionFactory.getCurrentSession();
@@ -173,15 +178,36 @@ public class DioImpl implements Dio  {
 	}
 
 	@Override
-	public void updatetask(Task task) {
-		// TODO Auto-generated method stub
+	public void updateTask(Task task) {
+		Session session = sessionFactory.getCurrentSession();
+	    try {
+	        System.out.println("IN Update");
+	        session.beginTransaction();
+	        session.saveOrUpdate(task);
+	        } catch (HibernateException e) {
+	            e.printStackTrace();
+	            session.getTransaction().rollback();
+	        }
+	    session.getTransaction().commit();
 		
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Task> getTasks() {
-		// TODO Auto-generated method stub
-		return null;
+		Session session = sessionFactory.getCurrentSession();
+	    session.beginTransaction();
+	    List<Task> tasks = null;
+	    try {
+	        System.out.println("IN LIST");
+	        tasks = (List<Task>)session.createQuery("from Task").list();
+	
+	    } catch (HibernateException e) {
+	        e.printStackTrace();
+	        session.getTransaction().rollback();
+	    }
+	    session.getTransaction().commit();
+	    return tasks;
 	}
 
 	@Override
@@ -256,4 +282,4 @@ public class DioImpl implements Dio  {
 	}
 
 }
-//end ikram
+//Gab Endline

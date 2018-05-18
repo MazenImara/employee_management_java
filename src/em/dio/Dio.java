@@ -20,7 +20,7 @@ public interface Dio {
 	public Task getTask(int id);
 	public void addTask(Task task);
 	public void deleteTask(int id);
-	public void updatetask(Task task);
+	public void updateTask(Task task);
 	public List<Task> getTasks();
 //Gab Endline	
 

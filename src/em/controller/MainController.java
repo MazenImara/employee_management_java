@@ -16,7 +16,6 @@ import em.dio.Dio;
 import em.model.Project;
 import em.model.Suggestion;
 import em.model.Task;
-import em.model.User;
 
 
 @Controller
@@ -24,37 +23,6 @@ public class MainController {
 	@Autowired
 	private Dio dio;
 
-	@RequestMapping(value="/jon")
-	public ModelAndView list() {
-		ModelAndView model = new ModelAndView("index");
-		User user = new User();
-		user.name = "jon";
-		user.age = 30;
-		user.email = "jon@any.com";
-		//dio.addUser(user);
-		model.addObject("msg2", "");
-		return model;			
-	}
-	
-	@RequestMapping(value = "/adduser", method = RequestMethod.POST)
-	public ModelAndView addUser(@ModelAttribute("user") User user) {
-		ModelAndView model = new ModelAndView("index");
-		System.out.println(user.name);
-		dio.addUser(user);	
-		model.addObject("msg", "added successfuly");
-		return model;			
-	}	
-	
-	@RequestMapping(value="/user")
-	public ModelAndView user(@RequestParam(value="id", required=true) int  id) {
-		System.out.println(id);
-		ModelAndView model = new ModelAndView("user");
-		User user = dio.getUser(id);
-		model.addObject("user", user);
-		return model;			
-	}
-	
-	
 //for project
 //ikram
 	@RequestMapping(value="/")
@@ -169,5 +137,73 @@ public class MainController {
    //gab endline
 	
 //end ikram
+    
+    
+//Gab start
+    @RequestMapping(value="/")
+	public ModelAndView getTask() {
+		ModelAndView model = new ModelAndView("index");
+		Task task = new Task();
+		model.addObject("task", task);
+		return model;			
+	}
+		
+	@RequestMapping(value="/getTask")
+	public ModelAndView getTask(@RequestParam(value="id", required=true) int id) {
+		System.out.println(id);
+		ModelAndView model = new ModelAndView("task");
+		Task task = dio.getTask(id);
+		model.addObject("task", task);
+		return model;			
+	}
+
+	@RequestMapping(value = "/addTask", method = RequestMethod.POST)
+	public ModelAndView addTask(@ModelAttribute("task") Task task) {
+		System.out.println(task.getTitle());
+		dio.addTask(task);
+		ModelAndView model = new ModelAndView("index");
+		task=new Task();
+		model.addObject("task", task);
+		List<Task> getTasks = dio.getTasks();
+		model.addObject("getTasks", getTasks);
+		return model;			
+	}
+	
+    @RequestMapping(value="/deleteTask")
+    public String  deleteTask(@RequestParam(value="id", required=true) int id) {
+        dio.deleteTask(id);
+        return "redirect:projectList";
+    }
+    
+    @RequestMapping(value = "/updateTask", method = RequestMethod.POST)
+    public ModelAndView updateTask(@ModelAttribute("task") Task task) {
+        System.out.println(task.getTitle());
+        if(null != task )
+        dio.updateTask(task);
+        ModelAndView model = new ModelAndView("index");
+        task=new Task();
+        model.addObject("task", task);
+        List<Task> getTasks = dio.getTasks();
+        model.addObject("getTasks", getTasks);
+        return model;
+    }
+    
+    @RequestMapping(value="/projectsList")
+    public ModelAndView tasksList() {	
+    	List<Task> getTasks = dio.getTasks();
+    	ModelAndView model = new ModelAndView("tasksList");
+        model.addObject("getTasks", getTasks );
+        return model;
+    }
+    
+    @RequestMapping(value="/employee")
+	public ModelAndView employee() {
+		ModelAndView model = new ModelAndView("employee");
+		Task task = new Task();
+		model.addObject("task", task);
+		return model;			
+	}
+//Gab Endline
+    
     
 }
