@@ -5,16 +5,16 @@
 <head>
 <style><%@include file="/WEB-INF/css/mystyle.css"%></style>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>Project</title>
 </head>
 <body>
 <!-- ikram project -->
 	<h4>Project</h4>
-	Id: ${project.id }<br>
-	Title: ${project.title }<br>
-	Description: ${project.description }<br>
-	Status: ${project.status }<br>
-	Time Spend: ${project.timeSpend }<br>
+		Id: ${project.id }<br>
+		Title: ${project.title }<br>
+		Description: ${project.description }<br>
+		Status: ${project.status }<br>
+		Time Spend: ${project.timeSpend }<br>
 <!-- end project -->
 </body>
 </html>

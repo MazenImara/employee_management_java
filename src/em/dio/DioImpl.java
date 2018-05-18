@@ -139,8 +139,10 @@ public class DioImpl implements Dio  {
 	
 	//end ikram
 	
+	
 	//MOHAMAD Code
 	 //Employee Process
+	
 	@Override
 	public Employee getEmployee(int id) {
 	    Session session = sessionFactory.getCurrentSession();
@@ -156,22 +158,20 @@ public class DioImpl implements Dio  {
 	    session.getTransaction().commit();
 	    return emp;
 	}
+	
 	@Override
 	public void addEmployee(Employee emp) {
 	    Session session = sessionFactory.getCurrentSession();
 	    try {
 	        session.beginTransaction();
 	        session.save(emp);
-	      } catch (HibernateException e) {
+	    }
+	    catch (HibernateException e) {
 	          e.printStackTrace();
 	          session.getTransaction().rollback();
 	    }
-	        session.getTransaction().commit();
+	    session.getTransaction().commit();
 	}
-	 
-	
-	
-	
 
 	@Override
 	public void updateEmployee(Employee employee) {
@@ -181,13 +181,13 @@ public class DioImpl implements Dio  {
 	        System.out.println("IN Update");
 	        session.beginTransaction();
 	        session.saveOrUpdate(employee);
-	        } catch (HibernateException e) {
+	        } 
+	    catch (HibernateException e) {
 	            e.printStackTrace();
 	            session.getTransaction().rollback();
-	        }
+	    }
 	    session.getTransaction().commit();
 	}
-	
 	
 	@Override
 	public void deleteEmployee(int employeeId) {
@@ -204,14 +204,12 @@ public class DioImpl implements Dio  {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Employee> listEmployees() {
-	
 	    Session session = sessionFactory.getCurrentSession();
 	    session.beginTransaction();
 	    List<Employee> employees = null;
 	    try {
 	        System.out.println("IN LIST");
-	        employees = (List<Employee>)session.createQuery("from Employee ").list();
-	
+	        employees = (List<Employee>)session.createQuery("from Employee ").list();	
 	    } catch (HibernateException e) {
 	        e.printStackTrace();
 	        session.getTransaction().rollback();
@@ -220,16 +218,9 @@ public class DioImpl implements Dio  {
 	    return employees;
 	}
 
-	@Override
-	public List<Employee> listEmployeeByEmployeeId(int employeeId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 
-	
-	
-	
-	
+
  // end MOHAMAD
 
 }

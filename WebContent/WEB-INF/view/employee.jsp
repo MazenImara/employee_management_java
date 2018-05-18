@@ -5,24 +5,15 @@
 <head>
  <style><%@include file="/WEB-INF/css/mystyle.css"%></style>  
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Manage Employee</title>
+<title> Employee Details</title>
 </head>
 <body>
-
 <h1>Employee Details</h1> 
-	
-	  
-	           Id: ${employee.id} <br>
-	           Name: ${employee.name} <br>
-	           Email: ${employee.email} <br>
-	           Password: ${employee.password} <br>
-	           Address: ${employee.address} <br>
-	           phone: ${employee.phone} <br>
-	           
-		       
-		
-
-
-
+    Id: ${employee.id} <br>
+    Name: ${employee.name} <br>
+    Email: ${employee.email} <br>
+    Password: ${employee.password} <br>
+    Address: ${employee.address} <br>
+    phone: ${employee.phone} <br>
 </body>
 </html>

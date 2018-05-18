@@ -22,7 +22,7 @@ public interface Dio {
 	void updateEmployee(Employee employee);
 	void deleteEmployee(int employeeId);
 	public List<Employee> listEmployees();
-	List<Employee> listEmployeeByEmployeeId(int employeeId);
+
 	
 	
 // for project 

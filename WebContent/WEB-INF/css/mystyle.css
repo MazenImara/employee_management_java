@@ -1,12 +1,12 @@
 
 body{
-	color: red;
-	background-color: blue;
+	color: black;
+	background-color: white;
 	font-size: 28px;
 }
 
 h1 {
-	color: white;
+	color: blue;
 }
 
 .ali {
@@ -17,11 +17,11 @@ h1 {
 	color: yellow;
 }
 
-<<<<<<< HEAD
+
 .Employee{
 	
 }
-=======
+
 .title {
 	text-decoration: underline;
 }
@@ -39,4 +39,4 @@ h4 {
 
 
 
->>>>>>> d0d6bed58133d6f9165f6e4f243d45ddd0f92115
+
