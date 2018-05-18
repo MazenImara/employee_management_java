@@ -29,8 +29,8 @@
 				              <input type='hidden' name="id" value='${project.id}'/>
 				              <td><input type='text' name="title" value='${project.title}'/></td>
 				              <td><input type='text' name="description" value='${project.description}'/></td>
-				              <td><input type='text' name="status" value='${project.status}'/></td>
-				              <td><input type='text' name="timeSpend" value='${project.timeSpend}'/></td>
+				              <td><input type='hidden' name="status" value='${project.status}'/>${project.status}</td>
+				              <td><input type='hidden' name="timeSpend" value='${project.timeSpend}'/>${project.timeSpend}</td>
 				              <td style="color:blue"><a href="getproject?id=${project.id}">GO</a></td>
 				              <td style="color:blue"><a href="deleteproject?id=${project.id}">DEL</a></td>	                   
 				              <td style="color:blue"><input type="submit" value="UPDATE"/></td>
@@ -44,7 +44,7 @@
 	                     ${project.status}
 	                     ${project.timeSpend}
 	                     <td><strike>New</strike></td>
-	                     <td><strike>New</strike></td>
+	                     <td><strike>0</strike></td>
 	                    <td style="color:blue"><input type="submit" value="ADD Project "/></td>
 		                               
 		           </form:form>            
