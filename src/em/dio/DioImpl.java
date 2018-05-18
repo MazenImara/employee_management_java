@@ -181,8 +181,7 @@ public class DioImpl implements Dio  {
 	        System.out.println("IN Update");
 	        session.beginTransaction();
 	        session.saveOrUpdate(employee);
-	        } 
-	    catch (HibernateException e) {
+	        }  catch (HibernateException e) {
 	            e.printStackTrace();
 	            session.getTransaction().rollback();
 	    }

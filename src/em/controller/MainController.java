@@ -70,12 +70,12 @@ public class MainController {
 	    return "redirect:admin";	
 	 }
 	@RequestMapping(value = "/updateemployee" ,method = RequestMethod.POST)
-	 public String update(@ModelAttribute("employee") Employee employee) {
+	 public String updateEmployee(@ModelAttribute("employee") Employee employee) {
 	     if(null != employee )
 	        dio.updateEmployee(employee);
 	     return "redirect:admin";
 	 }
-	 
+
 	@RequestMapping(value="/deleteemployee")
     public String delete(@RequestParam(value="id", required=true) int employeeId) {    
         dio.deleteEmployee(employeeId);
