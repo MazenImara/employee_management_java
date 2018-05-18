@@ -8,6 +8,7 @@ import org.hibernate.SessionFactory;
 
 import em.model.Task;
 import em.model.Project;
+import em.model.Suggestion;
 import em.model.User;
 import em.dio.Dio;
 
@@ -181,6 +182,77 @@ public class DioImpl implements Dio  {
 	public List<Task> getTasks() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public Suggestion getSuggestion(int id) {
+		Session session = sessionFactory.getCurrentSession();
+	    Suggestion suggestion=null;
+	    try {
+	        System.out.println("IN GetIteam");
+	        session.beginTransaction();
+	        suggestion = (Suggestion) session.get(Suggestion.class, id);
+	    } catch (HibernateException e) {
+	        e.printStackTrace();
+	        session.getTransaction().rollback();
+	    }
+	    session.getTransaction().commit();
+	    return suggestion;
+	}
+
+	@Override
+	public void addSuggestion(Suggestion suggestion) {
+		Session session = sessionFactory.getCurrentSession();
+	    try {
+	        session.beginTransaction();
+	        session.save(suggestion);
+	      } catch (HibernateException e) {
+	          e.printStackTrace();
+	          session.getTransaction().rollback();
+	    }
+	        session.getTransaction().commit();
+	}
+
+	@Override
+	public void deleteSuggestion(int id) {
+		Session session = sessionFactory.getCurrentSession();
+	    session.beginTransaction();
+	    Suggestion suggestion = (Suggestion) session.get(Suggestion.class, id);
+	    if(null != suggestion) {
+	        session.delete(suggestion);
+	    }
+	    session.getTransaction().commit();	
+	}
+
+	@Override
+	public void updateSuggestion(Suggestion suggestion) {
+	    Session session = sessionFactory.getCurrentSession();
+	    try {
+	        System.out.println("IN Update");
+	        session.beginTransaction();
+	        session.saveOrUpdate(suggestion);
+	        } catch (HibernateException e) {
+	            e.printStackTrace();
+	            session.getTransaction().rollback();
+	        }
+	    session.getTransaction().commit();	
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Suggestion> getSuggestions() {
+	    Session session = sessionFactory.getCurrentSession();
+	    session.beginTransaction();
+	    List<Suggestion> suggestions = null;
+	    try {
+	        System.out.println("IN LIST");
+	        suggestions = (List<Suggestion>)session.createQuery("from Suggestion").list();
+	    } catch (HibernateException e) {
+	        e.printStackTrace();
+	        session.getTransaction().rollback();
+	    }
+	    session.getTransaction().commit();
+	    return suggestions;
 	}
 
 }

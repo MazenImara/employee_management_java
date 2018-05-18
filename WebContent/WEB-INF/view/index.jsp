@@ -50,6 +50,19 @@
 		<input type="submit" value="Update project"><br>
 	</form>
 
+	<h4>Add new suggestion</h4>
+	<form method="post" action="addSuggestion">
+		Project id: <input type="text" name="project_id"> <br>
+		Task id: <input type="text" name="task_id"><br>
+		Employee id: <input type="text" name="employee_id"><br>
+		<input type="submit" value="Add suggestion"><br>
+	</form>
+
+	<form method="post" action="getSuggestion">
+		Enter ID: <input type="text" name="id">
+		<input type="submit" value="Get suggestion by id"><br>
+	</form>
+	
 <!-- end ikram -->
 
 

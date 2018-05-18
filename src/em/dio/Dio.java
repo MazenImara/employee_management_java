@@ -4,6 +4,7 @@ import java.util.List;
 
 import em.model.Task;
 import em.model.Project;
+import em.model.Suggestion;
 import em.model.User;
 
 public interface Dio {
@@ -26,10 +27,17 @@ public interface Dio {
 // for project 
 // ikram
 	public Project getProject(int id);
-	public void addProject(Project Project);
+	public void addProject(Project project);
 	public void deleteProject(int id);
-	public void updateProject(Project Project);
+	public void updateProject(Project project);
 	public List<Project> getProjects();
+	
+	public Suggestion getSuggestion(int id);
+	public void addSuggestion(Suggestion suggestion);
+	public void deleteSuggestion(int id);
+	public void updateSuggestion(Suggestion suggestion);
+	public List<Suggestion> getSuggestions();
+	
 //end ikram	
 }
 
