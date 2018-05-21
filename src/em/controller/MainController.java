@@ -50,16 +50,15 @@ public class MainController {
 	 public String addProject(@ModelAttribute("project") Project project) {
 		project.status="New";
         project.timeSpend=0;
-	     dio.addProject(project);
-	     
-	     return "redirect:admin";
+	    dio.addProject(project); 
+	    return "redirect:admin";
 	} 
 
 	@RequestMapping(value="/deleteproject")
     public String deleteproject(@RequestParam(value="id", required=true) int id) {
         dio.deleteProject(id);
         return "redirect:admin";	 
-   }	
+    }	
 	
 	@RequestMapping(value="/getemployee")
 	public ModelAndView emp(@RequestParam(value="id", required=true) int  id) {
@@ -73,14 +72,14 @@ public class MainController {
 	 public String addEmployee(@ModelAttribute("employee") Employee employee) {
 	    dio.addEmployee(employee);
 	    return "redirect:admin";	
-	 }
+	}
 	@RequestMapping(value = "/updateemployee" ,method = RequestMethod.POST)
 	 public String updateEmployee(@ModelAttribute("employee") Employee employee) {
 	     if(null != employee )
 	        dio.updateEmployee(employee);
 	        
 	     return "redirect:admin";
-	 }
+	}
 
 	@RequestMapping(value="/deleteemployee")
     public String delete(@RequestParam(value="id", required=true) int employeeId) {    
