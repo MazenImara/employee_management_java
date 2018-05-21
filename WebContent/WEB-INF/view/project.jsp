@@ -65,11 +65,6 @@
 		                    <td> <input type='text' name="title" value='${task.title}'/></td>
 		                    <input type='hidden' name="project_id" value='${project.id }'/>
 		                     ${task.status}
-		                     ${task.timespend}
-		                     ${task.started}
-		                     ${task.finish}
-		                     ${task.timetemp}
-		                     ${task.employee_id}
 		                     <td><strike>New</strike></td>
 		                     <td><strike>0</strike></td>
 		                     <td><strike>0</strike></td>

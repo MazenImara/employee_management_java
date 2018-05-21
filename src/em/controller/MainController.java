@@ -93,11 +93,6 @@ public class MainController {
 	 public String addtask(@ModelAttribute("task") Task task) {
 		//Task task=new Task();
 		task.status="New";
-        task.timespend="0";
-        task.started="0";
-        task.finish="0";
-        task.timetemp="0";
-        task.employee_id=0;
 	    dio.addTask(task); 
 	   return "redirect:getproject?id=" + task.project_id;
 	} 
