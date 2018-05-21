@@ -5,9 +5,11 @@ import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import em.model.Task;
+import em.model.Project;
+import em.model.Suggestion;
 import em.model.User;
 import em.model.Employee;
-import em.model.Project;
 import em.dio.Dio;
 
 
@@ -137,8 +139,7 @@ public class DioImpl implements Dio  {
 	    session.getTransaction().commit();
 	    return projects;
 	}
-	
-	//end ikram
+		//end ikram
 	
 	
 	//MOHAMAD Code
@@ -159,6 +160,8 @@ public class DioImpl implements Dio  {
 	    session.getTransaction().commit();
 	    return emp;
 	}
+
+	   
 	
 	@Override
 	public void addEmployee(Employee emp) {
@@ -176,19 +179,18 @@ public class DioImpl implements Dio  {
 
 	@Override
 	public void updateEmployee(Employee employee) {
-	
-	    Session session = sessionFactory.getCurrentSession();
-	    try {
-	        System.out.println("IN Update");
-	        session.beginTransaction();
-	        session.saveOrUpdate(employee);
-	        }  catch (HibernateException e) {
-	            e.printStackTrace();
-	            session.getTransaction().rollback();
-	    }
-	    session.getTransaction().commit();
-	}
-	
+		 Session session = sessionFactory.getCurrentSession();
+		    try {
+		        System.out.println("IN Update");
+		        session.beginTransaction();
+		        session.saveOrUpdate(employee);
+		        } catch (HibernateException e) {
+		            e.printStackTrace();
+		            session.getTransaction().rollback();
+		        }
+		    session.getTransaction().commit();
+		}
+
 	@Override
 	public void deleteEmployee(int employeeId) {
 	    Session session = sessionFactory.getCurrentSession();
@@ -201,26 +203,150 @@ public class DioImpl implements Dio  {
 	  
 	}
 
-	@SuppressWarnings("unchecked")
+		@SuppressWarnings("unchecked")
+		@Override
+		public List<Employee> listEmployees() {
+		    Session session = sessionFactory.getCurrentSession();
+		    session.beginTransaction();
+		    List<Employee> employees = null;
+		    try {
+		        System.out.println("IN LIST");
+		        employees = (List<Employee>)session.createQuery("from Employee ").list();
+		    }  catch (HibernateException e) {
+		        e.printStackTrace();
+		        session.getTransaction().rollback();
+		    }
+		     session.getTransaction().commit();
+
+			    return employees;
+			}
+
+		 // end MOHAMAD
+
+	
+
+
+@Override
+public Task getTask(int id) {
+	Session session = sessionFactory.getCurrentSession();
+    Task task=null;
+    try {
+        System.out.println("IN GetIteam");
+        session.beginTransaction();
+        task = (Task) session.get(Task.class, id);
+    } catch (HibernateException e) {
+        e.printStackTrace();
+        session.getTransaction().rollback();
+    }
+    session.getTransaction().commit();
+	    return task;
+	}
+
 	@Override
-	public List<Employee> listEmployees() {
-	    Session session = sessionFactory.getCurrentSession();
-	    session.beginTransaction();
-	    List<Employee> employees = null;
+	public void addTask(Task task) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void deleteTask(int id) {
+		Session session = sessionFactory.getCurrentSession();
+		session.beginTransaction();
+		Task task = (Task) session.get(Task.class, id);
+    if(null != task) {
+        session.delete(task);
+    }
+    session.getTransaction().commit();
+		
+	}
+
+	@Override
+	public void updatetask(Task task) {
+		// TODO Auto-generated method stub
+		
+		
+	}
+
+	@Override
+	public List<Task> getTasks() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Suggestion getSuggestion(int id) {
+		Session session = sessionFactory.getCurrentSession();
+	    Suggestion suggestion=null;
 	    try {
-	        System.out.println("IN LIST");
-	        employees = (List<Employee>)session.createQuery("from Employee ").list();	
+	        System.out.println("IN GetIteam");
+	        session.beginTransaction();
+	        suggestion = (Suggestion) session.get(Suggestion.class, id);
 	    } catch (HibernateException e) {
 	        e.printStackTrace();
 	        session.getTransaction().rollback();
 	    }
 	    session.getTransaction().commit();
-	    return employees;
+	    return suggestion;
 	}
 
+	@Override
+	public void addSuggestion(Suggestion suggestion) {
+		Session session = sessionFactory.getCurrentSession();
+	    try {
+	        session.beginTransaction();
+	        session.save(suggestion);
+	      } catch (HibernateException e) {
+	          e.printStackTrace();
+	          session.getTransaction().rollback();
+	    }
+	        session.getTransaction().commit();
+	}
+
+	@Override
+	public void deleteSuggestion(int id) {
+		Session session = sessionFactory.getCurrentSession();
+	    session.beginTransaction();
+	    Suggestion suggestion = (Suggestion) session.get(Suggestion.class, id);
+	    if(null != suggestion) {
+	        session.delete(suggestion);
+	    }
+	    session.getTransaction().commit();	
+	}
+
+	@Override
+	public void updateSuggestion(Suggestion suggestion) {
+	    Session session = sessionFactory.getCurrentSession();
+	    try {
+	        System.out.println("IN Update");
+	        session.beginTransaction();
+	        session.saveOrUpdate(suggestion);
+        } catch (HibernateException e) {
+            e.printStackTrace();
+            session.getTransaction().rollback();
+        }
+    session.getTransaction().commit();	
+    }
+	        
+	        
 	
-
-
- // end MOHAMAD
+	
+	        
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Suggestion> getSuggestions() {
+	    Session session = sessionFactory.getCurrentSession();
+	    session.beginTransaction();
+	    List<Suggestion> suggestions = null;
+	    try {
+	        System.out.println("IN LIST");
+	        suggestions = (List<Suggestion>)session.createQuery("from Suggestion").list();
+	    } catch (HibernateException e) {
+	        e.printStackTrace();
+	        session.getTransaction().rollback();
+	    }
+	    session.getTransaction().commit();
+	    return suggestions;
+	}
 
 }

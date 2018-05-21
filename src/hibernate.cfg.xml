@@ -33,6 +33,8 @@
 		<mapping class="em.model.User" />
 		<mapping class="em.model.Employee" />
 		<mapping class="em.model.Project" />
+		<mapping class="em.model.Task" />
+		<mapping class="em.model.Suggestion" />
 <!-- end project -->
 
 	</session-factory>

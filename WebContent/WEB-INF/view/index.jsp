@@ -6,39 +6,23 @@
 <html>
 <head>
 <style><%@include file="/WEB-INF/css/mystyle.css"%></style>
+<style><%@include file="/WEB-INF/css/bootstrap.css"%></style>
+<style><%@include file="/WEB-INF/css/jquery.min.js"%></style>
+<style><%@include file="/WEB-INF/css/bootstrap.min.js"%></style>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
 </head>
 <body>
 
 
-	<h1 class="ali">test from index</h1>
-	
-	<form method="post" action="addUser">
-		Name: <input type="text" name="name"> <br>
-		Age: <input type="text" name="age"><br>
-		Email: <input type="text" name="email"><br>
-		<input type="submit" value="Add"><br>
-		</form>
-		
-		
-	<!-- Mohamad Code -->
-	
-	<h2 class="Employee">Add Employee</h2>
-	<form method= "post" action ="addEmployee">
-	    Name    <input type="text" name="name"> <br>
-	    Email   <input type="text" name="email"> <br>
-	    password<input type="password" name="password"> <br>
-	    Address <input type="text" name="address"> <br>
-	    Phone   <input type="text" name="phone"> <br>
-	            <input type="submit" value="Add"><br>
-	</form>
-	
-	
-	<c:forEach items="${users}" var="user">
-		<a href="user/?id=${user.id }">${user.name }</a>	<br>
-	</c:forEach>
-		<form method="post" action="getProject">
+
+<!-- ikram project -->
+
+	<input type="button" value="To Projects List" onclick="window.location.href='http://localhost:8080/em/projectsList'">	
+	<br>
+	<br>
+	<form method="post" action="getProject">
+
 		Enter ID: <input type="text" name="id">
 		<input type="submit" value="Get project"><br>
 	    </form>
@@ -57,13 +41,46 @@
 	    Phone   <input type="text" name="phone"> <br>
 	            <input type="submit" value="update"><br>
    </form>
-   <h8 style="color:green;">${msg3 }</h8>
-	
-	<!-- End Mohamad -->
-	
-	
-	
-	
+   
+	<h4>Update project</h4>
+	<form method="post" action="updateProject">
+		Id: <input type="text" name="id"> <br>
+		Title: <input type="text" name="title"> <br>
+		Description: <input type="text" name="description"><br>
+		Status: <input type="text" name="status"><br>
+		Time Spend: <input type="text" name="timeSpend"><br>
+		<input type="submit" value="Update project"><br>
+	</form>
 
+	<h4>Add new suggestion</h4>
+	<form method="post" action="addSuggestion">
+		Project id: <input type="text" name="project_id"> <br>
+		Task id: <input type="text" name="task_id"><br>
+		Employee id: <input type="text" name="employee_id"><br>
+		<input type="submit" value="Add suggestion"><br>
+	</form>
+
+	<form method="post" action="getSuggestion">
+		Enter ID: <input type="text" name="id">
+		<input type="submit" value="Get suggestion by id"><br>
+	</form>
+	
+<!-- end ikram -->
+	
+	
+<!-- Gab here -->
+	<div class="container">
+	  <h2>Button Styles</h2>
+	  <button type="button" class="btn">Basic</button>
+	  <button type="button" class="btn btn-default">Default</button>
+	  <button type="button" class="btn btn-primary">Primary</button>
+	  <button type="button" class="btn btn-success">Success</button>
+	  <button type="button" class="btn btn-info">Info</button>
+	  <button type="button" class="btn btn-warning">Warning</button>
+	  <button type="button" class="btn btn-danger">Danger</button>
+	  <button type="button" class="btn btn-link">Link</button>      
+	</div>
+	
+<!-- Gab parts end here -->
 </body>
 </html>
