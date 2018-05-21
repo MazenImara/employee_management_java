@@ -164,11 +164,11 @@ public class DioImpl implements Dio  {
 	   
 	
 	@Override
-	public void addEmployee(Employee emp) {
+	public void addEmployee(Employee employee) {
 	    Session session = sessionFactory.getCurrentSession();
 	    try {
 	        session.beginTransaction();
-	        session.save(emp);
+	        session.save(employee);
 	    }
 	    catch (HibernateException e) {
 	          e.printStackTrace();
@@ -244,9 +244,20 @@ public Task getTask(int id) {
 
 	@Override
 	public void addTask(Task task) {
-		// TODO Auto-generated method stub
 		
-	}
+		 Session session = sessionFactory.getCurrentSession();
+		    try {
+		        session.beginTransaction();
+		        session.save(task);
+		    }
+		    catch (HibernateException e) {
+		          e.printStackTrace();
+		          session.getTransaction().rollback();
+		    }
+		    session.getTransaction().commit();
+		}
+		
+
 
 	@Override
 	public void deleteTask(int id) {
