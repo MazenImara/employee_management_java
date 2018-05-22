@@ -33,13 +33,31 @@
                 <td>${project.description}</td>
                 <td>${project.status}</td>
                 <td>${project.timeSpend}</td>
-                <td><a style="color:seashell" href="getProject?id=${project.id}">show</a> </td>
-                <td><a style="color:seashell" href="deleteProject?id=${project.id}">delete</a> </td>
-                
+                <td><a style="color:red" href="getProject?id=${project.id}">show</a> </td>
+                <td><a style="color:red" href="deleteProject?id=${project.id}">delete</a> </td>                
 			</tr>
+			<c:forEach var="task" items="${getTasks }" varStatus="status">
+			<tr>
+                <td>${status.index}</td>
+                <td>${task.id }</td>
+                <td>${task.title}</td>
+                <td>${task.status}</td>
+                <td>Start</td>
+                <td>Pause</td>
+                <td>Ended</td>
+                <td><a style="color:red" href="getTask?id=${task.id}">show</a> </td>
+                <td><a style="color:red" href="deletetask?id=${task.id}">delete</a> </td>                
+			</tr>
+			</c:forEach>
 			</c:forEach>             
 		</table>
 	</div>
+<div align="center">
+    <h1>Task</h1>
+		<table border="1">
+	
+	</table>
+</div>
 		<input type="button" value="To Index" onclick="window.location.href='http://localhost:8080/em'">	
 <!-- end project -->
 </body>

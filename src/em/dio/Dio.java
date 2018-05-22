@@ -37,6 +37,7 @@ public interface Dio {
 	public void deleteSuggestion(int id);
 	public void updateSuggestion(Suggestion suggestion);
 	public List<Suggestion> getSuggestions();
+	public List<Task> getTasksByProjectId(int project_id);
 	
 //end ikram	
 }

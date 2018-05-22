@@ -20,3 +20,31 @@
     background-color: #4CAF50;
     color: white;
 }
+
+.row{
+	margin-right: 100px;
+    margin-left: 100px;
+}
+
+.muu{
+	font-size: 20px;
+	
+}
+
+.muu2{
+	border:2px solid black;	
+    display: flex;    
+     font-weight: bold;
+     font-size: 17px;
+}
+.muu3{
+	font-size: 25px;
+    font-weight: bold;
+}
+
+.header{
+	font-weight: bold;
+    font-size: 35px;
+    text-decoration: underline;
+}
+    

@@ -79,6 +79,7 @@ public class DioImpl implements Dio  {
 	        session.getTransaction().rollback();
 	    }
 	    session.getTransaction().commit();
+	    project.tasks = getTasksByProjectId(project.id);
 	    return project;
 	}
 
@@ -135,6 +136,9 @@ public class DioImpl implements Dio  {
 	        session.getTransaction().rollback();
 	    }
 	    session.getTransaction().commit();
+	    for(Project project: projects) {
+	    	project.tasks = getTasksByProjectId(project.id);
+	    }
 	    return projects;
 	}
 	
@@ -161,8 +165,15 @@ public class DioImpl implements Dio  {
 
 	@Override
 	public void addTask(Task task) {
-		// TODO Auto-generated method stub
-		
+		Session session = sessionFactory.getCurrentSession();
+	    try {
+	        session.beginTransaction();
+	        session.save(task);
+	      } catch (HibernateException e) {
+	          e.printStackTrace();
+	          session.getTransaction().rollback();
+	    }
+	        session.getTransaction().commit();
 	}
 
 	@Override
@@ -209,6 +220,25 @@ public class DioImpl implements Dio  {
 	    session.getTransaction().commit();
 	    return tasks;
 	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Task> getTasksByProjectId(int project_id) {
+		Session session = sessionFactory.getCurrentSession();
+	    session.beginTransaction();
+	    List<Task> tasks = null;
+	    try {
+	        System.out.println("IN LIST");
+	        tasks = (List<Task>)session.createQuery("from Task where project_id="+project_id).list();
+	
+	    } catch (HibernateException e) {
+	        e.printStackTrace();
+	        session.getTransaction().rollback();
+	    }
+	    session.getTransaction().commit();
+	    return tasks;
+	}
+	
 
 	@Override
 	public Suggestion getSuggestion(int id) {

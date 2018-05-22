@@ -30,7 +30,6 @@
 		<property name="show_sql">true</property>
 
 <!-- ikram & gab -->
-		<mapping class="em.model.User" />
 		<mapping class="em.model.Project" />
 		<mapping class="em.model.Task" />
 		<mapping class="em.model.Suggestion" />

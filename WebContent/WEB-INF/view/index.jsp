@@ -13,6 +13,17 @@
 <title>Insert title here</title>
 </head>
 <body>
+start test :
+${project.title }
+<c:forEach var="task" items="${project.tasks}" varStatus="status"><br>
+	${task.title }
+</c:forEach> 
+<br>
+
+
+<br>
+endtest  
+
 
 <!-- ikram project -->
 
@@ -28,8 +39,6 @@
 	<form method="post" action="addProject">
 		Title: <input type="text" name="title"> <br>
 		Description: <input type="text" name="description"><br>
-		Status: <input type="text" name="status"><br>
-		Time Spend: <input type="text" name="timeSpend"><br>
 		<input type="submit" value="Add project"><br>
 	</form>
 	
@@ -45,8 +54,6 @@
 		Id: <input type="text" name="id"> <br>
 		Title: <input type="text" name="title"> <br>
 		Description: <input type="text" name="description"><br>
-		Status: <input type="text" name="status"><br>
-		Time Spend: <input type="text" name="timeSpend"><br>
 		<input type="submit" value="Update project"><br>
 	</form>
 
@@ -63,6 +70,8 @@
 		<input type="submit" value="Get suggestion by id"><br>
 	</form>
 	
+	
+	<input type="button" value="To suggestion List" onclick="window.location.href='http://localhost:8080/em/suggestionList'">
 <!-- end ikram -->
 
 

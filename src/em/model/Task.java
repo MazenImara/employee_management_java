@@ -4,8 +4,11 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 
@@ -41,11 +44,25 @@ public class Task implements Serializable{
 	@Column (name="timetemp")
 	public String timetemp;
 	
-	@Column(name="project_id")
-	public int project_id;
+/*
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "employee_id", nullable = false)
+	public Employee employee;*/
 	
 	@Column(name="employee_id")
 	public int employee_id;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "project_id", nullable = false)
+	public Project project;
+	
+	public Project getProject() {
+		return project;
+	}
+
+	public void setProject(Project project) {
+		this.project = project;
+	}
 
 	public int getId() {
 		return id;
@@ -103,13 +120,7 @@ public class Task implements Serializable{
 		this.timetemp = timetemp;
 	}
 
-	public int getProject_id() {
-		return project_id;
-	}
 
-	public void setProject_id(int project_id) {
-		this.project_id = project_id;
-	}
 
 	public int getEmployee_id() {
 		return employee_id;
