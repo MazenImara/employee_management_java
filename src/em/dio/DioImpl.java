@@ -80,7 +80,7 @@ public class DioImpl implements Dio  {
 	        session.getTransaction().rollback();
 	    }
 	    session.getTransaction().commit();
-	    project.tasks = getTasksByProjectId(project.id);
+	//    project.tasks = getTasksByProjectId(project.id);
 	    return project;
 	}
 
@@ -138,9 +138,9 @@ public class DioImpl implements Dio  {
 	        session.getTransaction().rollback();
 	    }
 	    session.getTransaction().commit();
-	    for(Project project: projects) {
-	    	project.tasks = getTasksByProjectId(project.id);
-	    }
+	   // for(Project project: projects) {
+	    	//project.tasks = getTasksByProjectId(project.id);
+	  //  }
 	    return projects;
 	}
 		//end ikram

@@ -62,7 +62,7 @@ public class Task implements Serializable{
 
 	@Column(name="project_id")
 	public int project_id;
-
+/*
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "project_id", nullable = false)
@@ -75,7 +75,7 @@ public class Task implements Serializable{
 	public void setProject(Project project) {
 		this.project = project;
 	}
-
+*/
 	public int getId() {
 		return id;
 	}

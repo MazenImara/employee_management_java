@@ -37,7 +37,7 @@ public class Project implements Serializable{
 	
 	@Column(name="timeSpend")
 	public int timeSpend;
-	
+	/*
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "project")
 	public List<Task> tasks;
 	
@@ -47,6 +47,7 @@ public class Project implements Serializable{
 	public void setTasks(List<Task> tasks) {
 		this.tasks = tasks;
 	}
+	*/
 	public int getId() {
 	return id;
 	}

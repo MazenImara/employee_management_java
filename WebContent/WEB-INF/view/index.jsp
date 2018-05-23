@@ -14,6 +14,7 @@
 </head>
 <body>
 start test :
+<!--  
 ${project.title }
 <c:forEach var="task" items="${project.tasks}" varStatus="status"><br>
 	${task.title }
@@ -27,7 +28,7 @@ ${project.title }
 
 
 
-
+-->
 <br>
 endtest  
 
