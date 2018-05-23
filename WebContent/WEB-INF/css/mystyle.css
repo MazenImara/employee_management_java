@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #customers {
     font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
     border-collapse: collapse;
@@ -48,3 +49,50 @@
     text-decoration: underline;
 }
     
+=======
+<<<<<<< HEAD
+
+body{
+	color: black;
+	background-color: white;
+	font-size: 20px;
+}
+
+h1 {
+	color: blue;
+}
+
+.ali {
+	text-decoration: underline;
+}
+
+#myh3{
+	color: yellow;
+}
+
+
+.Employee{
+	
+}
+
+.title {
+	text-decoration: underline;
+}
+
+h4 {
+	color: black;
+}
+
+
+
+
+
+
+
+
+
+
+
+=======
+>>>>>>> be475249eb74aceacf69eb3f0214183841def180
+>>>>>>> mohamad

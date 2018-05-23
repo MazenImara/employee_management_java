@@ -5,12 +5,13 @@ import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-
 import em.model.Task;
 import em.model.Project;
 import em.model.Suggestion;
 import em.model.User;
+import em.model.Employee;
 import em.dio.Dio;
+
 
 public class DioImpl implements Dio  {
     private SessionFactory sessionFactory;
@@ -24,7 +25,7 @@ public class DioImpl implements Dio  {
 	    Session session = sessionFactory.getCurrentSession();
 	    User user=null;
 	    try {
-	        System.out.println("IN GetIteam");
+	        System.out.println("IN GetUser");
 	        session.beginTransaction();
 	        user = (User) session.get(User.class, id);
 	    } catch (HibernateException e) {
@@ -109,6 +110,7 @@ public class DioImpl implements Dio  {
 
 	@Override
 	public void updateProject(Project project) {
+	
 	    Session session = sessionFactory.getCurrentSession();
 	    try {
 	        System.out.println("IN Update");
@@ -141,30 +143,153 @@ public class DioImpl implements Dio  {
 	    }
 	    return projects;
 	}
+		//end ikram
+	
+	
+	
+	 //Employee Process
 	
 
 	//end ikram
 	
-	//Gab Starting
+
 	
+	//MOHAMAD Code
 	@Override
-	public Task getTask(int id) {
-		Session session = sessionFactory.getCurrentSession();
-	    Task task=null;
+	public Project getProject2(int id) {
+	    Session session = sessionFactory.getCurrentSession();
+	    Project project=null;
 	    try {
 	        System.out.println("IN GetIteam");
 	        session.beginTransaction();
-	        task = (Task) session.get(Task.class, id);
+	        project = (Project) session.get(Project.class, id);
 	    } catch (HibernateException e) {
 	        e.printStackTrace();
 	        session.getTransaction().rollback();
 	    }
 	    session.getTransaction().commit();
+	   
+	    return project;
+	}
+	
+	@Override
+	public Employee getEmployee(int id) {
+	    Session session = sessionFactory.getCurrentSession();
+	    Employee emp=null;
+	    try {
+	        System.out.println("IN GetIteam");
+	        session.beginTransaction();
+	        emp = (Employee) session.get(Employee.class, id);
+	    } catch (HibernateException e) {
+	        e.printStackTrace();
+	        session.getTransaction().rollback();
+	    }
+	    session.getTransaction().commit();
+	    return emp;
+	}
+
+	   
+	
+	@Override
+	public void addEmployee(Employee employee) {
+	    Session session = sessionFactory.getCurrentSession();
+	    try {
+	        session.beginTransaction();
+	        session.save(employee);
+	    }
+	    catch (HibernateException e) {
+	          e.printStackTrace();
+	          session.getTransaction().rollback();
+	    }
+	    session.getTransaction().commit();
+	}
+
+	@Override
+	public void updateEmployee(Employee employee) {
+		 Session session = sessionFactory.getCurrentSession();
+		    try {
+		        System.out.println("IN Update");
+		        session.beginTransaction();
+		        session.saveOrUpdate(employee);
+		        } catch (HibernateException e) {
+		            e.printStackTrace();
+		            session.getTransaction().rollback();
+		        }
+		    session.getTransaction().commit();
+		}
+
+	@Override
+	public void deleteEmployee(int employeeId) {
+	    Session session = sessionFactory.getCurrentSession();
+	    session.beginTransaction();
+	    Employee emp = (Employee) session.get(Employee.class, employeeId);
+	    if(null != emp) {
+	        session.delete(emp);
+	    }
+	    session.getTransaction().commit();
+	  
+	}
+
+		@SuppressWarnings("unchecked")
+		@Override
+		public List<Employee> listEmployees() {
+		    Session session = sessionFactory.getCurrentSession();
+		    session.beginTransaction();
+		    List<Employee> employees = null;
+		    try {
+		        System.out.println("IN LIST");
+		        employees = (List<Employee>)session.createQuery("from Employee ").list();
+		    }  catch (HibernateException e) {
+		        e.printStackTrace();
+		        session.getTransaction().rollback();
+		    }
+		     session.getTransaction().commit();
+
+			    return employees;
+			}
+		@SuppressWarnings("unchecked")
+		@Override
+		public List<Project> getProjects2() {
+		    Session session = sessionFactory.getCurrentSession();
+		    session.beginTransaction();
+		    List<Project> projects = null;
+		    try {
+		        System.out.println("IN LIST");
+		        projects = (List<Project>)session.createQuery("from Project").list();
+		
+		    } catch (HibernateException e) {
+		        e.printStackTrace();
+		        session.getTransaction().rollback();
+		    }
+		    session.getTransaction().commit();
+		    
+		    return projects;
+		}
+
+		 // end MOHAMAD
+
+	
+		//Gab Starting'
+
+@Override
+public Task getTask(int id) {
+	Session session = sessionFactory.getCurrentSession();
+    Task task=null;
+    try {
+        System.out.println("IN GetIteam");
+        session.beginTransaction();
+        task = (Task) session.get(Task.class, id);
+    } catch (HibernateException e) {
+        e.printStackTrace();
+        session.getTransaction().rollback();
+    }
+    session.getTransaction().commit();
 	    return task;
 	}
 
 	@Override
 	public void addTask(Task task) {
+
 		Session session = sessionFactory.getCurrentSession();
 	    try {
 	        session.beginTransaction();
@@ -200,6 +325,7 @@ public class DioImpl implements Dio  {
 	            session.getTransaction().rollback();
 	        }
 	    session.getTransaction().commit();
+		
 		
 	}
 
@@ -287,12 +413,17 @@ public class DioImpl implements Dio  {
 	        System.out.println("IN Update");
 	        session.beginTransaction();
 	        session.saveOrUpdate(suggestion);
-	        } catch (HibernateException e) {
-	            e.printStackTrace();
-	            session.getTransaction().rollback();
-	        }
-	    session.getTransaction().commit();	
-	}
+        } catch (HibernateException e) {
+            e.printStackTrace();
+            session.getTransaction().rollback();
+        }
+    session.getTransaction().commit();	
+    }
+	        
+	        
+	
+	
+	        
 	
 	@SuppressWarnings("unchecked")
 	@Override
@@ -312,4 +443,6 @@ public class DioImpl implements Dio  {
 	}
 
 }
+
 //Gab Endline
+

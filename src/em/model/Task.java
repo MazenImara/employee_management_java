@@ -51,6 +51,18 @@ public class Task implements Serializable{
 	
 	@Column(name="employee_id")
 	public int employee_id;
+	
+	public int getProject_id() {
+		return project_id;
+	}
+
+	public void setProject_id(int project_id) {
+		this.project_id = project_id;
+	}
+
+	@Column(name="project_id")
+	public int project_id;
+
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "project_id", nullable = false)

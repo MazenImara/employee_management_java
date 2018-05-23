@@ -32,30 +32,34 @@ ${project.title }
 endtest  
 
 
+
+
 <!-- ikram project -->
 
 	<input type="button" value="To Projects List" onclick="window.location.href='http://localhost:8080/em/projectsList'">	
 	<br>
 	<br>
 	<form method="post" action="getProject">
+
 		Enter ID: <input type="text" name="id">
 		<input type="submit" value="Get project"><br>
-	</form>
-	
-	<h4>Add new project</h4>
-	<form method="post" action="addProject">
-		Title: <input type="text" name="title"> <br>
-		Description: <input type="text" name="description"><br>
-		<input type="submit" value="Add project"><br>
-	</form>
-	
-	<h4>Delete project</h4>
-	<form method="post" action="deleteProject">
-		Enter project id: <input type="text" name="id"> <br>
-		<input type="submit" value="Delete project"><br>
-	</form>
+	    </form>
+	    	<h3 style="color:green;">${msg }</h3>
+	    	<h4 class="ali" id="myh3">this is h4</h4>
 	
 
+	
+	<h6 class="Employee">update Employee</h6>
+	 <form method= "post" action ="updateemployee">
+	    id    <input type="text" name="id"> <br>
+	    Name    <input type="text" name="name"> <br>
+	    Email   <input type="text" name="email"> <br>
+	    password<input type="password" name="password"> <br>
+	    Address <input type="text" name="address"> <br>
+	    Phone   <input type="text" name="phone"> <br>
+	            <input type="submit" value="update"><br>
+   </form>
+   
 	<h4>Update project</h4>
 	<form method="post" action="updateProject">
 		Id: <input type="text" name="id"> <br>
@@ -80,8 +84,6 @@ endtest
 	
 	<input type="button" value="To suggestion List" onclick="window.location.href='http://localhost:8080/em/suggestionList'">
 <!-- end ikram -->
-
-
 	
 	
 <!-- Gab here -->

@@ -2,6 +2,9 @@ package em.dio;
 
 import java.util.List;
 
+
+
+import em.model.Employee;
 import em.model.Task;
 import em.model.Project;
 import em.model.Suggestion;
@@ -14,7 +17,18 @@ public interface Dio {
 	public void updateUser(User User);
 	public List<User> getUsers();
 
+
+//MOHAMAD 
 	
+	void addEmployee(Employee employee);
+	Employee getEmployee(int id);
+	void updateEmployee(Employee employee);
+	void deleteEmployee(int employeeId);
+	public List<Employee> listEmployees();
+	public List<Project> getProjects2();
+
+
+
 // for Task 
 // Gab	
 	public Task getTask(int id);
@@ -31,15 +45,17 @@ public interface Dio {
 	public void deleteProject(int id);
 	public void updateProject(Project project);
 	public List<Project> getProjects();
-	
 	public Suggestion getSuggestion(int id);
 	public void addSuggestion(Suggestion suggestion);
 	public void deleteSuggestion(int id);
 	public void updateSuggestion(Suggestion suggestion);
 	public List<Suggestion> getSuggestions();
 	public List<Task> getTasksByProjectId(int project_id);
+	public Project getProject2(int id);
+	
 	
 //end ikram	
+
 }
 
 
