@@ -18,6 +18,8 @@ public class MainController {
 	@Autowired
 	private Dio dio;
 	
+	//MOHAMAD CODE
+	
 	@RequestMapping(value="/admin")
  	public ModelAndView project() {
  		ModelAndView model = new ModelAndView("admin");
@@ -30,36 +32,7 @@ public class MainController {
  		return model;	 	
  	}	     
 	
-	@RequestMapping(value="/getproject")
-	public ModelAndView project(@RequestParam(value="id", required=true) int  id) {
-		ModelAndView model = new ModelAndView("project");
-		Project project = dio.getProject(id);
-		model.addObject("project", project);
-		return model;	
-	}	
 	
-	@RequestMapping(value = "/updateproject" ,method = RequestMethod.POST)	
-	 public String update(@ModelAttribute("project") Project project) {	
-		System.out.println(project.id);
-	     if(null != project ) {	
-	        dio.updateProject(project);
-	     }
-	     return "redirect:admin";		     	
-    }
-	
-	@RequestMapping(value = "/addproject" ,method = RequestMethod.POST)
-	 public String addProject(@ModelAttribute("project") Project project) {
-		project.status="New";
-        project.timeSpend=0;
-	    dio.addProject(project); 
-	    return "redirect:admin";
-	} 
-
-	@RequestMapping(value="/deleteproject")
-    public String deleteproject(@RequestParam(value="id", required=true) int id) {
-        dio.deleteProject(id);
-        return "redirect:admin";	 
-    }	
 	
 	@RequestMapping(value="/getemployee")
 	public ModelAndView emp(@RequestParam(value="id", required=true) int  id) {
@@ -98,6 +71,49 @@ public class MainController {
 	} 
 	// End 	MOHAMAD
 	
+	// Ikram Code
+	
+	 
+		@RequestMapping(value="/getproject")
+		public ModelAndView project(@RequestParam(value="id", required=true) int  id) {
+			ModelAndView model = new ModelAndView("project");
+			Project project = dio.getProject(id);
+			model.addObject("project", project);
+			return model;	
+		}	
+		
+		@RequestMapping(value = "/updateproject" ,method = RequestMethod.POST)	
+		 public String update(@ModelAttribute("project") Project project) {	
+			System.out.println(project.id);
+		     if(null != project ) {	
+		        dio.updateProject(project);
+		     }
+		     return "redirect:admin";		     	
+	    }
+		
+		@RequestMapping(value = "/addproject" ,method = RequestMethod.POST)
+		 public String addProject(@ModelAttribute("project") Project project) {
+			project.status="New";
+	        project.timeSpend=0;
+		    dio.addProject(project); 
+		    return "redirect:admin";
+		} 
+
+		@RequestMapping(value="/deleteproject")
+	    public String deleteproject(@RequestParam(value="id", required=true) int id) {
+	        dio.deleteProject(id);
+	        return "redirect:admin";	 
+	    }
+		@RequestMapping(value="/projectsList")
+	    public ModelAndView projectsList() {	
+	    	List<Project> getProjects = dio.getProjects();
+	    	ModelAndView model = new ModelAndView("projectsList");
+	        model.addObject("getProjects", getProjects );
+	        return model;
+	    }
+		
+		//end Ikram
+	
 	@RequestMapping(value="/")
 
 	public ModelAndView getProject() {
@@ -112,50 +128,9 @@ public class MainController {
 
 	}
 	
-	/*
-	 
 	
-	@RequestMapping(value = "/addProject", method = RequestMethod.POST)
-	public ModelAndView addProject(@ModelAttribute("project") Project project) {
-		System.out.println(project.getTitle());
-		dio.addProject(project);
-		ModelAndView model = new ModelAndView("index");
-		project=new Project();
-		model.addObject("project", project);
-		List<Project> getProjects = dio.getProjects();
-		model.addObject("getProjects", getProjects);
-		return model;			
-	}
+    //Ikram + gab
 	
-	 @RequestMapping(value="/deleteProject")
-	    public String  deleteProject(@RequestParam(value="id", required=true) int id) {
-	        dio.deleteProject(id);
-	        return "redirect:projectList";
-	    }
-	    
-	    @RequestMapping(value = "/updateProject", method = RequestMethod.POST)
-	    public ModelAndView updateProject(@ModelAttribute("project") Project project) {
-	        System.out.println(project.getTitle());
-	        if(null != project )
-	        dio.updateProject(project);
-	        ModelAndView model = new ModelAndView("index");
-	        project=new Project();
-	        model.addObject("project", project);
-	        List<Project> getProjects = dio.getProjects();
-	        model.addObject("getProjects", getProjects);
-	        return model;
-	    }
-	    
-	    @RequestMapping(value="/projectsList")
-	    public ModelAndView projectsList() {	
-	    	List<Project> getProjects = dio.getProjects();
-	    	ModelAndView model = new ModelAndView("projectsList");
-	        model.addObject("getProjects", getProjects );
-	        return model;
-	    }
-	*/
-   
-    
 	@RequestMapping(value="/getSuggestion")
 	public ModelAndView getSuggestion(@RequestParam(value="id", required=true) int id) {
 		System.out.println(id);
@@ -207,8 +182,8 @@ public class MainController {
 	        model.addObject("getSuggestions", getSuggestions );
 	        return model;
 	    }
-   //gab endline
+   //gab+ ikram endline
 	
-//end ikram
+
     
 }
