@@ -2,7 +2,11 @@ package em.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
+import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +20,7 @@ import em.dio.Dio;
 import em.model.Project;
 import em.model.Suggestion;
 import em.model.Task;
+import em.model.User;
 
 
 @Controller
@@ -31,6 +36,28 @@ public class MainController {
 		Project project = dio.getProject(2);
 		model.addObject("project", project);
 		return model;			
+	}
+	
+	@RequestMapping(value="/login")
+	public String login(HttpSession session) {
+		
+		User employee= new User();
+		employee.name = "Harry";
+		employee.email = "muu";
+		
+		if(employee != null) {
+			session.setAttribute("logedEmployee", employee);
+		}
+		
+		
+		return "redirect:/";			
+	}
+	
+	@RequestMapping(value="/logout")
+	public String logout(HttpSession session) {
+		session.removeAttribute("logedEmployee");
+		
+		return "redirect:/";			
 	}
 		
 	@RequestMapping(value="/getProject")
@@ -202,7 +229,9 @@ public class MainController {
 	public ModelAndView employee() {
 		ModelAndView model = new ModelAndView("employee");
 		Task task = new Task();
+		List<Project> getProjects = dio.getProjects();
 		model.addObject("task", task);
+	    model.addObject("getProjects", getProjects);
 		return model;			
 	}
     

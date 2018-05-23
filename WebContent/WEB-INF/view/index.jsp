@@ -20,6 +20,13 @@ ${project.title }
 </c:forEach> 
 <br>
 
+<c:if test="${logedEmployee != null}">
+	hello  ${logedEmployee.name }
+</c:if>
+
+
+
+
 
 <br>
 endtest  
