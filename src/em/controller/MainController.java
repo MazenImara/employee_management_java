@@ -103,11 +103,13 @@ public class MainController {
 	@RequestMapping(value = "/addtask1" ,method = RequestMethod.POST)
 	
 	 public String addtask(@ModelAttribute("task") Task task) {
+		System.out.print(task.title);
+		System.out.print(task.project.id);
 		//Task task=new Task();
 		task.status="New";
-		//task.project.id=50;
+		
 	    dio.addTask(task); 
-	   return "redirect:getproject?id=" + task.project.id;
+	   return "redirect:/";
 	} 
 	// End 	MOHAMAD
 	
