@@ -2,9 +2,9 @@ package em.controller;
 
 import java.util.List;
 import javax.servlet.http.HttpSession;
-//import org.hibernate.Session;
+import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.http.HttpRequest;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -64,7 +64,7 @@ public class MainController {
  	public ModelAndView project() {
  		ModelAndView model = new ModelAndView("admin");
  		
- 	     List<Project>projects = dio.getProjects2();
+ 	     List<Project>projects = dio.getProjects();
  		 List<Employee>employees = dio.listEmployees();
  		    
  	    model.addObject("projects", projects);	
@@ -99,7 +99,7 @@ public class MainController {
         dio.deleteEmployee(employeeId);
         return "redirect:admin";		 
     }
-	
+	/*
 	@RequestMapping(value = "/addtask1" ,method = RequestMethod.POST)
 	
 	 public String addtask(@ModelAttribute("task") Task task) {
@@ -107,7 +107,7 @@ public class MainController {
 		task.status="New";
 	    dio.addTask(task); 
 	   return "redirect:getproject?id=" + task.project_id;
-	} 
+	} */
 	// End 	MOHAMAD
 	
 	// Ikram Code
@@ -116,7 +116,7 @@ public class MainController {
 		@RequestMapping(value="/getproject")
 		public ModelAndView project(@RequestParam(value="id", required=true) int  id) {
 			ModelAndView model = new ModelAndView("project");
-			Project project = dio.getProject2(id);
+			Project project = dio.getProject(id);
 			model.addObject("project", project);
 			return model;	
 		}	
@@ -133,7 +133,7 @@ public class MainController {
 		@RequestMapping(value = "/addproject" ,method = RequestMethod.POST)
 		 public String addProject(@ModelAttribute("project") Project project) {
 			project.status="New";
-	        project.timeSpend=0;
+	        project.timeSpend="0";
 		    dio.addProject(project); 
 		    return "redirect:admin";
 		} 

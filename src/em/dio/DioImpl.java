@@ -80,7 +80,7 @@ public class DioImpl implements Dio  {
 	        session.getTransaction().rollback();
 	    }
 	    session.getTransaction().commit();
-	//    project.tasks = getTasksByProjectId(project.id);
+	    project.tasks = getTasksByProjectId(project.id);
 	    return project;
 	}
 
@@ -138,9 +138,9 @@ public class DioImpl implements Dio  {
 	        session.getTransaction().rollback();
 	    }
 	    session.getTransaction().commit();
-	   // for(Project project: projects) {
-	    	//project.tasks = getTasksByProjectId(project.id);
-	  //  }
+	    for(Project project: projects) {
+	    	project.tasks = getTasksByProjectId(project.id);
+	   }
 	    return projects;
 	}
 		//end ikram
@@ -155,7 +155,9 @@ public class DioImpl implements Dio  {
 
 	
 	//MOHAMAD Code
-	@Override
+	
+	/*
+	 * @Override
 	public Project getProject2(int id) {
 	    Session session = sessionFactory.getCurrentSession();
 	    Project project=null;
@@ -170,7 +172,7 @@ public class DioImpl implements Dio  {
 	    session.getTransaction().commit();
 	   
 	    return project;
-	}
+	}*/
 	
 	@Override
 	public Employee getEmployee(int id) {
@@ -247,6 +249,7 @@ public class DioImpl implements Dio  {
 
 			    return employees;
 			}
+		/*
 		@SuppressWarnings("unchecked")
 		@Override
 		public List<Project> getProjects2() {
@@ -264,7 +267,7 @@ public class DioImpl implements Dio  {
 		    session.getTransaction().commit();
 		    
 		    return projects;
-		}
+		}*/
 
 		 // end MOHAMAD
 
@@ -440,6 +443,18 @@ public Task getTask(int id) {
 	    }
 	    session.getTransaction().commit();
 	    return suggestions;
+	}
+
+	@Override
+	public List<Project> getProjects2() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Project getProject2(int id) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
