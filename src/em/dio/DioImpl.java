@@ -145,34 +145,12 @@ public class DioImpl implements Dio  {
 	}
 		//end ikram
 	
-	
-	
-	 //Employee Process
-	
-
-	//end ikram
-	
 
 	
 	//MOHAMAD Code
 	
-	/*
-	 * @Override
-	public Project getProject2(int id) {
-	    Session session = sessionFactory.getCurrentSession();
-	    Project project=null;
-	    try {
-	        System.out.println("IN GetIteam");
-	        session.beginTransaction();
-	        project = (Project) session.get(Project.class, id);
-	    } catch (HibernateException e) {
-	        e.printStackTrace();
-	        session.getTransaction().rollback();
-	    }
-	    session.getTransaction().commit();
-	   
-	    return project;
-	}*/
+	//Employee Process
+	
 	
 	@Override
 	public Employee getEmployee(int id) {
@@ -249,25 +227,7 @@ public class DioImpl implements Dio  {
 
 			    return employees;
 			}
-		/*
-		@SuppressWarnings("unchecked")
-		@Override
-		public List<Project> getProjects2() {
-		    Session session = sessionFactory.getCurrentSession();
-		    session.beginTransaction();
-		    List<Project> projects = null;
-		    try {
-		        System.out.println("IN LIST");
-		        projects = (List<Project>)session.createQuery("from Project").list();
 		
-		    } catch (HibernateException e) {
-		        e.printStackTrace();
-		        session.getTransaction().rollback();
-		    }
-		    session.getTransaction().commit();
-		    
-		    return projects;
-		}*/
 
 		 // end MOHAMAD
 

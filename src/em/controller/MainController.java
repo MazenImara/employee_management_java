@@ -99,15 +99,16 @@ public class MainController {
         dio.deleteEmployee(employeeId);
         return "redirect:admin";		 
     }
-	/*
+
 	@RequestMapping(value = "/addtask1" ,method = RequestMethod.POST)
 	
 	 public String addtask(@ModelAttribute("task") Task task) {
 		//Task task=new Task();
 		task.status="New";
+		//task.project.id=50;
 	    dio.addTask(task); 
-	   return "redirect:getproject?id=" + task.project_id;
-	} */
+	   return "redirect:getproject?id=" + task.project.id;
+	} 
 	// End 	MOHAMAD
 	
 	// Ikram Code
