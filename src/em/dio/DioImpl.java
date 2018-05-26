@@ -155,17 +155,17 @@ public class DioImpl implements Dio  {
 	@Override
 	public Employee getEmployee(int id) {
 	    Session session = sessionFactory.getCurrentSession();
-	    Employee emp=null;
+	    Employee employee=null;
 	    try {
 	        System.out.println("IN GetIteam");
 	        session.beginTransaction();
-	        emp = (Employee) session.get(Employee.class, id);
+	        employee = (Employee) session.get(Employee.class, id);
 	    } catch (HibernateException e) {
 	        e.printStackTrace();
 	        session.getTransaction().rollback();
 	    }
 	    session.getTransaction().commit();
-	    return emp;
+	    return employee;
 	}
 
 	   
@@ -233,6 +233,8 @@ public class DioImpl implements Dio  {
 
 	
 		//Gab Starting'
+		
+		
 
 @Override
 public Task getTask(int id) {

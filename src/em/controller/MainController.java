@@ -101,16 +101,25 @@ public class MainController {
     }
 
 	@RequestMapping(value = "/addtask1" ,method = RequestMethod.POST)
-	
 	 public String addtask(@ModelAttribute("task") Task task) {
-		System.out.print(task.title);
-		System.out.print(task.project.id);
-		//Task task=new Task();
 		task.status="New";
-		
 	    dio.addTask(task); 
-	   return "redirect:/";
+	   return "redirect:getproject?id="+task.project.id;
 	} 
+	@RequestMapping(value="/deletetask1",method = RequestMethod.POST)
+    public String  deletetask(@ModelAttribute("task") Task task) {
+        dio.deleteTask(task.id);
+        return "redirect:getproject?id="+task.project.id;
+    }
+    
+    @RequestMapping(value = "/updatetask1",method = RequestMethod.POST)
+    public String updatetask(@ModelAttribute("task") Task task) {
+        System.out.println(task.getTitle());
+        if(null != task )
+        dio.updateTask(task);
+        return "redirect:getproject?id="+task.project.id;
+    }
+	
 	// End 	MOHAMAD
 	
 	// Ikram Code
@@ -243,8 +252,9 @@ public class MainController {
 	@RequestMapping(value="/getTask")
 	public ModelAndView getTask(@RequestParam(value="id", required=true) int id) {
 		System.out.println(id);
-		ModelAndView model = new ModelAndView("task");
+		ModelAndView model = new ModelAndView("admin");
 		Task task = dio.getTask(id);
+		
 		model.addObject("task", task);
 		return model;			
 	}
