@@ -24,17 +24,9 @@ public class MainController {
 	private Dio dio;
 
 
-//for project
-//ikram
-	/*
-	@RequestMapping(value="/")
-	public ModelAndView getP() {
-		ModelAndView model = new ModelAndView("index");
-		Project project = dio.getProject(2);
-		model.addObject("project", project);
-		return model;			
-	}
-*/
+
+
+	
 	@RequestMapping(value="/login")
 	public String login(HttpSession session) {
 		
@@ -100,7 +92,7 @@ public class MainController {
         return "redirect:admin";		 
     }
 
-	@RequestMapping(value = "/addtask1" ,method = RequestMethod.POST)
+	@RequestMapping(value = "/addnewtask" ,method = RequestMethod.POST)
 	 public String addtask(@ModelAttribute("task") Task task) {
 		task.status="New";
 	    dio.addTask(task); 
@@ -122,7 +114,7 @@ public class MainController {
 	
 	// End 	MOHAMAD
 	
-	// Ikram Code
+	// Ikram + MOHAMAD Code
 	
 	 
 		@RequestMapping(value="/getproject")
@@ -163,7 +155,7 @@ public class MainController {
 	        return model;
 	    }
 		
-		//end Ikram
+		//end Ikram+mohamad
 	
 	@RequestMapping(value="/")
 

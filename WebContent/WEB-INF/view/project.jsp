@@ -59,7 +59,7 @@
 				        </form:form>  
 			      </c:forEach>  
 	
-		          <form:form name="formadd Task" method="post" action="addtask1" modelAttribute="task">
+		          <form:form name="formadd Task" method="post" action="addnewtask" modelAttribute="task">
 				              <tr>
 				                   <td></td>
 					              <td> <input type='text' name="title" value='${task.title}'/></td> 
