@@ -106,13 +106,13 @@ public class MainController {
 	    dio.addTask(task); 
 	   return "redirect:getproject?id="+task.project.id;
 	} 
-	@RequestMapping(value="/deletetask1",method = RequestMethod.POST)
+	@RequestMapping(value="/del&updatetask",method = RequestMethod.POST,params = { "delete" })
     public String  deletetask(@ModelAttribute("task") Task task) {
         dio.deleteTask(task.id);
         return "redirect:getproject?id="+task.project.id;
     }
     
-    @RequestMapping(value = "/updatetask1",method = RequestMethod.POST)
+    @RequestMapping(value = "/del&updatetask",method = RequestMethod.POST,params = { "update" })
     public String updatetask(@ModelAttribute("task") Task task) {
         System.out.println(task.getTitle());
         if(null != task )

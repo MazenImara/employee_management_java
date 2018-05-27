@@ -6,12 +6,12 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>Mange Project</title>
 </head>
 <body>
 	
 	 <div align="center">
-	     <h1 Style=' color :blue' ><i>Projects<b></b></i></h1>
+	     <h1 Style=' color :blue' ><i>Project<b></b></i></h1>
 		     <table border="1">
 			      <tr>
 			          <th>project title</th>
@@ -25,10 +25,8 @@
 		              <td>${project.status}</td>
 		              <td>project.timeSpend}</td>
 			      </tr>
-		             
          	</table>
 	</div>
-	
 	
 	<div align="center">
 	     <h1 Style=' color :blue' ><i>Tasks<b></b></i></h1>
@@ -45,8 +43,7 @@
 			      </tr>  
 		          <c:forEach var="task" items="${project.tasks}" varStatus="status">
 			          
-			          <form:form name="formDelTask" method="post" action="deletetask1" modelAttribute="task">
-			      
+			          <form:form name="formDel&UpdateTask" method="post" action="del&updatetask" modelAttribute="task">
 					      <tr>                                            
 				              <td>${status.index + 1}</td>
 				                  <input type='hidden' name="id" value='${task.id}'/>
@@ -56,30 +53,25 @@
 				              <td><input type='hidden' name="started" value='${task.started}'/>${task.started}</td>
 				              <td><input type='hidden' name="finish" value='${task.finish}'/>${task.finish}</td>
 				                  <input type='hidden' name="project.id" value='${project.id}'/>
-				              <td style="color:blue"><input type="submit" value="DELETE"></td>	                   
-				              <td style="color:blue"><input type="submit" value="UPDATE"/></td>
-					      </tr>
-		              </form:form>
-		             
+				              <td style="color:blue"><input type="submit"   name="delete"value="DELETE"></td>	
+				              <td style="color:blue"><input type="submit"  name="update" value="UPDATE"/></td> 
+				          </tr>
+				        </form:form>  
 			      </c:forEach>  
-	         
 	
-	
-	
-			          <form:form name="formadd Task" method="post" action="addtask1" modelAttribute="task">
-			          
-					              <tr>
-					                   <td></td>
-						              <td> <input type='text' name="title" value='${task.title}'/></td> 
-						                   <input type='text' name="project.id" value="${project.id }"/> 
-						              <td><strike>New</strike></td>
-			                          <td><strike>0</strike></td>
-			                          <td><strike>0</strike></td>
-			                          <td><strike>0</strike></td>
-			                          <td style="color:blue"><input type="submit" value="ADD Task "/></td>
-			                      </tr>
-		                  
-	                    </form:form>
+		          <form:form name="formadd Task" method="post" action="addtask1" modelAttribute="task">
+				              <tr>
+				                   <td></td>
+					              <td> <input type='text' name="title" value='${task.title}'/></td> 
+					                   <input type='hidden' name="project.id" value="${project.id }"/> 
+					              <td><strike>New</strike></td>
+		                          <td><strike>0</strike></td>
+		                          <td><strike>0</strike></td>
+		                          <td><strike>0</strike></td>
+		                          <td style="color:blue"><input type="submit" value="ADD Task "/></td>
+		                      </tr>
+	                  
+                    </form:form>
 	          </table>
 	    </div>
 	                    
