@@ -33,9 +33,9 @@
 <!-- ikram & gab -->
 		<mapping class="em.model.Project" />
 		<mapping class="em.model.Task" />
+		<mapping class="em.model.Employee" />		
 		<mapping class="em.model.Suggestion" />
 		<mapping class="em.model.User" />
-		<mapping class="em.model.Employee" />
 		
 <!-- end project -->
 

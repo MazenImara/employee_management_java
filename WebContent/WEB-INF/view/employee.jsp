@@ -36,17 +36,10 @@
 								Status Of Task
 							</div>
 								
-							<div class="col-sm-2">
-								Start
+							<div class="col-sm-6">
+								Start/Pause/Finish	
 							</div>
-								
-							<div class="col-sm-2">
-								Pause
-							</div>
-								
-							<div class="col-sm-2">
-								Finish							
-							</div>
+							
 						</div>
 						<div class="muu">
 	 					<c:forEach var="task" items="${project.tasks }">	
@@ -59,18 +52,18 @@
 								${task.status}
 							</div>
 								
-							<div class="col-sm-2">
-								Start
-							</div>
-								
-							<div class="col-sm-2">
-								Pause
-							</div>
-								
-							<div class="col-sm-2">
-								Finish							
-							</div>
-								
+							<div class="col-sm-6">
+								<c:if test="${task.status == 'New' || task.status == 'Paused' || task.status == 'Finished'}">
+									<a href="start?id=${task.id }"><button>Start</button></a>
+								</c:if>	
+								<c:if test="${task.status == 'Started'}">
+									<button>Pause</button>
+									<button>Finish</button>
+								</c:if>
+
+
+							</div>								
+															
 						</c:forEach>
 						
 					</div>

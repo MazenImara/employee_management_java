@@ -1,10 +1,10 @@
 package em.controller;
 
+import java.sql.Timestamp;
 import java.util.List;
 import javax.servlet.http.HttpSession;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,10 +23,6 @@ public class MainController {
 	@Autowired
 	private Dio dio;
 
-
-
-
-	
 	@RequestMapping(value="/login")
 	public String login(HttpSession session) {
 		
@@ -85,7 +81,7 @@ public class MainController {
 	        
 	     return "redirect:admin";
 	}
-
+	
 	@RequestMapping(value="/deleteemployee")
     public String delete(@RequestParam(value="id", required=true) int employeeId) {    
         dio.deleteEmployee(employeeId);
@@ -94,10 +90,18 @@ public class MainController {
 
 	@RequestMapping(value = "/addnewtask" ,method = RequestMethod.POST)
 	 public String addtask(@ModelAttribute("task") Task task) {
+		System.out.println("testing if i reach here");
 		task.status="New";
+		task.started="0";
+		task.finish="0";
+		task.timespend="0";
+		task.employee.id=0;
+		
 	    dio.addTask(task); 
-	   return "redirect:getproject?id="+task.project.id;
+	    
+		return "redirect:getproject?id="+task.project.id;
 	} 
+	
 	@RequestMapping(value="/del&updatetask",method = RequestMethod.POST,params = { "delete" })
     public String  deletetask(@ModelAttribute("task") Task task) {
         dio.deleteTask(task.id);
@@ -174,15 +178,16 @@ public class MainController {
 	
     //Ikram + gab
 
+
 	@RequestMapping(value="/getSuggestion")
 	public ModelAndView getSuggestion(@RequestParam(value="id", required=true) int id) {
 		System.out.println(id);
 		ModelAndView model = new ModelAndView("suggestion");
 		Suggestion suggestion = dio.getSuggestion(id);
-		Project project = dio.getProject(suggestion.project_id);
+	//	Project project = dio.getProject(suggestion.project.id);
 		Task task = dio.getTask(suggestion.task_id);
 		model.addObject("suggestion", suggestion);
-		model.addObject("project", project);
+		//model.addObject("project", project);
 		model.addObject("task", task);
 		return model;			
 	}
@@ -251,36 +256,7 @@ public class MainController {
 		return model;			
 	}
 
-	@RequestMapping(value = "/addTask", method = RequestMethod.POST)
-	public ModelAndView addTask(@ModelAttribute("task") Task task) {
-		System.out.println(task.getTitle());
-		dio.addTask(task);
-		ModelAndView model = new ModelAndView("index");
-		task=new Task();
-		model.addObject("task", task);
-		List<Task> getTasks = dio.getTasks();
-		model.addObject("getTasks", getTasks);
-		return model;			
-	}
 	
-    @RequestMapping(value="/deleteTask")
-    public String  deleteTask(@RequestParam(value="id", required=true) int id) {
-        dio.deleteTask(id);
-        return "redirect:projectList";
-    }
-    
-    @RequestMapping(value = "/updateTask", method = RequestMethod.POST)
-    public ModelAndView updateTask(@ModelAttribute("task") Task task) {
-        System.out.println(task.getTitle());
-        if(null != task )
-        dio.updateTask(task);
-        ModelAndView model = new ModelAndView("index");
-        task=new Task();
-        model.addObject("task", task);
-        List<Task> getTasks = dio.getTasks();
-        model.addObject("getTasks", getTasks);
-        return model;
-    }
     
     @RequestMapping(value="/tasksList")
     public ModelAndView tasksList() {	
@@ -300,9 +276,9 @@ public class MainController {
 		return model;			
 	}
     
-   
+
     
-//Gab Endline
+
 
 	    @RequestMapping(value="/SuggestionsList")
 	    public ModelAndView SuggestionsList() {	
@@ -313,5 +289,44 @@ public class MainController {
 	    }
    //gab+ ikram endline
 
+
+    @RequestMapping(value="/checkStatus")
+    public ModelAndView checkstatus() {
+    	ModelAndView model = new ModelAndView("checkStatus");
+    	List<Task> tasks = dio.checkStatus("new");
+    	model.addObject("tasks", tasks);
+    	
+		return model;
+
+    	
+    }
+    @RequestMapping(value="/start")
+    public String start(@RequestParam(value="id", required=true) int id) {
+    	Task task = dio.getTask(id);
+    	if(task.status != "Started") {
+
+        	Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+    		if(task.status == "New") {
+    			task.started = timestamp.getTime()+"";
+    		}
+        	task.status = "Started";
+        	task.timetemp = timestamp.getTime()+"";
+        	dio.updateTask(task);    		
+    	}
+    	return "redirect:employee";    	
+    }
+    @RequestMapping(value="/pause")
+    public String pause(@RequestParam(value="id", required=true) int id) {
+    	Task task = dio.getTask(id);
+    	task.status = "Paused";
+    	//Timestamp timestamp = new Timestamp(System.currentTimeMillis()); 
+    	//task.timespend = task.timespend + ( timestamp.getTime() - task.timetemp);
+    	dio.updateTask(task);
+    	return "redirect:employee";    	
+    }
+
     
+//Gab Endline
+  
+    //end
 }

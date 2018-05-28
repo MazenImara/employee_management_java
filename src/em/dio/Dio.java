@@ -6,6 +6,7 @@ import java.util.List;
 
 import em.model.Employee;
 import em.model.Task;
+import em.model.Employee;
 import em.model.Project;
 import em.model.Suggestion;
 import em.model.User;
@@ -25,7 +26,6 @@ public interface Dio {
 	void updateEmployee(Employee employee);
 	void deleteEmployee(int employeeId);
 	public List<Employee> listEmployees();
-	public List<Project> getProjects2();
 
 
 
@@ -38,6 +38,7 @@ public interface Dio {
 	public List<Task> getTasks();
 //Gab Endline	
 
+	
 // for project 
 // ikram
 	public Project getProject(int id);
@@ -51,8 +52,9 @@ public interface Dio {
 	public void updateSuggestion(Suggestion suggestion);
 	public List<Suggestion> getSuggestions();
 	public List<Task> getTasksByProjectId(int project_id);
-	public Project getProject2(int id);
 	
+	public List<Task> checkStatus(String status);
+
 	
 //end ikram	
 

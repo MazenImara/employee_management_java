@@ -6,10 +6,11 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import em.model.Task;
+import em.model.Employee;
 import em.model.Project;
 import em.model.Suggestion;
 import em.model.User;
-import em.model.Employee;
+
 import em.dio.Dio;
 
 
@@ -330,6 +331,24 @@ public Task getTask(int id) {
 	    return tasks;
 	}
 	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Task> checkStatus(String status) {
+		Session session = sessionFactory.getCurrentSession();
+	    session.beginTransaction();
+	    List<Task> tasks = null;
+	    try {
+	        System.out.println("IN LIST FOR STATUS");
+	        tasks = (List<Task>)session.createQuery("from Task where status="+status).list();
+	
+	    } catch (HibernateException e) {
+	        e.printStackTrace();
+	        session.getTransaction().rollback();
+	    }
+	    session.getTransaction().commit();
+	    return tasks;
+	}
+	
 
 	@Override
 	public Suggestion getSuggestion(int id) {
@@ -344,6 +363,7 @@ public Task getTask(int id) {
 	        session.getTransaction().rollback();
 	    }
 	    session.getTransaction().commit();
+	   // suggestion.project = getProjectById(suggestion.project.id);
 	    return suggestion;
 	}
 
@@ -407,19 +427,9 @@ public Task getTask(int id) {
 	    return suggestions;
 	}
 
-	@Override
-	public List<Project> getProjects2() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Project getProject2(int id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 }
 
 //Gab Endline
+
 
