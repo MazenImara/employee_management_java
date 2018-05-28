@@ -1,0 +1,98 @@
+<<<<<<< HEAD
+#customers {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+#customers td, #customers th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+#customers tr:nth-child(even){background-color: #f2f2f2;}
+
+#customers tr:hover {background-color: #ddd;}
+
+#customers th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #4CAF50;
+    color: white;
+}
+
+.row{
+	margin-right: 100px;
+    margin-left: 100px;
+}
+
+.muu{
+	font-size: 20px;
+	
+}
+
+.muu2{
+	border:2px solid black;	
+    display: flex;    
+     font-weight: bold;
+     font-size: 17px;
+}
+.muu3{
+	font-size: 25px;
+    font-weight: bold;
+}
+
+.header{
+	font-weight: bold;
+    font-size: 35px;
+    text-decoration: underline;
+}
+    
+=======
+<<<<<<< HEAD
+
+body{
+	color: black;
+	background-color: white;
+	font-size: 20px;
+}
+
+h1 {
+	color: blue;
+}
+
+.ali {
+	text-decoration: underline;
+}
+
+#myh3{
+	color: yellow;
+}
+
+
+.Employee{
+	
+}
+
+.title {
+	text-decoration: underline;
+}
+
+h4 {
+	color: black;
+}
+
+
+
+
+
+
+
+
+
+
+
+=======
+>>>>>>> be475249eb74aceacf69eb3f0214183841def180
+>>>>>>> mohamad
