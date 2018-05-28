@@ -89,17 +89,15 @@ public class MainController {
     }
 
 	@RequestMapping(value = "/addnewtask" ,method = RequestMethod.POST)
+
 	 public String addtask(@ModelAttribute("task") Task task) {
-		System.out.println("testing if i reach here");
+
 		task.status="New";
-		task.started="0";
-		task.finish="0";
-		task.timespend="0";
-		task.employee.id=0;
-		
+
 	    dio.addTask(task); 
-	    
-		return "redirect:getproject?id="+task.project.id;
+
+	   return "redirect:getproject?id="+task.project.id;
+
 	} 
 	
 	@RequestMapping(value="/del&updatetask",method = RequestMethod.POST,params = { "delete" })
