@@ -38,7 +38,7 @@
 		              </form:form>
 			      </c:forEach>   
 
-	              <form:form name="formAddProject" method="post" action ="addProject" modelAttribute="project">
+	              <form:form name="formAddProject" method="post" action ="addproject" modelAttribute="project">
 
 	                    <td> </td>
 	                    <td> <input type='text' name="title" value='${project.title}'/></td>

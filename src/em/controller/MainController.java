@@ -91,11 +91,8 @@ public class MainController {
 	@RequestMapping(value = "/addnewtask" ,method = RequestMethod.POST)
 
 	 public String addtask(@ModelAttribute("task") Task task) {
-
 		task.status="New";
-
 	    dio.addTask(task); 
-
 	   return "redirect:getproject?id="+task.project.id;
 
 	} 
@@ -236,13 +233,7 @@ public class MainController {
 //gab endline
 	  
 //Gab start
-    @RequestMapping(value="/muu")
-	public ModelAndView getTask() {
-		ModelAndView model = new ModelAndView("index");
-		Task task = new Task();
-		model.addObject("task", task);
-		return model;			
-	}
+   
 		
 	@RequestMapping(value="/getTask")
 	public ModelAndView getTask(@RequestParam(value="id", required=true) int id) {

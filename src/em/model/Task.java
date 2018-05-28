@@ -94,7 +94,7 @@ public class Task implements Serializable{
 
 	@ManyToOne(fetch = FetchType.LAZY)
 
-	@JoinColumn(name = "employee_id", nullable = false)
+	@JoinColumn(name = "employee_id", nullable = true)
 
 	public Employee employee;
 
