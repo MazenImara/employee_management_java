@@ -26,11 +26,11 @@
 			org.hibernate.cache.NoCacheProvider
 		</property>
 
-		<!-- Display all generated SQL to stout -->
+		<!-- Display all generated SQL to stdout -->
 		<property name="show_sql">true</property>
 
 
-		<mapping class="em.model.User" />
+		<mapping class="em.model.Employee" />
 
 	</session-factory>
 

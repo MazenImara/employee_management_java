@@ -1,8 +1,8 @@
 package em.controller;
 
-
-import java.util.ArrayList;
 import java.util.List;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,32 +15,37 @@ import org.springframework.web.servlet.ModelAndView;
 
 import em.dio.Dio;
 import em.model.Day;
+import em.model.Employee;
+import em.model.Login;
 import em.model.User;
-import simple.ex.models.Item;
 
 
 @Controller
 public class MainController {
 	@Autowired
+	
 	private Dio dio;
-	 
+	
 	@RequestMapping(value="/")
-	public ModelAndView listUser() {
+	public ModelAndView list() {
 		ModelAndView model = new ModelAndView("index");
 		User user = new User();
 		user.name = "jon";
 		user.age = 30;
 		user.email = "jon@any.com";
+		
 		//dio.addUser(user);
+		
 		model.addObject("msg2", "");
 		return model;			
 	}
+	
 	
 	@RequestMapping(value = "/adduser", method = RequestMethod.POST)
 	public ModelAndView addUser(@ModelAttribute("user") User user) {
 		ModelAndView model = new ModelAndView("index");
 		System.out.println(user.name);
-		dio.addUser(user);	
+		dio.addUser(user);
 		model.addObject("msg", "added successfuly");
 		return model;			
 	}	
@@ -49,56 +54,109 @@ public class MainController {
 	public ModelAndView user(@RequestParam(value="id", required=true) int  id) {
 		System.out.println(id);
 		ModelAndView model = new ModelAndView("user");
+		
 		User user = dio.getUser(id);
+		
+		
 		model.addObject("user", user);
 		return model;			
 	}
-	
-	@RequestMapping(value = "/addday", method = RequestMethod.POST)
-	public ModelAndView addDay(@ModelAttribute("day") Day day) {
-		ModelAndView model = new ModelAndView("index");
-		System.out.println(day.date);
-		dio.addDay(day);
-		model.addObject("day", "added successfuly");
-		return model;	
+		
+	@RequestMapping(value="/day")
+	public ModelAndView getDay() {
+		ModelAndView model = new ModelAndView("day");
+		Day day = new Day();
+		model.addObject("day", day);
+		return model;			
 	}
-		@RequestMapping(value="/day")
-		public ModelAndView getDay(@RequestParam(value="id", required=true) int  id) {
-			System.out.println(id);
-			ModelAndView model = new ModelAndView("day");
-			Day day = dio.getDay(id);
-			model.addObject("day", day);
-			return model;			
+	
+	@RequestMapping(value="/getDay")
+	public ModelAndView getDay(@RequestParam(value="id", required=true) int id) {
+		System.out.println(id);
+		ModelAndView model = new ModelAndView("day");
+		Day day = dio.getDay(id);
+		model.addObject("day", day);
+		return model;			
+	}
+
+	@RequestMapping(value = "/addDay", method = RequestMethod.POST)
+	public ModelAndView addDay(@ModelAttribute("day") Day day) {
+		System.out.println(day.getDate());
+		dio.addDay(day);
+		ModelAndView model = new ModelAndView("day");
+		day=new Day();
+		model.addObject("day", day);
+		List<Day> getDays = dio.getDays();
+		model.addObject("getDays", getDays);
+		return model;			
+	}
+	
+	 @RequestMapping(value="/deleteDay")
+	    public String  deleteProject(@RequestParam(value="id", required=true) int id) {
+	        dio.deleteDay(id);
+	        return "redirect:dayList";
+	    }
+	    
+	    @RequestMapping(value = "/updateDay", method = RequestMethod.POST)
+	    public ModelAndView updateProject(@ModelAttribute("day") Day day) {
+	        System.out.println(day.getDate());
+	        if(null != day )
+	        dio.updateDay(day);
+	        ModelAndView model = new ModelAndView("day");
+	        day=new Day();
+	        model.addObject("day", day);
+	        List<Day> getDays = dio.getDays();
+	        model.addObject("getDays", getDays);
+	        return model;
+	    }
+	    
+	    @RequestMapping(value="/DaysList")
+	    public ModelAndView daysList() {	
+	    	List<Day> getDays = dio.getDays();
+	    	ModelAndView model = new ModelAndView("DaysList");
+	        model.addObject("getDays", getDays );
+	        return model;
+	    }
+	
+	    
+	    @RequestMapping(value="/login")
+		public String login (HttpSession session, @RequestParam(value="email") String email, @RequestParam(value="password") String password)
+		{
+			Login employee=dio.checkLogin();
+				if(employee!=null) {
+				session.setAttribute("logged", employee);
+			}
+	     return "redirect:/login";
 		}
 		
-	@RequestMapping(value="/daylist")
- 	public ModelAndView listDay () {
- 		ModelAndView model = new ModelAndView("dayList");
- 		  List<Day>day = dio.listDay();
- 	     model.addObject("day", day);		
- 		return model;	
-	}
-	
-   	@RequestMapping(value="/delete")
-    public ModelAndView deleteDay(@RequestParam(value="id", required=true) int id) {
-        ModelAndView model = new ModelAndView("delet Day");
-        dio.deleteDay(id);
-        model.addObject("msg","delet successfuly");
-        return model;
+		@RequestMapping(value="/logout")
+		public String logout (HttpSession session, @RequestParam(value="email") String email, @RequestParam(value="password") String password)
+		{
+			
+				session.removeAttribute("logged");
+			
+	     return "redirect:/login";
+		}
+	    
+		@RequestMapping(value="/getemployee")
+		public ModelAndView getemployee(@RequestParam(value="id", required=true) int  id) {
+			ModelAndView model = new ModelAndView("employee");
+			Employee employee = dio.getEmployee(id);
+			model.addObject("employee", employee);
+			return model;
+		}	
+		
+		@RequestMapping(value = "/addemployee", method = RequestMethod.POST)
+		public ModelAndView addEmployee(@ModelAttribute("employee") Employee employee) {
+			System.out.println(employee.name);
+			dio.addEmployee(employee);
+			ModelAndView model = new ModelAndView("index");
+			employee=new Employee();
+			model.addObject("employee", employee);
+			return model;			
+				 
+		}
 }
-	@RequestMapping(value = "/update", method = RequestMethod.POST)
-    public ModelAndView update(@ModelAttribute("day") Day day) {
-        System.out.println(day.date);
-        if(null != day )
-            dio.updateDay(day);
-
-        ModelAndView model = new ModelAndView("Day update");
-        day=new Day();
-        model.addObject("day", day);
-        List<Day> dayList = dio.listDay();
-        model.addObject("day", day);
-        return model;
-	}
-}
-
+		
+  	    
 	
