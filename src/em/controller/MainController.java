@@ -102,7 +102,7 @@ public class MainController {
     public String  deletetask(@ModelAttribute("task") Task task) {
         dio.deleteTask(task.id);
         return "redirect:getproject?id="+task.project.id;
-    }
+    } 
     
     @RequestMapping(value = "/del&updatetask",method = RequestMethod.POST,params = { "update" })
     public String updatetask(@ModelAttribute("task") Task task) {
