@@ -3,6 +3,7 @@ package em.dio;
 import java.util.List;
 
 import em.model.Task;
+import em.model.Employee;
 import em.model.Project;
 import em.model.Suggestion;
 import em.model.User;
@@ -24,6 +25,7 @@ public interface Dio {
 	public List<Task> getTasks();
 //Gab Endline	
 
+	
 // for project 
 // ikram
 	public Project getProject(int id);
@@ -38,6 +40,7 @@ public interface Dio {
 	public void updateSuggestion(Suggestion suggestion);
 	public List<Suggestion> getSuggestions();
 	public List<Task> getTasksByProjectId(int project_id);
+	public List<Task> checkStatus(String status);
 	
 //end ikram	
 }

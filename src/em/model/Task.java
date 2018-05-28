@@ -44,13 +44,13 @@ public class Task implements Serializable{
 	@Column (name="timetemp")
 	public String timetemp;
 	
-/*
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "employee_id", nullable = false)
-	public Employee employee;*/
+	public Employee employee;
 	
-	@Column(name="employee_id")
-	public int employee_id;
+	//@Column(name="employee_id")
+	//public int employee_id;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "project_id", nullable = false)
@@ -120,15 +120,23 @@ public class Task implements Serializable{
 		this.timetemp = timetemp;
 	}
 
+	public Employee getEmployee() {
+		return employee;
+	}
+
+	public void setEmployee(Employee employee) {
+		this.employee = employee;
+	}
 
 
+/*
 	public int getEmployee_id() {
 		return employee_id;
 	}
 
 	public void setEmployee_id(int employee_id) {
 		this.employee_id = employee_id;
-	}
+	}*/
 	
 
 }

@@ -1,12 +1,11 @@
 package em.controller;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
-import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 
 import em.dio.Dio;
+import em.model.Employee;
 import em.model.Project;
 import em.model.Suggestion;
 import em.model.Task;
@@ -69,38 +69,28 @@ public class MainController {
 		return model;			
 	}
 
-	@RequestMapping(value = "/addProject", method = RequestMethod.POST)
-	public ModelAndView addProject(@ModelAttribute("project") Project project) {
-		System.out.println(project.getTitle());
-		project.status="new";
+	@RequestMapping(value = "/addProject" ,method = RequestMethod.POST)
+	 public String addProject(@ModelAttribute("project") Project project) {
+		project.status="New";
 		project.timeSpend="0";
-		dio.addProject(project);
-		ModelAndView model = new ModelAndView("index");
-		project=new Project();
-		model.addObject("project", project);
-		List<Project> getProjects = dio.getProjects();
-		model.addObject("getProjects", getProjects);
-		return model;			
-	}
+	    dio.addProject(project); 
+	    return "redirect:admin";
+	} 
 	
 	 @RequestMapping(value="/deleteProject")
 	    public String  deleteProject(@RequestParam(value="id", required=true) int id) {
 	        dio.deleteProject(id);
-	        return "redirect:projectList";
+	        return "redirect:admin";
 	 }
 	    
-	 @RequestMapping(value = "/updateProject", method = RequestMethod.POST)
-	 public ModelAndView updateProject(@ModelAttribute("project") Project project) {
-		 System.out.println(project.getTitle());
-	     if(null != project )
-	     dio.updateProject(project);
-	     ModelAndView model = new ModelAndView("index");
-	     project=new Project();
-	     model.addObject("project", project);
-	     List<Project> getProjects = dio.getProjects();
-	     model.addObject("getProjects", getProjects);
-	     return model;
-	}
+	 @RequestMapping(value = "/updateproject" ,method = RequestMethod.POST)	
+	 public String update(@ModelAttribute("project") Project project) {	
+		System.out.println(project.id);
+	     if(null != project ) {	
+	        dio.updateProject(project);
+	     }
+	     return "redirect:admin";		     	
+    }
 	    
 	 @RequestMapping(value="/projectsList")
 	 public ModelAndView projectsList() {	
@@ -115,10 +105,10 @@ public class MainController {
 		System.out.println(id);
 		ModelAndView model = new ModelAndView("suggestion");
 		Suggestion suggestion = dio.getSuggestion(id);
-		Project project = dio.getProject(suggestion.project_id);
+	//	Project project = dio.getProject(suggestion.project.id);
 		Task task = dio.getTask(suggestion.task_id);
 		model.addObject("suggestion", suggestion);
-		model.addObject("project", project);
+		//model.addObject("project", project);
 		model.addObject("task", task);
 		return model;			
 	}
@@ -235,9 +225,43 @@ public class MainController {
 		return model;			
 	}
     
-   
+    
+    @RequestMapping(value="/checkStatus")
+    public ModelAndView checkstatus() {
+    	ModelAndView model = new ModelAndView("checkStatus");
+    	List<Task> tasks = dio.checkStatus("new");
+    	model.addObject("tasks", tasks);
+    	
+		return model;
+
+    	
+    }
+    @RequestMapping(value="/start")
+    public String start(@RequestParam(value="id", required=true) int id) {
+    	Task task = dio.getTask(id);
+    	if(task.status != "Started") {
+
+        	Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+    		if(task.status == "New") {
+    			task.started = timestamp.getTime()+"";
+    		}
+        	task.status = "Started";
+        	task.timetemp = timestamp.getTime()+"";
+        	dio.updateTask(task);    		
+    	}
+    	return "redirect:employee";    	
+    }
+    @RequestMapping(value="/pause")
+    public String pause(@RequestParam(value="id", required=true) int id) {
+    	Task task = dio.getTask(id);
+    	task.status = "Paused";
+    	Timestamp timestamp = new Timestamp(System.currentTimeMillis()); 
+    	//task.timespend = task.timespend + ( timestamp.getTime() - task.timetemp);
+    	dio.updateTask(task);
+    	return "redirect:employee";    	
+    }
     
 //Gab Endline
-    
-    
+  
+    //end
 }
