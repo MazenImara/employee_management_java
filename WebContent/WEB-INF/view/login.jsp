@@ -4,10 +4,12 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title> Login</title>
+<title></title>
 </head>
 <body>
-             <form method="post" action="login">
+   
+	
+   <form method="post" action="login">
             <center>
             <table border="1" cellpadding="5" cellspacing="2">
                 <thead>
@@ -18,7 +20,7 @@
                 <tbody>
                     <tr>
                         <td>email</td>
-                        <td><input type="text" name="username" required/></td>
+                        <td><input type="text" name="email" required/></td>
                     </tr>
                     <tr>
                         <td>Password</td>
@@ -34,5 +36,8 @@
             </table>
             </center>
         </form>
+    
+
+
 </body>
 </html>

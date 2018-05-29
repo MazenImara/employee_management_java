@@ -2,7 +2,6 @@ package em.dio;
 
 import java.util.List;
 import em.model.Day;
-import em.model.Login;
 import em.model.Task;
 import em.model.Employee;
 import em.model.Project;
@@ -27,8 +26,7 @@ public interface Dio {
 	void updateDay(Day day);
 	public List<Day> listDay();
 	public void logout() ;
-	public Login checkLogin();
-// end Nidal
+	public List<Employee> checkLogin();
 
 
 

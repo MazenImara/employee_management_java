@@ -17,6 +17,35 @@
 </head>
 <body>
 
+<form method="post" action="login">
+            <center>
+            <table border="1" cellpadding="5" cellspacing="2">
+                <thead>
+                    <tr>
+                        <th colspan="2">Login Here</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>email</td>
+                        <td><input type="text" name="username" required/></td>
+                    </tr>
+                    <tr>
+                        <td>Password</td>
+                        <td><input type="password" name="password" required/></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" align="center"><input type="submit" value="Login" />
+                            &nbsp;&nbsp;
+                            <input type="reset" value="Reset" />
+                        </td>                        
+                    </tr>                    
+                </tbody>
+            </table>
+            </center>
+        </form>
+
+
 <form method="post" action="getemployee">
 		Enter ID: <input type="text" name="id">
 		<input type="submit" value="getemployee"> <br>
@@ -31,11 +60,12 @@
 		Phone:  <input type="text" name="phone"><br>
 		<input type="submit" value="Add Employee"><br> 
 	</form>
+	
 		        
                   
 
 start test :
-<!--  
+<!--   
 ${project.title }
 <c:forEach var="task" items="${project.tasks}" varStatus="status"><br>
 	${task.title }
@@ -45,16 +75,13 @@ ${project.title }
 <c:if test="${logedEmployee != null}">
 	hello  ${logedEmployee.name }
 </c:if>
-
-
-
-
 -->
+
+
+
+
 <br>
 endtest  
-
-
-
 
 <!-- ikram project -->
 

@@ -19,14 +19,10 @@ import em.dio.Dio;
 
 import em.model.Day;
 import em.model.Employee;
-import em.model.Login;
-
-import em.model.Employee;
+import em.model.Admin;
 import em.model.Project;
 import em.model.Suggestion;
 import em.model.Task;
-
-import em.model.User;
 
 
 @Controller
@@ -74,12 +70,10 @@ public class MainController {
  		
  	     List<Project>projects = dio.getProjects();
  		 List<Employee>employees = dio.listEmployees();
- 		    
  	    model.addObject("projects", projects);	
  	    model.addObject("employees", employees);
  		return model;	 	
  	}	     
-	
 	
 	@RequestMapping(value="/getemployee")
 	public ModelAndView emp(@RequestParam(value="id", required=true) int  id) {
@@ -223,7 +217,7 @@ public class MainController {
 
 //gab
 	@RequestMapping(value="/deleteSuggestion")
-	public String  deleteSuggestion(@RequestParam(value="id", required=true) int id) {
+	public String deleteSuggestion(@RequestParam(value="id", required=true) int id) {
 		dio.deleteSuggestion(id);
 	    return "redirect:suggestionList";
 	}
@@ -325,27 +319,23 @@ public class MainController {
 	    }
 	
 	    
-	    @RequestMapping(value="/login1")
-		public String login (HttpSession session, @RequestParam(value="email") String email, @RequestParam(value="password") String password)
+	    @RequestMapping(value="/login")
+		public String Login (HttpSession session,@RequestParam(value="email") String email, @RequestParam(value="password") String password)
 		{
-			Login employee=dio.checkLogin();
-				if(employee!=null) {
-				session.setAttribute("logged", employee);
+	    	//ModelAndView model=new ModelAndView ("listEmployees");
+	 		 List<Employee>employees= dio.listEmployees();
+				if(employees!=null) {
+				session.setAttribute("logged",employees);
 			}
-	     return "redirect:/login";
+	     return "redirect:/admin";
 		}
 		
-		@RequestMapping(value="/logout1")
+		@RequestMapping(value="/logout")
 		public String logout (HttpSession session, @RequestParam(value="email") String email, @RequestParam(value="password") String password)
 		{
-			
-				session.removeAttribute("logged");
-			
-	     return "redirect:/login";
+			session.removeAttribute("logged");
+	     return "redirect:/admin";
 		}
-	    
-		
-
     
     @RequestMapping(value="/tasksList")
     public ModelAndView tasksList() {	
@@ -366,10 +356,7 @@ public class MainController {
 	}
     
 
-    
-
-
-	    @RequestMapping(value="/SuggestionsList")
+     @RequestMapping(value="/SuggestionsList")
 	    public ModelAndView SuggestionsList() {	
 	    	List<Suggestion> getSuggestions = dio.getSuggestions();
 	    	ModelAndView model = new ModelAndView("suggestionsList");
@@ -386,9 +373,8 @@ public class MainController {
     	model.addObject("tasks", tasks);
     	
 		return model;
-
-    	
     }
+    
     @RequestMapping(value="/start")
     public String start(@RequestParam(value="id", required=true) int id) {
     	Task task = dio.getTask(id);

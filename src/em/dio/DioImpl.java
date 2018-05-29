@@ -5,18 +5,16 @@ import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+
 import em.model.Task;
 import em.model.Employee;
 import em.model.Project;
 import em.model.Suggestion;
 import em.model.User;
 import em.model.Day;
-import em.model.Login;
 
 
 import em.dio.Dio;
-
-
 
 public class DioImpl implements Dio  {
     private SessionFactory sessionFactory;
@@ -497,7 +495,7 @@ public Task getTask(int id) {
 	    List<Day> Days = null;
 	    try {
 	        System.out.println("IN LIST");
-	        Days = (List<Day>)session.createQuery("from day").list();
+	        Days = (List<Day>)session.createQuery("from Day").list();
 	
 	    } catch (HibernateException e) {
 	        e.printStackTrace();
@@ -515,17 +513,6 @@ public Task getTask(int id) {
 	
 	}
 	
-		@Override
-		public Login checkLogin() {
-			// TODO Auto-generated method stub
-			return checkLogin();
-		}
-
-		@Override
-		public void updateDay(List<Day> day) {
-			// TODO Auto-generated method stub
-			
-		}
 
 		@Override
 		public List<Day> listDay() {
@@ -533,28 +520,66 @@ public Task getTask(int id) {
 			return null;
 		}
 
-
-}
-
+		@Override
+		public void updateDay(List<Day> day) {
+			// TODO Auto-generated method stub
+			
+		}
 		/*
+	@SuppressWarnings("unchecked")
 	@Override
-	public Login checkLogin(Login login) {
+	public Login checklogin() {
 		Session session = sessionFactory.getCurrentSession();
-	    Login login=null;
+	    session.beginTransaction();
+	    List<Employee> checklogin = null;
 	    try {
-	        session.beginTransaction();
-	        login = (Login) session.get(email= login.email, password=login.password);
+	        System.out.println("IN LIST");
+	        checklogin = (List<Employee>)session.createQuery("from Employee").list();
 	    } catch (HibernateException e) {
 	        e.printStackTrace();
 	        session.getTransaction().rollback();
 	    }
 	    session.getTransaction().commit();
-	    return login;
+		return checklogin;
+	    
+		
+		public Employee getEmployee(Employee login) {
+			Session session = sessionFactory.getCurrentSession();
+		    session.beginTransaction();
+		    List<Employee> employees = null;
+		    try {
+		   session.createQuery("from Employee emp where emp.login = :login");
+		   session.setParameter("login", login);
+		    }  catch (HibernateException e) {
+		        e.printStackTrace();
+		        session.getTransaction().rollback();
+		    }
+		    session.getTransaction().commit();
+			return login;
+	    }
+           */
+		
+		@SuppressWarnings("unchecked")
+		
+		public List<Employee> checkLogin() {
+			Session session = sessionFactory.getCurrentSession();
+		    session.beginTransaction();
+		    List<Employee> employees = null;
+		    try {
+		        employees = (List<Employee>)session.createQuery("from Employee").list();
+		
+		    } catch (HibernateException e) {
+		        e.printStackTrace();
+		        session.getTransaction().rollback();
+		    }
+		    session.getTransaction().commit();
+		    return employees;
+		}
+}
+
 		
 		
-	}
-*/
-	
+
 
 
 // end Nidal

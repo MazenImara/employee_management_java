@@ -89,7 +89,7 @@
 	                    <td> <input type='text' name="password" value='${employee.password}'/></td>
 	                    <td> <input type='text' name="address" value='${employee.address}'/></td>
 	                    <td> <input type='text' name="phone" value='${employee.phone}'/></td>
-	                    <td style="color:blue"><input type="submit" value="ADD Employee     "/></td>            
+	                    <td style="color:blue"><input type="submit" value="ADD Employee "/></td>            
                     </form:form>       
 	            </table>
         </div>

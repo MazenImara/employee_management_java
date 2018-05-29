@@ -16,17 +16,62 @@
 </head>
 <body>
 
+<!-- Gab -->
+<div class="col-sm-12">
+	<div class="row">
+	<div class="header">
+	<h1>Employee List</h1>
+	</div>
+		<c:forEach var="project" items="${getProjects }">
+			<div class="muu3">
+ 	      	Project name: ${project.title}
+ 	      	</div>
+ 	      	<div>
+ 	      				<div class="muu2">
+	 	      				<div class="col-sm-3">
+								Task Name
+							</div>	
+								
+							<div class="col-sm-3">
+								Status Of Task
+							</div>
+								
+							<div class="col-sm-6">
+								Start/Pause/Finish	
+							</div>
+							
+						</div>
+						<div class="muu">
+	 					<c:forEach var="task" items="${project.tasks }">	
+	
+							<div class="col-sm-3">
+								${task.title}
+							</div>	
+								
+							<div class="col-sm-3">
+								${task.status}
+							</div>
+								
+							<div class="col-sm-6">
+								<c:if test="${task.status == 'New' || task.status == 'Paused' || task.status == 'Finished'}">
+									<a href="start?id=${task.id }"><button>Start</button></a>
+								</c:if>	
+								<c:if test="${task.status == 'Started'}">
+									<button>Pause</button>
+									<button>Finish</button>
+								</c:if>
 
-<!-- Mohamad -->
 
-<h1>Employee Details</h1> 
-    Id: ${employee.id} <br>
-    Name: ${employee.name} <br>
-    Email: ${employee.email} <br>
-    Password: ${employee.password} <br>
-    Address: ${employee.address} <br>
-    phone: ${employee.phone} <br>
+							</div>								
+															
+						</c:forEach>
+						
+					</div>
+				</div>
+		</c:forEach>
+		</div>
+		<br>
+		
+</div>
+<!-- Gab endline -->
 
-<!-- end Mohamad -->
-</body>
-</html>

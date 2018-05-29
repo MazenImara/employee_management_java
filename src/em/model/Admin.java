@@ -10,7 +10,7 @@ package em.model;
 
 	@Entity
 	@Table(name="login")
-	public class Login implements Serializable  {
+	public class Admin implements Serializable  {
 		/**
 		 * 
 		 */
@@ -19,9 +19,6 @@ package em.model;
 	    @GeneratedValue
 	    @Column(name="id")
 	    public int id;
-	    
-	    @Column(name="username")
-	    public String username;
 	    
 	    @Column(name="email")
 	    public String email;
@@ -43,14 +40,6 @@ package em.model;
 
 		public void setId(int id) {
 			this.id = id;
-		}
-
-		public String getUsername() {
-			return username;
-		}
-
-		public void setUsername(String username) {
-			this.username = username;
 		}
 
 		public String getPassword() {
