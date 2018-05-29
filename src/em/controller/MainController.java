@@ -92,6 +92,7 @@ public class MainController {
 
 	 public String addtask(@ModelAttribute("task") Task task) {
 		task.status="New";
+		
 	    dio.addTask(task); 
 	   return "redirect:getproject?id="+task.project.id;
 
@@ -265,10 +266,6 @@ public class MainController {
 		return model;			
 	}
     
-
-    
-
-
 	    @RequestMapping(value="/SuggestionsList")
 	    public ModelAndView SuggestionsList() {	
 	    	List<Suggestion> getSuggestions = dio.getSuggestions();
