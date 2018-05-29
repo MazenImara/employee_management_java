@@ -68,25 +68,25 @@ public class Task implements Serializable{
 
 	@Column (name="timespend")
 
-	public String timespend;
+	public long timespend;
 
 	
 
 	@Column (name="started")
 
-	public String started;
+	public long started;
 
 	
 
 	@Column (name="finish")
 
-	public String finish;
+	public long finish;
 
 	
 
 	@Column (name="timetemp")
 
-	public String timetemp;
+	public long timetemp;
 
 	
 
@@ -173,7 +173,7 @@ public class Task implements Serializable{
 
 
 
-	public String getTimespend() {
+	public long getTimespend() {
 
 		return timespend;
 
@@ -181,7 +181,7 @@ public class Task implements Serializable{
 
 
 
-	public void setTimespend(String timespend) {
+	public void setTimespend(long timespend) {
 
 		this.timespend = timespend;
 
@@ -189,7 +189,7 @@ public class Task implements Serializable{
 
 
 
-	public String getStarted() {
+	public long getStarted() {
 
 		return started;
 
@@ -197,7 +197,7 @@ public class Task implements Serializable{
 
 
 
-	public void setStarted(String started) {
+	public void setStarted(long started) {
 
 		this.started = started;
 
@@ -205,7 +205,7 @@ public class Task implements Serializable{
 
 
 
-	public String getFinish() {
+	public long getFinish() {
 
 		return finish;
 
@@ -213,7 +213,7 @@ public class Task implements Serializable{
 
 
 
-	public void setFinish(String finish) {
+	public void setFinish(long finish) {
 
 		this.finish = finish;
 
@@ -221,7 +221,7 @@ public class Task implements Serializable{
 
 
 
-	public String getTimetemp() {
+	public long getTimetemp() {
 
 		return timetemp;
 
@@ -229,7 +229,7 @@ public class Task implements Serializable{
 
 
 
-	public void setTimetemp(String timetemp) {
+	public void setTimetemp(long timetemp) {
 
 		this.timetemp = timetemp;
 

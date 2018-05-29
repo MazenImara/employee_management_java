@@ -288,15 +288,15 @@ public class MainController {
     }
     @RequestMapping(value="/start")
     public String start(@RequestParam(value="id", required=true) int id) {
+    	Timestamp timestamp = new Timestamp(System.currentTimeMillis());
     	Task task = dio.getTask(id);
     	if(task.status != "Started") {
-
-        	Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-    		if(task.status == "New") {
-    			task.started = timestamp.getTime()+"";
+    		if(task.status.equals("New") ) {
+    			task.started = timestamp.getTime();   
+    			dio.updateTask(task);
     		}
         	task.status = "Started";
-        	task.timetemp = timestamp.getTime()+"";
+        	task.timetemp = timestamp.getTime();
         	dio.updateTask(task);    		
     	}
     	return "redirect:employee";    	
@@ -305,12 +305,22 @@ public class MainController {
     public String pause(@RequestParam(value="id", required=true) int id) {
     	Task task = dio.getTask(id);
     	task.status = "Paused";
-    	//Timestamp timestamp = new Timestamp(System.currentTimeMillis()); 
-    	//task.timespend = task.timespend + ( timestamp.getTime() - task.timetemp);
+    	Timestamp timestamp = new Timestamp(System.currentTimeMillis()); 
+    	task.timespend = task.timespend + ( timestamp.getTime() - task.timetemp);
     	dio.updateTask(task);
     	return "redirect:employee";    	
     }
+    @RequestMapping(value="/finish")
+    public String finish(@RequestParam(value="id", required=true) int id) {
+    	Task task = dio.getTask(id);
+    	task.status = "Finished";
+    	Timestamp timestamp = new Timestamp(System.currentTimeMillis()); 
 
+		task.finish = timestamp.getTime();  
+    	task.timespend = task.timespend + ( timestamp.getTime() - task.timetemp);
+    	dio.updateTask(task);
+    	return "redirect:employee";    	
+    }
     
 //Gab Endline
   

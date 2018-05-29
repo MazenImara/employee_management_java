@@ -57,8 +57,8 @@
 									<a href="start?id=${task.id }"><button>Start</button></a>
 								</c:if>	
 								<c:if test="${task.status == 'Started'}">
-									<button>Pause</button>
-									<button>Finish</button>
+									<a href="pause?id=${task.id }"><button>Pause</button></a>
+									<a href="finish?id=${task.id }"><button>Finish</button></a>
 								</c:if>
 
 
@@ -75,16 +75,6 @@
 </div>
 <!-- Gab endline -->
 
-<!-- Mohamad -->
-<div>
-<h1>Employee Details</h1> 
-    Id: ${employee.id} <br>
-    Name: ${employee.name} <br>
-    Email: ${employee.email} <br>
-    Password: ${employee.password} <br>
-    Address: ${employee.address} <br>
-    phone: ${employee.phone} <br>
-</div>
-<!-- end Mohamad -->
+
 </body>
 </html>
