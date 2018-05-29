@@ -1,9 +1,13 @@
 package em.controller;
 
+
+import javax.servlet.http.HttpSession;
+
 import java.sql.Timestamp;
 import java.util.List;
 import javax.servlet.http.HttpSession;
 import org.hibernate.Session;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -12,20 +16,28 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import em.dio.Dio;
+
+import em.model.Day;
+import em.model.Employee;
+import em.model.Login;
+
 import em.model.Employee;
 import em.model.Project;
 import em.model.Suggestion;
 import em.model.Task;
+
 import em.model.User;
+
 
 @Controller
 public class MainController {
 	@Autowired
+	
 	private Dio dio;
+/*
 
 	@RequestMapping(value="/login")
 	public String login(HttpSession session) {
-		
 		User employee= new User();
 		employee.name = "Harry";
 		employee.email = "muu";
@@ -45,6 +57,14 @@ public class MainController {
 		return "redirect:/";			
 	}
 	
+	@RequestMapping(value = "/adduser", method = RequestMethod.POST)
+	public ModelAndView addUser(@ModelAttribute("user") User user) {
+		ModelAndView model = new ModelAndView("index");
+		System.out.println(user.name);
+		dio.addUser(user);
+		model.addObject("msg", "added successfuly");
+*/
+
 	
 	//MOHAMAD CODE
 	
@@ -167,6 +187,7 @@ public class MainController {
 
 		model.addObject("project", project);
 
+
 		return model;			
 
 	}
@@ -245,8 +266,87 @@ public class MainController {
 		model.addObject("task", task);
 		return model;			
 	}
-
+ 
+	//Nidal code
+		
+	@RequestMapping(value="/day")
+	public ModelAndView getDay() {
+		ModelAndView model = new ModelAndView("day");
+		Day day = new Day();
+		model.addObject("day", day);
+		return model;			
+	}
 	
+	@RequestMapping(value="/getDay")
+	public ModelAndView getDay(@RequestParam(value="id", required=true) int id) {
+		System.out.println(id);
+		ModelAndView model = new ModelAndView("day");
+		Day day = dio.getDay(id);
+		model.addObject("day", day);
+		return model;			
+	}
+
+	@RequestMapping(value = "/addDay", method = RequestMethod.POST)
+	public ModelAndView addDay(@ModelAttribute("day") Day day) {
+		System.out.println(day.getDate());
+		dio.addDay(day);
+		ModelAndView model = new ModelAndView("day");
+		day=new Day();
+		model.addObject("day", day);
+		List<Day> getDays = dio.getDays();
+		model.addObject("getDays", getDays);
+		return model;			
+	}
+	
+	 @RequestMapping(value="/deleteDay")
+	    public String  deleteProject(@RequestParam(value="id", required=true) int id) {
+	        dio.deleteDay(id);
+	        return "redirect:dayList";
+	    }
+	    
+	    @RequestMapping(value = "/updateDay", method = RequestMethod.POST)
+	    public ModelAndView updateProject(@ModelAttribute("day") Day day) {
+	        System.out.println(day.getDate());
+	        if(null != day )
+	        dio.updateDay(day);
+	        ModelAndView model = new ModelAndView("day");
+	        day=new Day();
+	        model.addObject("day", day);
+	        List<Day> getDays = dio.getDays();
+	        model.addObject("getDays", getDays);
+	        return model;
+	    }
+	    
+	    @RequestMapping(value="/DaysList")
+	    public ModelAndView daysList() {	
+	    	List<Day> getDays = dio.getDays();
+	    	ModelAndView model = new ModelAndView("DaysList");
+	        model.addObject("getDays", getDays );
+	        return model;
+	    }
+	
+	    
+	    @RequestMapping(value="/login1")
+		public String login (HttpSession session, @RequestParam(value="email") String email, @RequestParam(value="password") String password)
+		{
+			Login employee=dio.checkLogin();
+				if(employee!=null) {
+				session.setAttribute("logged", employee);
+			}
+	     return "redirect:/login";
+		}
+		
+		@RequestMapping(value="/logout1")
+		public String logout (HttpSession session, @RequestParam(value="email") String email, @RequestParam(value="password") String password)
+		{
+			
+				session.removeAttribute("logged");
+			
+	     return "redirect:/login";
+		}
+	    
+		
+
     
     @RequestMapping(value="/tasksList")
     public ModelAndView tasksList() {	
@@ -326,3 +426,4 @@ public class MainController {
   
     //end
 }
+

@@ -1,10 +1,8 @@
 package em.dio;
 
 import java.util.List;
-
-
-
-import em.model.Employee;
+import em.model.Day;
+import em.model.Login;
 import em.model.Task;
 import em.model.Employee;
 import em.model.Project;
@@ -12,11 +10,26 @@ import em.model.Suggestion;
 import em.model.User;
 
 public interface Dio {
+
 	public User getUser(int id);
 	public void addUser(User user);
 	public void deleteUser(int id);
 	public void updateUser(User User);
 	public List<User> getUsers();
+
+	
+	//Nidal
+	public Day getDay(int id);
+	public void addDay(Day day);
+	void deleteDay(int id);
+	public void updateDay(List<Day> day);
+	public List<Day> getDays();
+	void updateDay(Day day);
+	public List<Day> listDay();
+	public void logout() ;
+	public Login checkLogin();
+// end Nidal
+
 
 
 //MOHAMAD 
@@ -59,5 +72,3 @@ public interface Dio {
 //end ikram	
 
 }
-
-

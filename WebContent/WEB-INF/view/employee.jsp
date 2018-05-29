@@ -16,6 +16,7 @@
 </head>
 <body>
 
+
 <!-- Gab -->
 <div class="col-sm-12">
 	<div class="row">
@@ -75,6 +76,20 @@
 </div>
 <!-- Gab endline -->
 
+
+
+
+<!-- Mohamad -->
+
+<h1>Employee Details</h1> 
+    Id: ${employee.id} <br>
+    Name: ${employee.name} <br>
+    Email: ${employee.email} <br>
+    Password: ${employee.password} <br>
+    Address: ${employee.address} <br>
+    phone: ${employee.phone} <br>
+
+<!-- end Mohamad -->
 
 </body>
 </html>

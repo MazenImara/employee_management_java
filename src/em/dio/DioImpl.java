@@ -10,8 +10,12 @@ import em.model.Employee;
 import em.model.Project;
 import em.model.Suggestion;
 import em.model.User;
+import em.model.Day;
+import em.model.Login;
+
 
 import em.dio.Dio;
+
 
 
 public class DioImpl implements Dio  {
@@ -20,7 +24,7 @@ public class DioImpl implements Dio  {
     public DioImpl(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }	
-    
+
 	@Override
 	public User getUser(int id) {
 	    Session session = sessionFactory.getCurrentSession();
@@ -427,9 +431,137 @@ public Task getTask(int id) {
 	    return suggestions;
 	}
 
+	// Nidal
+	@Override
+	public Day getDay(int id) {
+	    Session session = sessionFactory.getCurrentSession();
+	    Day day=null;
+	    try {
+	        System.out.println("IN Get Day");
+	        session.beginTransaction();
+	        day = (Day) session.get(Day.class, id);
+	    } catch (HibernateException e) {
+	        e.printStackTrace();
+	        session.getTransaction().rollback();
+	    }
+	    session.getTransaction().commit();
+	    return day;
+	}
+
+	
+	@Override
+	public void addDay(Day day) {
+	    Session session = sessionFactory.getCurrentSession();
+	    try {
+	        session.beginTransaction();
+	        session.save(day);
+	      } catch (HibernateException e) {
+	          e.printStackTrace();
+	          session.getTransaction().rollback();
+	    }
+	        session.getTransaction().commit();
+	}
+
+	@Override
+	public void deleteDay(int id) {
+	    Session session = sessionFactory.getCurrentSession();
+	    session.beginTransaction();
+	    Day day = (Day) session.get(Day.class, id);
+	    if(null != day) {
+	        session.delete(day);
+	    }
+	    session.getTransaction().commit();
+	}
+	
+	@Override
+	public void updateDay(Day day) {
+		Session session = sessionFactory.getCurrentSession();
+		try {
+			System.out.println("IN update");
+			session.beginTransaction();
+			session.saveOrUpdate(day);
+		}catch(HibernateException e){
+			e.printStackTrace();
+			session.getTransaction().rollback();
+		}
+		session.getTransaction().commit();
+	}
+
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Day> getDays() {
+	
+	    Session session = sessionFactory.getCurrentSession();
+	    session.beginTransaction();
+	    List<Day> Days = null;
+	    try {
+	        System.out.println("IN LIST");
+	        Days = (List<Day>)session.createQuery("from day").list();
+	
+	    } catch (HibernateException e) {
+	        e.printStackTrace();
+	        session.getTransaction().rollback();
+	    }
+	    session.getTransaction().commit();
+
+	    return Days;
+	}
+
+	@Override
+	public void logout() {
+		// TODO Auto-generated method stub
+	
+	
+	}
+	
+		@Override
+		public Login checkLogin() {
+			// TODO Auto-generated method stub
+			return checkLogin();
+		}
+
+		@Override
+		public void updateDay(List<Day> day) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public List<Day> listDay() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
 
 }
 
-//Gab Endline
+		/*
+	@Override
+	public Login checkLogin(Login login) {
+		Session session = sessionFactory.getCurrentSession();
+	    Login login=null;
+	    try {
+	        session.beginTransaction();
+	        login = (Login) session.get(email= login.email, password=login.password);
+	    } catch (HibernateException e) {
+	        e.printStackTrace();
+	        session.getTransaction().rollback();
+	    }
+	    session.getTransaction().commit();
+	    return login;
+		
+		
+	}
+*/
+	
+
+
+// end Nidal
+
+
+
+
+
 
 
