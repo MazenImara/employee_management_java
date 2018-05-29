@@ -9,6 +9,8 @@
    <title>Administrator</title>
 </head>
 <body>
+<h1>session: ${logedEmployee.name }</h1>
+
 	 <div align="center">
 	     <h1 Style=' color :blue' ><i>Projects<b></b></i></h1>
 		     <table border="1">
@@ -93,6 +95,15 @@
                     </form:form>       
 	            </table>
         </div>
+        
+        <form:form name="eee" method="post" action="login1" modelAttribute="employee">
+	                    
+	                    
+	                     <input type='text' name="email" value='${employee.email}'/>
+	                     <td style="color:blue"><input type="submit" value="login     "/></td> 
+        
+        </form:form>
+        
 </body>
 
 </html>

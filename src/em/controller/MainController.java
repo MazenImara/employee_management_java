@@ -34,17 +34,48 @@ public class MainController {
 	@Autowired
 	
 	private Dio dio;
+	
 /*
+	@RequestMapping(value="/login")
+ 	public ModelAndView  login(){
+ 		ModelAndView model = new ModelAndView("login");
+ 		
+		return model;
+ 	}   
+	
+	@RequestMapping(value="/loginasadmin")
+ 	public String  loginasadmin(HttpSession session,@RequestParam(value="email", required=true) String  email,@RequestParam(value="password", required=true) String  password) {
+ 		
+ 	System.out.println(email);
+	System.out.println(password);
+	
+	String st=new String();
+	List<Employee> employees = dio.listEmployees();
+	
+ 		 for(Employee employee:employees) {
+ 			System.out.println("222222222222222");
+		 		if(employee != null) {
+		 			if (employee.email.equals(email)) {
+		 				session.setAttribute("logged", employee);
+		 				 st="redirect:admin";
+		 			}
+		 			else {
+		 				System.out.println(" error mail or password");
+		 				st="redirect:login";
+		 			}
+		 		}
+ 		 }
+
+ 		     
+		 		return  st;
+	}
+ 	  	 	
+   */  
+
 
 	@RequestMapping(value="/login")
 	public String login(HttpSession session) {
-		User employee= new User();
-		employee.name = "Harry";
-		employee.email = "muu";
-		
-		if(employee != null) {
-			session.setAttribute("logedEmployee", employee);
-		}
+ 		session.setAttribute("logedEmployee", dio.getEmployee(1));
 		
 		
 		return "redirect:/";			
@@ -57,27 +88,29 @@ public class MainController {
 		return "redirect:/";			
 	}
 	
-	@RequestMapping(value = "/adduser", method = RequestMethod.POST)
-	public ModelAndView addUser(@ModelAttribute("user") User user) {
-		ModelAndView model = new ModelAndView("index");
-		System.out.println(user.name);
-		dio.addUser(user);
-		model.addObject("msg", "added successfuly");
-*/
+	
+
 
 	
 	//MOHAMAD CODE
 	
 	@RequestMapping(value="/admin")
- 	public ModelAndView project() {
- 		ModelAndView model = new ModelAndView("admin");
- 		
- 	     List<Project>projects = dio.getProjects();
- 		 List<Employee>employees = dio.listEmployees();
- 		    
- 	    model.addObject("projects", projects);	
- 	    model.addObject("employees", employees);
- 		return model;	 	
+ 	public ModelAndView project(HttpSession session) {
+		if((Employee)session.getAttribute("logedEmployee") != null) {			
+	 		ModelAndView model = new ModelAndView("admin");
+	 	     List<Project>projects = dio.getProjects();
+	 		 List<Employee>employees = dio.listEmployees();
+	 		    
+	 	    model.addObject("projects", projects);	
+	 	    model.addObject("employees", employees);
+	 		return model;	 	
+		}
+		else {
+			
+	 		ModelAndView model = new ModelAndView("notLoged");
+	 		return model;
+			
+		}
  	}	     
 	
 	
@@ -325,7 +358,7 @@ public class MainController {
 	        return model;
 	    }
 	
-	    
+	    /*
 	    @RequestMapping(value="/login1")
 		public String login (HttpSession session, @RequestParam(value="email") String email, @RequestParam(value="password") String password)
 		{
@@ -345,7 +378,7 @@ public class MainController {
 	     return "redirect:/login";
 		}
 	    
-		
+		*/
 
     
     @RequestMapping(value="/tasksList")
