@@ -3,6 +3,7 @@ package em.dio;
 import java.util.List;
 
 import em.model.Task;
+import em.model.TimeOff;
 import em.model.Project;
 import em.model.Suggestion;
 import em.model.User;
@@ -38,6 +39,13 @@ public interface Dio {
 	public void updateSuggestion(Suggestion suggestion);
 	public List<Suggestion> getSuggestions();
 	public List<Task> getTasksByProjectId(int project_id);
+	
+	
+	public TimeOff getTimeOff(int id);
+	public void addTimeOff(TimeOff timeoff);
+	public void deleteTimeOff(int id);
+	public void updateTimeOff(TimeOff timeoff);
+	public List<TimeOff> getTimesOff();
 	
 //end ikram	
 }

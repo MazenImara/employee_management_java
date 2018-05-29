@@ -33,6 +33,7 @@
 		<mapping class="em.model.Project" />
 		<mapping class="em.model.Task" />
 		<mapping class="em.model.Suggestion" />
+		<mapping class="em.model.TimeOff" />
 
 <!-- end -->
 	</session-factory>

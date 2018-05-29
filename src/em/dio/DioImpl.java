@@ -7,6 +7,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import em.model.Task;
+import em.model.TimeOff;
 import em.model.Project;
 import em.model.Suggestion;
 import em.model.User;
@@ -143,9 +144,9 @@ public class DioImpl implements Dio  {
 	}
 	
 
-	//end ikram
+	//ikram endline
 	
-	//Gab Starting
+//Gab Starting
 	
 	@Override
 	public Task getTask(int id) {
@@ -238,8 +239,10 @@ public class DioImpl implements Dio  {
 	    session.getTransaction().commit();
 	    return tasks;
 	}
-	
+//Gab Endline
 
+	
+//ikram start
 	@Override
 	public Suggestion getSuggestion(int id) {
 		Session session = sessionFactory.getCurrentSession();
@@ -311,5 +314,36 @@ public class DioImpl implements Dio  {
 	    return suggestions;
 	}
 
+	@Override
+	public TimeOff getTimeOff(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void addTimeOff(TimeOff timeoff) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void deleteTimeOff(int id) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void updateTimeOff(TimeOff timeoff) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public List<TimeOff> getTimesOff() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+//ikram endline	
 }
-//Gab Endline
+
