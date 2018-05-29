@@ -19,7 +19,7 @@ import em.dio.Dio;
 
 import em.model.Day;
 import em.model.Employee;
-import em.model.Login;
+
 
 import em.model.Employee;
 import em.model.Project;
@@ -35,14 +35,9 @@ public class MainController {
 	
 	private Dio dio;
 	
-/*
-	@RequestMapping(value="/login")
- 	public ModelAndView  login(){
- 		ModelAndView model = new ModelAndView("login");
- 		
-		return model;
- 	}   
+
 	
+	/*
 	@RequestMapping(value="/loginasadmin")
  	public String  loginasadmin(HttpSession session,@RequestParam(value="email", required=true) String  email,@RequestParam(value="password", required=true) String  password) {
  		
@@ -72,14 +67,38 @@ public class MainController {
  	  	 	
    */  
 
-
+/*
 	@RequestMapping(value="/login")
 	public String login(HttpSession session) {
  		session.setAttribute("logedEmployee", dio.getEmployee(1));
-		
-		
 		return "redirect:/";			
 	}
+	*/
+	@RequestMapping(value="/login")
+ 	public ModelAndView  login(){
+ 		ModelAndView model = new ModelAndView("login");
+ 		
+		return model;
+ 	}   
+	@RequestMapping(value="/loginasadmin")
+ 	public ModelAndView  login(HttpSession session,@RequestParam(value="email", required=true) String  email,@RequestParam(value="password", required=true) String  password) {
+		
+ 		Employee employee=dio.checkLogin(email,password);
+ 		
+ 		if (employee!=null) {
+ 			ModelAndView model = new ModelAndView("admin");
+ 			System.out.println(employee.email);
+ 		session.setAttribute("logedEmployee", employee);
+ 		return model;
+ 		}
+ 		else {
+ 			ModelAndView model = new ModelAndView("notLoged");
+ 			System.out.println("error");
+ 			return model;
+ 			
+ 		}
+
+ 	}
 	
 	@RequestMapping(value="/logout")
 	public String logout(HttpSession session) {
@@ -87,11 +106,6 @@ public class MainController {
 		
 		return "redirect:/";			
 	}
-	
-	
-
-
-	
 	//MOHAMAD CODE
 	
 	@RequestMapping(value="/admin")
@@ -100,7 +114,6 @@ public class MainController {
 	 		ModelAndView model = new ModelAndView("admin");
 	 	     List<Project>projects = dio.getProjects();
 	 		 List<Employee>employees = dio.listEmployees();
-	 		    
 	 	    model.addObject("projects", projects);	
 	 	    model.addObject("employees", employees);
 	 		return model;	 	

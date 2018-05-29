@@ -2,7 +2,7 @@ package em.dio;
 
 import java.util.List;
 import em.model.Day;
-import em.model.Login;
+
 import em.model.Task;
 import em.model.Employee;
 import em.model.Project;
@@ -27,7 +27,7 @@ public interface Dio {
 	void updateDay(Day day);
 	public List<Day> listDay();
 	public void logout() ;
-	public Login checkLogin();
+
 // end Nidal
 
 
@@ -39,6 +39,7 @@ public interface Dio {
 	void updateEmployee(Employee employee);
 	void deleteEmployee(int employeeId);
 	public List<Employee> listEmployees();
+	public Employee checkLogin(String email, String password);
 
 
 
@@ -65,8 +66,8 @@ public interface Dio {
 	public void updateSuggestion(Suggestion suggestion);
 	public List<Suggestion> getSuggestions();
 	public List<Task> getTasksByProjectId(int project_id);
-	
 	public List<Task> checkStatus(String status);
+	
 
 	
 //end ikram	

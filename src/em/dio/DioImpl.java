@@ -11,7 +11,7 @@ import em.model.Project;
 import em.model.Suggestion;
 import em.model.User;
 import em.model.Day;
-import em.model.Login;
+
 
 
 import em.dio.Dio;
@@ -508,18 +508,36 @@ public Task getTask(int id) {
 	    return Days;
 	}
 
+	
+	@SuppressWarnings("unchecked")
 	@Override
-	public void logout() {
-		// TODO Auto-generated method stub
-	
-	
-	}
-	
-		@Override
-		public Login checkLogin() {
-			// TODO Auto-generated method stub
-			return checkLogin();
-		}
+		public Employee checkLogin(String email, String password) {
+
+		    Session session = sessionFactory.getCurrentSession();
+		    session.beginTransaction();
+		    Employee employee=new Employee();
+		    List<Employee> employees = null;
+		    try {
+		        System.out.println("IN LIST");
+		        employees = (List<Employee>)session.createQuery("from Employee ").list();
+		        outer:
+		        for(Employee emp:employees) {
+			    	if(emp.email.equals(email)) {
+			    		employee=emp;
+			    		break outer;
+			        }
+			    	else {
+			    		employee=null;
+			    	}
+		        }
+		    } catch (HibernateException e) {
+		        e.printStackTrace();
+		        session.getTransaction().rollback();
+		    }
+		    session.getTransaction().commit();
+		    return employee;
+}	
+			
 
 		@Override
 		public void updateDay(List<Day> day) {
@@ -531,6 +549,12 @@ public Task getTask(int id) {
 		public List<Day> listDay() {
 			// TODO Auto-generated method stub
 			return null;
+		}
+
+		@Override
+		public void logout() {
+			// TODO Auto-generated method stub
+			
 		}
 
 
