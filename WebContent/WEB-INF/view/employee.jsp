@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -14,6 +15,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+
 
 <!-- Gab -->
 <div class="col-sm-12">
@@ -35,17 +37,10 @@
 								Status Of Task
 							</div>
 								
-							<div class="col-sm-2">
-								Start
+							<div class="col-sm-6">
+								Start/Pause/Finish	
 							</div>
-								
-							<div class="col-sm-2">
-								Pause
-							</div>
-								
-							<div class="col-sm-2">
-								Finish							
-							</div>
+							
 						</div>
 						<div class="muu">
 	 					<c:forEach var="task" items="${project.tasks }">	
@@ -58,18 +53,18 @@
 								${task.status}
 							</div>
 								
-							<div class="col-sm-2">
-								Start
-							</div>
-								
-							<div class="col-sm-2">
-								Pause
-							</div>
-								
-							<div class="col-sm-2">
-								Finish							
-							</div>
-								
+							<div class="col-sm-6">
+								<c:if test="${task.status == 'New' || task.status == 'Paused' || task.status == 'Finished'}">
+									<a href="start?id=${task.id }"><button>Start</button></a>
+								</c:if>	
+								<c:if test="${task.status == 'Started'}">
+									<a href="pause?id=${task.id }"><button>Pause</button></a>
+									<a href="finish?id=${task.id }"><button>Finish</button></a>
+								</c:if>
+
+
+							</div>								
+															
 						</c:forEach>
 						
 					</div>
@@ -80,5 +75,21 @@
 		
 </div>
 <!-- Gab endline -->
+
+
+
+
+<!-- Mohamad -->
+
+<h1>Employee Details</h1> 
+    Id: ${employee.id} <br>
+    Name: ${employee.name} <br>
+    Email: ${employee.email} <br>
+    Password: ${employee.password} <br>
+    Address: ${employee.address} <br>
+    phone: ${employee.phone} <br>
+
+<!-- end Mohamad -->
+
 </body>
 </html>

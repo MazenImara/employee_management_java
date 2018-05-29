@@ -29,13 +29,20 @@
 		<!-- Display all generated SQL to stdout -->
 		<property name="show_sql">true</property>
 
+
+
 <!-- ikram & gab -->
 		<mapping class="em.model.Project" />
 		<mapping class="em.model.Task" />
+		<mapping class="em.model.Employee" />		
 		<mapping class="em.model.Suggestion" />
 		<mapping class="em.model.TimeOff" />
+		<mapping class="em.model.User" />
+		
+<!-- end project -->
 
-<!-- end -->
+
+
 	</session-factory>
 
 </hibernate-configuration>

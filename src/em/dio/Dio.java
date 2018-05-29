@@ -1,14 +1,17 @@
 package em.dio;
 
 import java.util.List;
-
 import em.model.Task;
 import em.model.TimeOff;
+import em.model.Employee;
 import em.model.Project;
 import em.model.Suggestion;
 import em.model.User;
+import em.model.Day;
+import em.model.Login;
 
 public interface Dio {
+
 	public User getUser(int id);
 	public void addUser(User user);
 	public void deleteUser(int id);
@@ -16,6 +19,30 @@ public interface Dio {
 	public List<User> getUsers();
 
 	
+	//Nidal
+	public Day getDay(int id);
+	public void addDay(Day day);
+	void deleteDay(int id);
+	public void updateDay(List<Day> day);
+	public List<Day> getDays();
+	void updateDay(Day day);
+	public List<Day> listDay();
+	public void logout() ;
+	public Login checkLogin();
+// end Nidal
+
+
+
+//MOHAMAD 
+	
+	void addEmployee(Employee employee);
+	Employee getEmployee(int id);
+	void updateEmployee(Employee employee);
+	void deleteEmployee(int employeeId);
+	public List<Employee> listEmployees();
+
+
+
 // for Task 
 // Gab	
 	public Task getTask(int id);
@@ -25,6 +52,7 @@ public interface Dio {
 	public List<Task> getTasks();
 //Gab Endline	
 
+	
 // for project 
 // ikram
 	public Project getProject(int id);
@@ -32,7 +60,6 @@ public interface Dio {
 	public void deleteProject(int id);
 	public void updateProject(Project project);
 	public List<Project> getProjects();
-	
 	public Suggestion getSuggestion(int id);
 	public void addSuggestion(Suggestion suggestion);
 	public void deleteSuggestion(int id);
@@ -40,6 +67,7 @@ public interface Dio {
 	public List<Suggestion> getSuggestions();
 	public List<Task> getTasksByProjectId(int project_id);
 	
+
 	
 	public TimeOff getTimeOff(int id);
 	public void addTimeOff(TimeOff timeoff);
@@ -48,6 +76,10 @@ public interface Dio {
 	public List<TimeOff> getTimesOff();
 	
 //end ikram	
+
+
+	public List<Task> checkStatus(String status);
+	
+//end ikram	
+
 }
-
-
