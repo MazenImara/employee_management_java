@@ -2,6 +2,7 @@ package em.controller;
 
 
 import javax.servlet.http.HttpSession;
+import javax.xml.ws.Response;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -37,37 +38,9 @@ public class MainController {
 	
 
 	
+	
+	//MOHAMAD CODE
 	/*
-	@RequestMapping(value="/loginasadmin")
- 	public String  loginasadmin(HttpSession session,@RequestParam(value="email", required=true) String  email,@RequestParam(value="password", required=true) String  password) {
- 		
- 	System.out.println(email);
-	System.out.println(password);
-	
-	String st=new String();
-	List<Employee> employees = dio.listEmployees();
-	
- 		 for(Employee employee:employees) {
- 			System.out.println("222222222222222");
-		 		if(employee != null) {
-		 			if (employee.email.equals(email)) {
-		 				session.setAttribute("logged", employee);
-		 				 st="redirect:admin";
-		 			}
-		 			else {
-		 				System.out.println(" error mail or password");
-		 				st="redirect:login";
-		 			}
-		 		}
- 		 }
-
- 		     
-		 		return  st;
-	}
- 	  	 	
-   */  
-
-/*
 	@RequestMapping(value="/login")
 	public String login(HttpSession session) {
  		session.setAttribute("logedEmployee", dio.getEmployee(1));
@@ -106,10 +79,9 @@ public class MainController {
 		
 		return "redirect:/";			
 	}
-	//MOHAMAD CODE
 	
 	@RequestMapping(value="/admin")
- 	public ModelAndView project(HttpSession session) {
+	public ModelAndView project(HttpSession session) {
 		if((Employee)session.getAttribute("logedEmployee") != null) {			
 	 		ModelAndView model = new ModelAndView("admin");
 	 	     List<Project>projects = dio.getProjects();
@@ -119,13 +91,10 @@ public class MainController {
 	 		return model;	 	
 		}
 		else {
-			
 	 		ModelAndView model = new ModelAndView("notLoged");
 	 		return model;
-			
 		}
- 	}	     
-	
+ 	}	   
 	
 	@RequestMapping(value="/getemployee")
 	public ModelAndView emp(@RequestParam(value="id", required=true) int  id) {

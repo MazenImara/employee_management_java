@@ -96,13 +96,6 @@
 	            </table>
         </div>
         
-        <form:form name="eee" method="post" action="login1" modelAttribute="employee">
-	                    
-	                    
-	                     <input type='text' name="email" value='${employee.email}'/>
-	                     <td style="color:blue"><input type="submit" value="login     "/></td> 
-        
-        </form:form>
         
 </body>
 
