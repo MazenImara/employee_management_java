@@ -9,7 +9,7 @@
 <title>Mange Project</title>
 </head>
 <body>
-	
+	<h1>test: ${task.title } </h1>
 	 <div align="center">
 	     <h1 Style=' color :blue' ><i>Project<b></b></i></h1>
 		     <table border="1">
@@ -38,6 +38,7 @@
 			          <th> TimeSpend</th>
 			          <th> Started</th>
 			          <th> finish</th>
+			          <th> employee.id</th>
 			          <th>Delete</th>
 			          <th>Update</th>
 			      </tr>  
@@ -47,12 +48,13 @@
 					      <tr>                                            
 				              <td>${status.index + 1}</td>
 				                  <input type='hidden' name="id" value='${task.id}'/>
-				              <td><input type='text' name="title" value='${task.title}'/></td>
+				              <td><input type='text' name="title" value='${task.title} '/></td>
 				              <td><input type='hidden' name="status" value='${task.status}'/>${task.status}</td>
 				              <td><input type='hidden' name="timespend" value='${task.timespend}'/>${task.timespend}</td>
 				              <td><input type='hidden' name="started" value='${task.started}'/>${task.started}</td>
 				              <td><input type='hidden' name="finish" value='${task.finish}'/>${task.finish}</td>
-				                  <input type='hidden' name="project.id" value='${project.id}'/>
+				              <td> </td>
+				              <input type='hidden' name="project.id" value='${project.id}'/>
 				              <td style="color:blue"><input type="submit"   name="delete"value="DELETE"></td>	
 				              <td style="color:blue"><input type="submit"  name="update" value="UPDATE"/></td> 
 				          </tr>
@@ -63,8 +65,10 @@
 				              <tr>
 				                   <td></td>
 					              <td> <input type='text' name="title" value='${task.title}'/></td> 
-					                   <input type='hidden' name="project.id" value="${project.id }"/> 
+					                   <input type='hidden' name="project.id" value="${project.id }"/>
+					                   
 					              <td><strike>New</strike></td>
+		                          <td><strike>0</strike></td>
 		                          <td><strike>0</strike></td>
 		                          <td><strike>0</strike></td>
 		                          <td><strike>0</strike></td>

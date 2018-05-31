@@ -20,14 +20,11 @@ import em.dio.Dio;
 
 import em.model.Day;
 import em.model.Employee;
-
-
-import em.model.Employee;
 import em.model.Project;
 import em.model.Suggestion;
 import em.model.Task;
 
-import em.model.User;
+
 
 
 @Controller
@@ -40,59 +37,45 @@ public class MainController {
 	
 	
 	//MOHAMAD CODE
-	/*
-	@RequestMapping(value="/login")
-	public String login(HttpSession session) {
- 		session.setAttribute("logedEmployee", dio.getEmployee(1));
-		return "redirect:/";			
-	}
-	*/
+	
 	@RequestMapping(value="/login")
  	public ModelAndView  login(){
  		ModelAndView model = new ModelAndView("login");
- 		
 		return model;
  	}   
-	@RequestMapping(value="/loginasadmin")
- 	public ModelAndView  login(HttpSession session,@RequestParam(value="email", required=true) String  email,@RequestParam(value="password", required=true) String  password) {
-		
+	@RequestMapping(value="/loginasadmin",method = RequestMethod.POST)
+ 	public String  login(HttpSession session,@RequestParam(value="email", required=true) String  email,@RequestParam(value="password", required=true) String  password) {
  		Employee employee=dio.checkLogin(email,password);
- 		
  		if (employee!=null) {
- 			ModelAndView model = new ModelAndView("admin");
- 			System.out.println(employee.email);
- 		session.setAttribute("logedEmployee", employee);
- 		return model;
+	 		session.setAttribute("logedEmployee", employee);
  		}
- 		else {
- 			ModelAndView model = new ModelAndView("notLoged");
- 			System.out.println("error");
- 			return model;
- 			
- 		}
-
+ 		return "redirect:admin";
  	}
 	
 	@RequestMapping(value="/logout")
 	public String logout(HttpSession session) {
 		session.removeAttribute("logedEmployee");
 		
-		return "redirect:/";			
+		return "redirect:login";			
 	}
 	
 	@RequestMapping(value="/admin")
-	public ModelAndView project(HttpSession session) {
-		if((Employee)session.getAttribute("logedEmployee") != null) {			
+	public ModelAndView adminpage(HttpSession session) {
+
+		
+		if((Employee)session.getAttribute("logedEmployee") != null) {	
+
 	 		ModelAndView model = new ModelAndView("admin");
+
 	 	     List<Project>projects = dio.getProjects();
 	 		 List<Employee>employees = dio.listEmployees();
 	 	    model.addObject("projects", projects);	
 	 	    model.addObject("employees", employees);
-	 		return model;	 	
+	 	   return model;
 		}
 		else {
-	 		ModelAndView model = new ModelAndView("notLoged");
-	 		return model;
+	 		ModelAndView model2 = new ModelAndView("notLoged");
+	 		return model2;
 		}
  	}	   
 	
@@ -127,12 +110,13 @@ public class MainController {
 
 	 public String addtask(@ModelAttribute("task") Task task) {
 		task.status="New";
-		
+		task.employee = new Employee();
+		task.employee.id =1;
+		 System.out.println(task.employee.id);
 	    dio.addTask(task); 
-	   return "redirect:getproject?id="+task.project.id;
-
-	} 
-	
+	  
+	    return "redirect:getproject?id="+task.project.id;
+	}
 	@RequestMapping(value="/del&updatetask",method = RequestMethod.POST,params = { "delete" })
     public String  deletetask(@ModelAttribute("task") Task task) {
         dio.deleteTask(task.id);
@@ -144,8 +128,35 @@ public class MainController {
         System.out.println(task.getTitle());
         if(null != task )
         dio.updateTask(task);
+        
         return "redirect:getproject?id="+task.project.id;
     }
+    
+    @RequestMapping(value="/gettask",method = RequestMethod.GET)
+    public ModelAndView  signEmployeeToTasktask(@RequestParam(value="id", required=true) int  id,@RequestParam(value="projectId", required=true) int projectId) {
+    	ModelAndView model = new ModelAndView("gettask");
+
+	    Task task=dio.getTask(id);
+   	    List<Employee>employees = dio.listEmployees();
+   	    
+        model.addObject("employees", employees);
+	    model.addObject("task", task);
+	    model.addObject("projectId", projectId);
+       return model;
+    }
+    @RequestMapping(value="/signemployeetotask",method = RequestMethod.GET)
+    public String  signemployeetotask(@RequestParam(value="id", required=true) int  id,@RequestParam(value="projectId", required=true) int projectId,@RequestParam(value="employeeId", required=true) int employeeId){
+    	
+    	Task task=dio.getTask(id);
+    	 System.out.println(task.getTitle());
+    	
+    	 task.employee=dio.getEmployee(employeeId);
+    	 
+    	 dio.updateTask(task);
+        return "redirect:getproject?id="+projectId;
+    } 
+    
+    
 	
 	// End 	MOHAMAD
 	
@@ -156,6 +167,8 @@ public class MainController {
 		public ModelAndView project(@RequestParam(value="id", required=true) int  id) {
 			ModelAndView model = new ModelAndView("project");
 			Project project = dio.getProject(id);
+			Task task = dio.getTask(47);
+			model.addObject("task", task);
 			model.addObject("project", project);
 			return model;	
 		}	

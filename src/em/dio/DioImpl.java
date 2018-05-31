@@ -259,7 +259,6 @@ public Task getTask(int id) {
 
 	@Override
 	public void addTask(Task task) {
-
 		Session session = sessionFactory.getCurrentSession();
 	    try {
 	        session.beginTransaction();
@@ -522,7 +521,7 @@ public Task getTask(int id) {
 		        employees = (List<Employee>)session.createQuery("from Employee ").list();
 		        outer:
 		        for(Employee emp:employees) {
-			    	if(emp.email.equals(email)) {
+			    	if(emp.email.equals(email) && emp.password.equals(password) ) {
 			    		employee=emp;
 			    		break outer;
 			        }
@@ -560,24 +559,7 @@ public Task getTask(int id) {
 
 }
 
-		/*
-	@Override
-	public Login checkLogin(Login login) {
-		Session session = sessionFactory.getCurrentSession();
-	    Login login=null;
-	    try {
-	        session.beginTransaction();
-	        login = (Login) session.get(email= login.email, password=login.password);
-	    } catch (HibernateException e) {
-	        e.printStackTrace();
-	        session.getTransaction().rollback();
-	    }
-	    session.getTransaction().commit();
-	    return login;
-		
-		
-	}
-*/
+	
 	
 
 

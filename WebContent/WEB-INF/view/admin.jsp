@@ -5,11 +5,16 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<style><%@include file="/WEB-INF/css/mystyle.css"%></style>
    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
    <title>Administrator</title>
 </head>
 <body>
-<h1>session: ${logedEmployee.name }</h1>
+
+<div  class="box "  align='center'>
+<h1>Account: ${logedEmployee.name }</h1>
+ <a href="logout"><button>Logout</button></a>
+</div>
 
 	 <div align="center">
 	     <h1 Style=' color :blue' ><i>Projects<b></b></i></h1>
