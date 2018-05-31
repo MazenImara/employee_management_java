@@ -64,9 +64,7 @@ public class MainController {
 
 		
 		if((Employee)session.getAttribute("logedEmployee") != null) {	
-
 	 		ModelAndView model = new ModelAndView("admin");
-
 	 	     List<Project>projects = dio.getProjects();
 	 		 List<Employee>employees = dio.listEmployees();
 	 	    model.addObject("projects", projects);	
@@ -374,7 +372,16 @@ public class MainController {
 		}
 	    
 		*/
-
+	    
+	    @RequestMapping(value="/test")
+	    public ModelAndView test() {	
+	    	List<Task> getTasks = dio.getTasks();
+	    	ModelAndView model = new ModelAndView("test");
+	    	Task task = dio.getTask(47);
+	    	System.out.println("test: "+task.employee.name);
+	        model.addObject("task", task );
+	        return model;
+	    }
     
     @RequestMapping(value="/tasksList")
     public ModelAndView tasksList() {	

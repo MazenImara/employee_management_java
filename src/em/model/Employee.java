@@ -96,7 +96,7 @@ public class Employee implements Serializable{
 		this.phone = phone;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "employee")
+	@OneToMany(mappedBy = "employee")
 	public List<Task> tasks;
 	
 	

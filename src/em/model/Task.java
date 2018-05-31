@@ -3,9 +3,6 @@ package em.model;
 
 
 import java.io.Serializable;
-
-
-
 import javax.persistence.Column;
 
 import javax.persistence.Entity;
@@ -56,11 +53,11 @@ public class Task implements Serializable{
 	public long timetemp;
 
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name = "employee_id", nullable = false)
 	public Employee employee;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name = "project_id", nullable = true)
 	public Project project;
 
