@@ -11,7 +11,7 @@
 <body>
  
      <div align="center">
-		    <h1 Style=' color :blue' ><i>The Task<b></b></i></h1>
+		    <h1 Style=' color :blue' ><i>The Task Selected<b></b></i></h1>
 		     <table border="1">
 			      <tr>
 			          <th>S.No.</th>
@@ -20,7 +20,7 @@
 			          <th> TimeSpend</th>
 			          <th> Started</th>
 			          <th> Finish</th>
-			          <th> Project.id</th>
+			          <th> Project title</th>
 			          <th> Employee.id</th>
 			      </tr>    
 			      <tr>
@@ -31,14 +31,14 @@
 				              <td>${task.timespend}</td>
 				              <td>${task.started}</td>
 				              <td>${task.finish}</td>
-				              <td>${projectId}</td>
+				              <td>${project.title}</td>
 				              <td>${task.employee.id}</td>
 			      </tr>
 		    	</table>
 	</div>
 	</div>
        <div align="center">
-           <h1 Style=' color :blue' ><i>Employees List<b></b></i></h1>
+           <h1 Style=' color :blue' ><i>Select Employee<b></b></i></h1>
 	            <table border="1">
 		            <tr>
 		                <th>S.No.</th>
@@ -54,23 +54,40 @@
 		                <form:form name="employeesForm" method="Get" action="signemployeetotask" modelAttribute="employee">
 			                <tr>
 			                    <td>${status.index + 1}</td>
-			                     <input type='hidden' name="id" value='${task.id}'/>
+			                     <input type='hidden' name="taskId" value='${task.id}'/>
 			                    <input type='hidden' name="employeeId" value='${employee.id}'/>
 			                    <td>${employee.name}</td>
 			                    <td>${employee.email}</td>
 			                    <td>>${employee.password}</td>
 			                    <td>${employee.address}</td>
 			                    <td>${employee.phone}</td>
-			                    <input type='hidden' name="projectId" value='${projectId}'/>
-			                    <td style="color:blue"><input type="submit" value="sign"/></td>
+			                    <input type='hidden' name="projectId" value='${project.id}'/>
+			                    <td style="color:blue"><input type="submit" value="Select"/></td>
 				            </tr>
 				        </form:form>
 			        </c:forEach>
                          
 	            </table>
         </div>
-				              
-					    
-		             
+		<div align="center">
+           <h1 Style=' color :blue' ><i>The Suggestion<b></b></i></h1>
+	            <table border="1">
+		            <tr>
+		                <th>S.No.</th>
+		                <th>Employee name</th>
+		                <th>Project name</th>
+		                <th>Task Name</th>
+		            </tr>
+	                <c:forEach var="suggestion" items="${suggestions}" varStatus="status">
+			                <tr>
+			                    <td>${status.index + 1}</td>
+			                    <td>${suggestion.employee_id}</td>
+			                    <td>${suggestion.project_id}</td>
+			                    <td>${suggestion.task_id}</td>
+				            </tr>
+			        </c:forEach>
+                         
+	            </table>
+        </div>	     
 </body>
 </html>

@@ -61,8 +61,6 @@ public class MainController {
 	
 	@RequestMapping(value="/admin")
 	public ModelAndView adminpage(HttpSession session) {
-
-		
 		if((Employee)session.getAttribute("logedEmployee") != null) {	
 	 		ModelAndView model = new ModelAndView("admin");
 	 	     List<Project>projects = dio.getProjects();
@@ -108,9 +106,9 @@ public class MainController {
 
 	 public String addtask(@ModelAttribute("task") Task task) {
 		task.status="New";
-		task.employee = new Employee();
-		task.employee.id =1;
-		 System.out.println(task.employee.id);
+		//task.employee = new Employee();
+		//task.employee.id =1;
+		// System.out.println(task.employee.id);
 	    dio.addTask(task); 
 	  
 	    return "redirect:getproject?id="+task.project.id;
@@ -130,28 +128,36 @@ public class MainController {
         return "redirect:getproject?id="+task.project.id;
     }
     
-    @RequestMapping(value="/gettask",method = RequestMethod.GET)
-    public ModelAndView  signEmployeeToTasktask(@RequestParam(value="id", required=true) int  id,@RequestParam(value="projectId", required=true) int projectId) {
+    @RequestMapping(value="/makesuggestion",method = RequestMethod.GET)
+    public ModelAndView  signEmployeeToTasktask(@RequestParam(value="taskId", required=true) int  taskId,@RequestParam(value="projectId", required=true) int projectId) {
     	ModelAndView model = new ModelAndView("gettask");
-
-	    Task task=dio.getTask(id);
+    	
+	    Task task=dio.getTask(taskId);
+	    
+	    Project project=dio.getProject(projectId);
+	    
    	    List<Employee>employees = dio.listEmployees();
    	    
+   	    List<Suggestion> suggestions=dio.getSuggestions();
+   	    
+	    model.addObject("suggestions", suggestions);
         model.addObject("employees", employees);
 	    model.addObject("task", task);
-	    model.addObject("projectId", projectId);
-       return model;
+	    model.addObject("project", project);
+	    
+        return model;
     }
     @RequestMapping(value="/signemployeetotask",method = RequestMethod.GET)
-    public String  signemployeetotask(@RequestParam(value="id", required=true) int  id,@RequestParam(value="projectId", required=true) int projectId,@RequestParam(value="employeeId", required=true) int employeeId){
+    public String  signemployeetotask(@RequestParam(value="taskId", required=true) int  taskId,@RequestParam(value="projectId", required=true) int projectId,@RequestParam(value="employeeId", required=true) int employeeId){
     	
-    	Task task=dio.getTask(id);
-    	 System.out.println(task.getTitle());
-    	
-    	 task.employee=dio.getEmployee(employeeId);
-    	 
-    	 dio.updateTask(task);
-        return "redirect:getproject?id="+projectId;
+        Suggestion suggestion =new Suggestion();
+ 	    suggestion.employee_id=employeeId;
+ 	    suggestion.project_id=projectId;
+ 	    suggestion.task_id=taskId;
+ 	    dio.addSuggestion(suggestion);
+ 	    
+ 	   return "redirect:getproject?id="+projectId;
+        //return "redirect:makesuggestion?taskId="+taskId+"&projectId="+projectId;
     } 
     
     
@@ -165,9 +171,9 @@ public class MainController {
 		public ModelAndView project(@RequestParam(value="id", required=true) int  id) {
 			ModelAndView model = new ModelAndView("project");
 			Project project = dio.getProject(id);
-			Task task = dio.getTask(47);
-			model.addObject("task", task);
+			List<Suggestion> suggestions=dio.getSuggestions();
 			model.addObject("project", project);
+			model.addObject("suggestions", suggestions);
 			return model;	
 		}	
 		

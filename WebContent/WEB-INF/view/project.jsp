@@ -9,9 +9,17 @@
 <title>Mange Project</title>
 </head>
 <body>
-	<h1>test: ${task.title }</h1>
+
+<c:if test="${project.id == 11 }" >
+   <b>Test passed!</b>
+</c:if>
+
+
+
+
+	
 	 <div align="center">
-	     <h1 Style=' color :blue' ><i>Project<b></b></i></h1>
+	     <h1 Style=' color:blue' ><i>Project<b></b></i></h1>
 		     <table border="1">
 			      <tr>
 			          <th>project title</th>
@@ -38,12 +46,13 @@
 			          <th> TimeSpend</th>
 			          <th> Started</th>
 			          <th> finish</th>
-			          <th> employee.id</th>
+			          <th> employee Name</th>
 			          <th>Delete</th>
 			          <th>Update</th>
 			      </tr>  
+			   
 		          <c:forEach var="task" items="${project.tasks}" varStatus="status">
-			          
+			         
 			          <form:form name="formDel&UpdateTask" method="post" action="del&updatetask" modelAttribute="task">
 					      <tr>                                            
 				              <td>${status.index + 1}</td>
@@ -53,14 +62,27 @@
 				              <td><input type='hidden' name="timespend" value='${task.timespend}'/>${task.timespend}</td>
 				              <td><input type='hidden' name="started" value='${task.started}'/>${task.started}</td>
 				              <td><input type='hidden' name="finish" value='${task.finish}'/>${task.finish}</td>
-				              <td> </td>
+						       <c:choose>      
+						       
+			                        <c:when test="${task.employee.id != null}">
+			                              <td> ${task.employee.name} </td>
+								    </c:when>
+								    
+								    <c:otherwise>
+								          
+								               
+								    </c:otherwise>
+											    
+					           </c:choose>	
+				              
 				              <input type='hidden' name="project.id" value='${project.id}'/>
 				              <td style="color:blue"><input type="submit"   name="delete"value="DELETE"></td>	
 				              <td style="color:blue"><input type="submit"  name="update" value="UPDATE"/></td> 
 				          </tr>
 				        </form:form>  
-			      </c:forEach>  
-	
+				      </c:forEach> 
+			
+	           
 		          <form:form name="formadd Task" method="post" action="addnewtask" modelAttribute="task">
 				              <tr>
 				                   <td></td>

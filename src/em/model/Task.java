@@ -54,7 +54,7 @@ public class Task implements Serializable{
 
 
 	@ManyToOne
-	@JoinColumn(name = "employee_id", nullable = false)
+	@JoinColumn(name = "employee_id", nullable = true)
 	public Employee employee;
 
 	@ManyToOne
