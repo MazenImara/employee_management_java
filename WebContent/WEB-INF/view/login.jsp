@@ -12,7 +12,7 @@
 <div   align="center">
         <h1 Style=' color :blue' ><i>login</i></h1>
         <div class="box" align="center">
-				<form:form name="login" method="post" action="loginasadmin" modelAttribute="employee">
+				<form:form name="login" method="post" action="checklogin" modelAttribute="employee">
 			        <table border="1">
 				        <tr>
 				           <td>  Email </td>

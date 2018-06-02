@@ -1,6 +1,8 @@
 package em.dio;
 
 import java.util.List;
+
+
 import em.model.Day;
 
 import em.model.Task;
@@ -8,6 +10,7 @@ import em.model.Employee;
 import em.model.Project;
 import em.model.Suggestion;
 import em.model.User;
+import em.model.Admin;
 
 public interface Dio {
 
@@ -40,6 +43,7 @@ public interface Dio {
 	void deleteEmployee(int employeeId);
 	public List<Employee> listEmployees();
 	public Employee checkLogin(String email, String password);
+	List<Admin> getAdminsByEmployeeId(int employeeId);
 
 
 
@@ -67,6 +71,10 @@ public interface Dio {
 	public List<Suggestion> getSuggestions();
 	public List<Task> getTasksByProjectId(int project_id);
 	public List<Task> checkStatus(String status);
+	public void addAdmin(Admin admin);
+	
+	
+	
 	
 
 	

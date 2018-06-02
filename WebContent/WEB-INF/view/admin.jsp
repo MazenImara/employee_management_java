@@ -10,7 +10,7 @@
    <title>Administrator</title>
 </head>
 <body>
-
+<!-- MOHAMAD Code -->
 <div  class="box "  align='center'>
 <h1>Account: ${logedEmployee.name }</h1>
  <a href="logout"><button>Logout</button></a>

@@ -70,7 +70,24 @@
 								    
 								    <c:otherwise>
 								          
-								               
+								               <c:choose>           
+								                    <c:when test="${suggestions != null}"> 
+								      
+											             <c:forEach var="suggestion" items="${suggestions}" varStatus="status">
+											                <c:if test="${suggestion.task_id != task.id}" >     
+													             <td style="color:blue"><a  href="makesuggestion?taskId=${task.id}&projectId=${project.id}">Make Suggestion</a></td>
+													        </c:if>
+													         <c:if test="${suggestion.task_id == task.id}" >     
+													             <td >suggested</td>
+													        </c:if>
+												      </c:forEach>
+										            </c:when>
+										           
+										            <c:otherwise>
+										            <td style="color:blue"><a  href="makesuggestion?taskId=${task.id}&projectId=${project.id}">Make Suggestion</a></td>
+										            </c:otherwise>
+						                	</c:choose>
+						                	
 								    </c:otherwise>
 											    
 					           </c:choose>	

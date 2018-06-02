@@ -37,6 +37,8 @@
 		<mapping class="em.model.Employee" />		
 		<mapping class="em.model.Suggestion" />
 		<mapping class="em.model.User" />
+		<mapping class="em.model.Admin" />
+		
 		
 <!-- end project -->
 

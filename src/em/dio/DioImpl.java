@@ -2,18 +2,19 @@ package em.dio;
 
 import java.util.List;
 
+import javax.transaction.Transaction;
+
 import org.hibernate.HibernateException;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import em.model.Task;
+import em.model.User;
 import em.model.Employee;
 import em.model.Project;
 import em.model.Suggestion;
-import em.model.User;
 import em.model.Day;
-
-
-
+import em.model.Admin;
 import em.dio.Dio;
 
 
@@ -24,29 +25,13 @@ public class DioImpl implements Dio  {
     public DioImpl(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }	
-
+    
 	@Override
-	public User getUser(int id) {
-	    Session session = sessionFactory.getCurrentSession();
-	    User user=null;
-	    try {
-	        System.out.println("IN GetUser");
-	        session.beginTransaction();
-	        user = (User) session.get(User.class, id);
-	    } catch (HibernateException e) {
-	        e.printStackTrace();
-	        session.getTransaction().rollback();
-	    }
-	    session.getTransaction().commit();
-	    return user;
-	}
-	
-	@Override
-	public void addUser(User user) {
+	public void addAdmin(Admin admin) {
 		Session session = sessionFactory.getCurrentSession();
 	    try {
 	        session.beginTransaction();
-	        session.save(user);
+	        session.save(admin);
 	      } catch (HibernateException e) {
 	          e.printStackTrace();
 	          session.getTransaction().rollback();
@@ -54,23 +39,8 @@ public class DioImpl implements Dio  {
 	        session.getTransaction().commit();	
 	}
 	
-	@Override
-	public void deleteUser(int id) {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	public void updateUser(User User) {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	public List<User> getUsers() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-    
-//for project
+	
+
 //ikram
 	@Override
 	public Project getProject(int id) {
@@ -231,9 +201,56 @@ public class DioImpl implements Dio  {
 		     session.getTransaction().commit();
 
 			    return employees;
+		}
+		
+		@SuppressWarnings("unchecked")
+		@Override
+		public List<Admin> getAdminsByEmployeeId(int employeeId) {
+				Session session = sessionFactory.getCurrentSession();
+			    session.beginTransaction();
+			    List<Admin> admins = null;
+			    try {
+			        System.out.println("IN LIST");
+			        admins = (List<Admin>)session.createQuery("from Admin where employee_id="+employeeId).list();
+			
+			    } catch (HibernateException e) {
+			        e.printStackTrace();
+			        session.getTransaction().rollback();
+			    }
+			    session.getTransaction().commit();
+			    return admins;
 			}
 		
+		@SuppressWarnings("unchecked")
+		@Override
+			public Employee checkLogin(String email, String password) {
 
+			    Session session = sessionFactory.getCurrentSession();
+			    session.beginTransaction();
+			    Employee employee=new Employee();
+			    List<Employee> employees = null;
+			    try {
+			        System.out.println("IN LIST");
+			        employees = (List<Employee>)session.createQuery("from Employee ").list();
+			        outer:
+			        for(Employee emp:employees) {
+				    	if(emp.email.equals(email) && emp.password.equals(password) ) {
+				    		employee=emp;
+				    		break outer;
+				        }
+				    	else {
+				    		employee=null;
+				    	}
+			        }
+			    } catch (HibernateException e) {
+			        e.printStackTrace();
+			        session.getTransaction().rollback();
+			    }
+			    session.getTransaction().commit();
+			    return employee;
+	}	
+			
+		
 		 // end MOHAMAD
 
 	
@@ -507,54 +524,53 @@ public Task getTask(int id) {
 	    return Days;
 	}
 
-	
-	@SuppressWarnings("unchecked")
 	@Override
-		public Employee checkLogin(String email, String password) {
+	public User getUser(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
-		    Session session = sessionFactory.getCurrentSession();
-		    session.beginTransaction();
-		    Employee employee=new Employee();
-		    List<Employee> employees = null;
-		    try {
-		        System.out.println("IN LIST");
-		        employees = (List<Employee>)session.createQuery("from Employee ").list();
-		        outer:
-		        for(Employee emp:employees) {
-			    	if(emp.email.equals(email) && emp.password.equals(password) ) {
-			    		employee=emp;
-			    		break outer;
-			        }
-			    	else {
-			    		employee=null;
-			    	}
-		        }
-		    } catch (HibernateException e) {
-		        e.printStackTrace();
-		        session.getTransaction().rollback();
-		    }
-		    session.getTransaction().commit();
-		    return employee;
-}	
-			
+	@Override
+	public void addUser(User user) {
+		// TODO Auto-generated method stub
+		
+	}
 
-		@Override
-		public void updateDay(List<Day> day) {
-			// TODO Auto-generated method stub
-			
-		}
+	@Override
+	public void deleteUser(int id) {
+		// TODO Auto-generated method stub
+		
+	}
 
-		@Override
-		public List<Day> listDay() {
-			// TODO Auto-generated method stub
-			return null;
-		}
+	@Override
+	public void updateUser(User User) {
+		// TODO Auto-generated method stub
+		
+	}
 
-		@Override
-		public void logout() {
-			// TODO Auto-generated method stub
-			
-		}
+	@Override
+	public List<User> getUsers() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void updateDay(List<Day> day) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public List<Day> listDay() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void logout() {
+		// TODO Auto-generated method stub
+		
+	}
 
 
 }

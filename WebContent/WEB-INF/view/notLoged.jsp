@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-    <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -21,7 +21,7 @@
 	
 	<h1 Style=' color :blue' ><i>login</i></h1>
 	<div class="box" align="center">
-	<form:form name="login" method="post" action="loginasadmin" modelAttribute="employee">
+	<form:form name="login" method="post" action="checklogin" modelAttribute="employee">
         <table border="1">
 	        <tr>
 	           <td>  Email </td>

@@ -16,6 +16,13 @@
 </head>
 <body>
 
+<!-- MOHAMAD code -->
+<div  class="box "  align='center'>
+<h1>Account: ${logedEmployee.name }</h1>
+ <a href="logout"><button>Logout</button></a>
+</div>
+
+<!-- MOHAMAD End -->
 
 <!-- Gab -->
 <div class="col-sm-12">
