@@ -187,7 +187,7 @@ public class DioImpl implements Dio  {
 
 		@SuppressWarnings("unchecked")
 		@Override
-		public List<Employee> listEmployees() {
+		public List<Employee> getEmployees() {
 		    Session session = sessionFactory.getCurrentSession();
 		    session.beginTransaction();
 		    List<Employee> employees = null;

@@ -81,9 +81,21 @@
 	                <c:forEach var="suggestion" items="${suggestions}" varStatus="status">
 			                <tr>
 			                    <td>${status.index + 1}</td>
-			                    <td>${suggestion.employee_id}</td>
-			                    <td>${suggestion.project_id}</td>
-			                    <td>${suggestion.task_id}</td>
+			                    <c:forEach var="employee" items="${employees}" varStatus="status">
+				                    <c:if test="${ suggestion.employee_id == employee.id}" >
+				                    <td>${employee.name}</td>
+				                    </c:if>
+				                </c:forEach>
+			                    <c:forEach var="project" items="${projects}" varStatus="status">
+			                        <c:if test="${ suggestion.project_id == project.id}" >
+				                    <td>${project.title}</td>
+				                    </c:if>
+				                </c:forEach>   
+			                    <c:forEach var="task" items="${tasks}" varStatus="status">
+			                        <c:if test="${ suggestion.task_id == task.id}" >
+				                    <td>${task.title}</td>
+				                    </c:if>
+					            </c:forEach>
 				            </tr>
 			        </c:forEach>
                          

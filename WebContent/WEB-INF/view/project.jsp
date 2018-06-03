@@ -9,15 +9,6 @@
 <title>Mange Project</title>
 </head>
 <body>
-
-<c:if test="${project.id == 11 }" >
-   <b>Test passed!</b>
-</c:if>
-
-
-
-
-	
 	 <div align="center">
 	     <h1 Style=' color:blue' ><i>Project<b></b></i></h1>
 		     <table border="1">
@@ -62,50 +53,39 @@
 				              <td><input type='hidden' name="timespend" value='${task.timespend}'/>${task.timespend}</td>
 				              <td><input type='hidden' name="started" value='${task.started}'/>${task.started}</td>
 				              <td><input type='hidden' name="finish" value='${task.finish}'/>${task.finish}</td>
-						       <c:choose>      
-						       
+						       <c:choose> 
 			                        <c:when test="${task.employee.id != null}">
 			                              <td> ${task.employee.name} </td>
 								    </c:when>
-								    
+								    <c:when test="${suggestions == null}">
+			                                <td style="color:blue"><a  href="makesuggestion?taskId=${task.id}&projectId=${project.id}">Make Suggestion</a></td>										             
+								    </c:when>
 								    <c:otherwise>
-								          
-								               <c:choose>           
-								                    <c:when test="${suggestions != null}"> 
-								      
-											             <c:forEach var="suggestion" items="${suggestions}" varStatus="status">
-											                <c:if test="${suggestion.task_id != task.id}" >     
-													             <td style="color:blue"><a  href="makesuggestion?taskId=${task.id}&projectId=${project.id}">Make Suggestion</a></td>
-													        </c:if>
-													         <c:if test="${suggestion.task_id == task.id}" >     
-													             <td >suggested</td>
-													        </c:if>
-												      </c:forEach>
-										            </c:when>
-										           
-										            <c:otherwise>
-										            <td style="color:blue"><a  href="makesuggestion?taskId=${task.id}&projectId=${project.id}">Make Suggestion</a></td>
-										            </c:otherwise>
-						                	</c:choose>
-						                	
-								    </c:otherwise>
-											    
-					           </c:choose>	
-				              
+							              <c:set var="check" value="false"/>
+							              <c:forEach var="suggestion" items="${suggestions}" varStatus="status">
+							                  <c:forEach var="employee" items="${employees}" varStatus="status">
+										         <c:if test="${suggestion.task_id == task.id && suggestion.employee_id == employee.id}" >
+										             <c:set var="check" value="${true}"/>     
+										             <td>suggested to ${employee.name} </td>
+										         </c:if>
+										      </c:forEach>   
+										  </c:forEach>
+										         <c:if test="${suggestion.task_id != task.id && check==false}" >     
+										             <td style="color:blue"><a  href="makesuggestion?taskId=${task.id}&projectId=${project.id}">Make Suggestion</a></td>
+										         </c:if>
+							        </c:otherwise>
+					           </c:choose>  
 				              <input type='hidden' name="project.id" value='${project.id}'/>
 				              <td style="color:blue"><input type="submit"   name="delete"value="DELETE"></td>	
 				              <td style="color:blue"><input type="submit"  name="update" value="UPDATE"/></td> 
 				          </tr>
 				        </form:form>  
 				      </c:forEach> 
-			
-	           
 		          <form:form name="formadd Task" method="post" action="addnewtask" modelAttribute="task">
 				              <tr>
 				                   <td></td>
 					              <td> <input type='text' name="title" value='${task.title}'/></td> 
 					                   <input type='hidden' name="project.id" value="${project.id }"/>
-					                   
 					              <td><strike>New</strike></td>
 		                          <td><strike>0</strike></td>
 		                          <td><strike>0</strike></td>

@@ -41,7 +41,7 @@ public interface Dio {
 	Employee getEmployee(int id);
 	void updateEmployee(Employee employee);
 	void deleteEmployee(int employeeId);
-	public List<Employee> listEmployees();
+	public List<Employee> getEmployees();
 	public Employee checkLogin(String email, String password);
 	List<Admin> getAdminsByEmployeeId(int employeeId);
 

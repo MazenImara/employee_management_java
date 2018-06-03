@@ -99,7 +99,7 @@ public class MainController {
 		if(log != null && log.role == "Admin") {	
 	 		ModelAndView model = new ModelAndView("admin");
 	 	     List<Project>projects = dio.getProjects();
-	 		 List<Employee>employees = dio.listEmployees();
+	 		 List<Employee>employees = dio.getEmployees();
 	 	    model.addObject("projects", projects);	
 	 	    model.addObject("employees", employees);
 	 	   return model;
@@ -164,10 +164,14 @@ public class MainController {
     	ModelAndView model = new ModelAndView("gettask");
 	    Task task=dio.getTask(taskId);
 	    Project project=dio.getProject(projectId);
-   	    List<Employee>employees = dio.listEmployees();
+   	    List<Employee> employees = dio.getEmployees();
+   	    List<Task> tasks=dio.getTasks();
+   	    List<Project> projects=dio.getProjects();
    	    List<Suggestion> suggestions=dio.getSuggestions();
 	    model.addObject("suggestions", suggestions);
         model.addObject("employees", employees);
+        model.addObject("projects", projects);
+        model.addObject("tasks", tasks);
 	    model.addObject("task", task);
 	    model.addObject("project", project);
         return model;
@@ -194,8 +198,12 @@ public class MainController {
 			ModelAndView model = new ModelAndView("project");
 			Project project = dio.getProject(id);
 			List<Suggestion> suggestions=dio.getSuggestions();
+			List<Task>tasks=dio.getTasks();
+			List<Employee> employees=dio.getEmployees();
 			model.addObject("project", project);
 			model.addObject("suggestions", suggestions);
+			model.addObject("tasks", tasks);
+			model.addObject("employees", employees);
 			return model;	
 		}	
 		
