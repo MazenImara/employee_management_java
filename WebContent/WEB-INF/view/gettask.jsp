@@ -26,13 +26,13 @@
 			      <tr>
 		             <td>${status.index + 1}</td>
 				                 
-				              <td>${task.title}</td>
-				              <td>${task.status}</td>
-				              <td>${task.timespend}</td>
-				              <td>${task.started}</td>
-				              <td>${task.finish}</td>
-				              <td>${project.title}</td>
-				              <td>${task.employee.id}</td>
+				              <td>${task1.title}</td>
+				              <td>${task1.status}</td>
+				              <td>${task1.timespend}</td>
+				              <td>${task1.started}</td>
+				              <td>${task1.finish}</td>
+				              <td>${project1.title}</td>
+				              <td>${task1.employee.id}</td>
 			      </tr>
 		    	</table>
 	</div>
@@ -54,15 +54,16 @@
 		                <form:form name="employeesForm" method="Get" action="signemployeetotask" modelAttribute="employee">
 			                <tr>
 			                    <td>${status.index + 1}</td>
-			                     <input type='hidden' name="taskId" value='${task.id}'/>
+			                    <input type='hidden' name="taskId" value='${task1.id}'/>
 			                    <input type='hidden' name="employeeId" value='${employee.id}'/>
 			                    <td>${employee.name}</td>
 			                    <td>${employee.email}</td>
 			                    <td>>${employee.password}</td>
 			                    <td>${employee.address}</td>
 			                    <td>${employee.phone}</td>
-			                    <input type='hidden' name="projectId" value='${project.id}'/>
+			                    <input type='hidden' name="projectId" value='${project1.id}'/>
 			                    <td style="color:blue"><input type="submit" value="Select"/></td>
+			                    
 				            </tr>
 				        </form:form>
 			        </c:forEach>
@@ -77,28 +78,44 @@
 		                <th>Employee name</th>
 		                <th>Project name</th>
 		                <th>Task Name</th>
+		                 <th>DELETE</th>
 		            </tr>
+		            
 	                <c:forEach var="suggestion" items="${suggestions}" varStatus="status">
 			                <tr>
 			                    <td>${status.index + 1}</td>
 			                    <c:forEach var="employee" items="${employees}" varStatus="status">
-				                    <c:if test="${ suggestion.employee_id == employee.id}" >
+				                    <c:if test="${suggestion.employee_id == employee.id}" >
+				                    
 				                    <td>${employee.name}</td>
+				                   
 				                    </c:if>
 				                </c:forEach>
 			                    <c:forEach var="project" items="${projects}" varStatus="status">
 			                        <c:if test="${ suggestion.project_id == project.id}" >
-				                    <td>${project.title}</td>
+				                     
+				                      <td>${project.title}</td>
 				                    </c:if>
 				                </c:forEach>   
 			                    <c:forEach var="task" items="${tasks}" varStatus="status">
 			                        <c:if test="${ suggestion.task_id == task.id}" >
+			                        
 				                    <td>${task.title}</td>
 				                    </c:if>
+				                    
 					            </c:forEach>
+					            
+					            
+					            <form:form name="deleteSuggestion" method="Get" action="deletesuggestion" modelAttribute="suggestion">
+								        <input type="hidden" name="projectId" value=' ${ project1.id}'>
+								         <input type="hidden" name="taskId" value='${task1.id}'>
+								         <input type="hidden" name="id" value='${suggestion.id}'> 
+								         <td style="color:blue"><input type="submit" value="Delete"/></td> 
+								         </form:form>
+				                   
 				            </tr>
-			        </c:forEach>
-                         
+			         </c:forEach>
+			    
 	            </table>
         </div>	     
 </body>

@@ -162,8 +162,8 @@ public class MainController {
     @RequestMapping(value="/makesuggestion",method = RequestMethod.GET)
     public ModelAndView  signEmployeeToTasktask(@RequestParam(value="taskId", required=true) int  taskId,@RequestParam(value="projectId", required=true) int projectId) {
     	ModelAndView model = new ModelAndView("gettask");
-	    Task task=dio.getTask(taskId);
-	    Project project=dio.getProject(projectId);
+	    Task task1=dio.getTask(taskId);
+	    Project project1=dio.getProject(projectId);
    	    List<Employee> employees = dio.getEmployees();
    	    List<Task> tasks=dio.getTasks();
    	    List<Project> projects=dio.getProjects();
@@ -172,8 +172,8 @@ public class MainController {
         model.addObject("employees", employees);
         model.addObject("projects", projects);
         model.addObject("tasks", tasks);
-	    model.addObject("task", task);
-	    model.addObject("project", project);
+	    model.addObject("task1", task1);
+	    model.addObject("project1", project1);
         return model;
     }
     
@@ -187,6 +187,15 @@ public class MainController {
  	    return "redirect:getproject?id="+projectId;
         //return "redirect:makesuggestion?taskId="+taskId+"&projectId="+projectId;
     } 
+    @RequestMapping(value="/deletesuggestion",method = RequestMethod.GET)
+	public String  deleteSuggestion(@RequestParam(value="id", required=true) int  id,@RequestParam(value="taskId", required=true) int  taskId,@RequestParam(value="projectId", required=true) int projectId) {
+		System.out.print("taskId="+taskId);
+		System.out.print(projectId);
+    	dio.deleteSuggestion(id);
+	    return "redirect:makesuggestion?taskId="+taskId+"&projectId="+projectId;
+	    
+		
+	}
 	
 	// End 	MOHAMAD
 	
