@@ -9,8 +9,9 @@
 <body>
    
 	
-   <form method="post" action="login">
+   <form method="post" action="loginasadmin">
             <center>
+          
             <table border="1" cellpadding="5" cellspacing="2">
                 <thead>
                     <tr>
@@ -34,10 +35,13 @@
                     </tr>                    
                 </tbody>
             </table>
+            
             </center>
         </form>
-    
-
-
+ <!--     
+<c:if test="${logedEmployee != null}">
+	hello  ${logedEmployee.name }
+</c:if>
+-->
 </body>
 </html>

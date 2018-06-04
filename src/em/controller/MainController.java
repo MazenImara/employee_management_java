@@ -67,11 +67,13 @@ public class MainController {
 	@RequestMapping(value="/admin")
  	public ModelAndView project() {
  		ModelAndView model = new ModelAndView("admin");
- 		
  	     List<Project>projects = dio.getProjects();
  		 List<Employee>employees = dio.listEmployees();
+ 		 List<Day> days= dio.getDays();
  	    model.addObject("projects", projects);	
  	    model.addObject("employees", employees);
+ 	    model.addObject("days", days );
+ 	   //model.addObject("getDays", getDays);
  		return model;	 	
  	}	     
 	
@@ -135,6 +137,7 @@ public class MainController {
 			ModelAndView model = new ModelAndView("project");
 			Project project = dio.getProject(id);
 			model.addObject("project", project);
+			
 			return model;	
 		}	
 		
@@ -160,6 +163,7 @@ public class MainController {
 	        dio.deleteProject(id);
 	        return "redirect:admin";	 
 	    }
+		
 		@RequestMapping(value="/projectsList")
 	    public ModelAndView projectsList() {	
 	    	List<Project> getProjects = dio.getProjects();
@@ -280,15 +284,15 @@ public class MainController {
 	}
 
 	@RequestMapping(value = "/addDay", method = RequestMethod.POST)
-	public ModelAndView addDay(@ModelAttribute("day") Day day) {
-		System.out.println(day.getDate());
-		dio.addDay(day);
-		ModelAndView model = new ModelAndView("day");
-		day=new Day();
-		model.addObject("day", day);
+	public String addDay(@ModelAttribute("day") Day day) {
+	    dio.addDay(day);
+	    return "redirect:admin";
+	  /*	ModelAndView model = new ModelAndView("day");
+		 day=new Day();
+		 model.addObject("day", day);
 		List<Day> getDays = dio.getDays();
-		model.addObject("getDays", getDays);
-		return model;			
+		model.addObject("getDays", getDays);*/
+       	 
 	}
 	
 	 @RequestMapping(value="/deleteDay")
@@ -317,19 +321,44 @@ public class MainController {
 	        model.addObject("getDays", getDays );
 	        return model;
 	    }
-	
-	    
+	    /*
 	    @RequestMapping(value="/login")
 		public String Login (HttpSession session,@RequestParam(value="email") String email, @RequestParam(value="password") String password)
 		{
 	    	//ModelAndView model=new ModelAndView ("listEmployees");
-	 		 List<Employee>employees= dio.listEmployees();
-				if(employees!=null) {
-				session.setAttribute("logged",employees);
-			}
+	    	Employee emp=new Employee();
+	    	List<Employee> Employees = dio.listEmployees();
+	    	if(emp.email.equals(email)&& emp.password.equals(password)) {
+	    		session.setAttribute("logged",emp.name);
+	    	} 
 	     return "redirect:/admin";
-		}
-		
+	    	}*/
+	    
+	    @RequestMapping(value="/login")
+		public String Login (HttpSession session,@RequestParam(value="email") String email, @RequestParam(value="password") String password) {  
+			List<Employee> employee = dio.listEmployees();
+	    	Employee emp=dio.checkLogin(email,password);
+		 //model = new ModelAndView("admin");
+ 	    	//if (employee!=null) 
+   	        if(emp.email.equals(email)) {
+ 			System.out.println(emp.email);
+ 		   session.setAttribute("logged", emp.name);
+ 		
+ 	    	}
+ 	    	return "redirect:/admin";
+	    
+}
+	    @RequestMapping(value="/loginasadmin")
+		public ModelAndView loginasadmin(HttpSession session){
+			//List<Employee> employee = dio.listEmployees();
+			
+    	  ModelAndView model = new ModelAndView("login");
+		 // session.setAttribute("logged",employee);
+        
+        return model;
+			}
+	    
+	    
 		@RequestMapping(value="/logout")
 		public String logout (HttpSession session, @RequestParam(value="email") String email, @RequestParam(value="password") String password)
 		{

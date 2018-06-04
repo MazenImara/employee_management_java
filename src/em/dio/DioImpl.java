@@ -240,7 +240,7 @@ public class DioImpl implements Dio  {
 		
 
 @Override
-public Task getTask(int id) {
+  public Task getTask(int id) {
 	Session session = sessionFactory.getCurrentSession();
     Task task=null;
     try {
@@ -407,11 +407,6 @@ public Task getTask(int id) {
     session.getTransaction().commit();	
     }
 	        
-	        
-	
-	
-	        
-	
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Suggestion> getSuggestions() {
@@ -560,26 +555,34 @@ public Task getTask(int id) {
            */
 		
 		@SuppressWarnings("unchecked")
-		
-		public List<Employee> checkLogin() {
-			Session session = sessionFactory.getCurrentSession();
+		@Override
+		public Employee checkLogin(String email, String password) {
+
+		    Session session = sessionFactory.getCurrentSession();
 		    session.beginTransaction();
+		    Employee employee=new Employee();
 		    List<Employee> employees = null;
 		    try {
-		        employees = (List<Employee>)session.createQuery("from Employee").list();
-		
+		        System.out.println("IN LIST");
+		        employees = (List<Employee>)session.createQuery("from Employee ").list();
+		        outer:
+		        for(Employee emp:employees) {
+			    	if(emp.email.equals(email)&&emp.password.equals(password)) {
+			    		employee=emp;
+			    		break outer;
+			        }
+			    	else {
+			    		employee=null;
+			    	}
+		        }
 		    } catch (HibernateException e) {
 		        e.printStackTrace();
 		        session.getTransaction().rollback();
 		    }
 		    session.getTransaction().commit();
-		    return employees;
-		}
+		    return employee;
+}	
 }
-
-		
-		
-
 
 
 // end Nidal

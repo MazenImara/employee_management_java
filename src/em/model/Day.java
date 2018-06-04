@@ -21,8 +21,8 @@ public class Day implements Serializable  {
     @Column(name="id")
     public int id;
     
-    @Column(name="employeeId")
-    public int employeeId;
+    @Column(name="employee_id")
+    public int employee_id;
     
     @Column(name="date")
     public long date;
@@ -36,11 +36,11 @@ public class Day implements Serializable  {
     @Column(name="temp")
     public long temp;
     
-    @Column(name="timeSpend")
-    public int timeSpend;
+    @Column(name="timespend")
+    public int timespend;
     
     @Column(name="check")
-    public boolean check;
+    public int check;
     
     public int getId() {
 		return id;
@@ -51,11 +51,11 @@ public class Day implements Serializable  {
 	}
 
 	public int getEmployeeId() {
-		return employeeId;
+		return employee_id;
 	}
 
-	public void setEmployeeId(int employeeId) {
-		this.employeeId = employeeId;
+	public void setEmployeeId(int employee_id) {
+		this.employee_id = employee_id;
 	}
 
 	public long getDate() {
@@ -91,18 +91,18 @@ public class Day implements Serializable  {
 	}
 
 	public int getTimeSpend() {
-		return timeSpend;
+		return timespend;
 	}
 
-	public void setTimeSpend(int timeSpend) {
-		this.timeSpend = timeSpend;
+	public void setTimeSpend(int timespend) {
+		this.timespend = timespend;
 	}
 
-	public boolean isCheck() {
+	public int Check() {
 		return check;
 	}
 
-	public void setCheck(boolean check) {
+	public void setCheck(int check) {
 		this.check = check;
 	}
 

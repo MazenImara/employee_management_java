@@ -9,7 +9,7 @@
 <title>Mange Project</title>
 </head>
 <body>
-	
+	<h2> Welcome ${logged}</h2>
 	 <div align="center">
 	     <h1 Style=' color :blue' ><i>Project<b></b></i></h1>
 		     <table border="1">

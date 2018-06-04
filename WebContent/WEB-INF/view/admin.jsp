@@ -9,6 +9,7 @@
    <title>Administrator</title>
 </head>
 <body>
+     
 	 <div align="center">
 	     <h1 Style=' color :blue' ><i>Projects<b></b></i></h1>
 		     <table border="1">
@@ -68,6 +69,49 @@
 		            </tr>
 	                <c:forEach var="employee" items="${employees}" varStatus="status">
 	                <form:form name="employeeForm" method="post" action="updateemployee" modelAttribute="employee">
+		                <tr>
+		                    <td>${status.index + 1}</td>
+		                    <input type='hidden' name="id" value='${employee.id}'/>
+		                    <td><input type='text' name="name" value='${employee.name}'/></td>
+		                    <td><input type='text' name="email" value='${employee.email}'/></td>
+		                    <td><input type='text' name="password" value='${employee.password}'/></td>
+		                    <td><input type='text' name="address" value='${employee.address}'/></td>
+		                    <td><input type='text' name="phone" value='${employee.phone}'/></td>
+		                    <td style="color:blue"><a  href="getemployee?id=${employee.id}">GO</a></td>
+		                    <td style="color:blue"><a  href="deleteemployee?id=${employee.id}">DELETE</a></td>
+		                    <td style="color:blue"><input type="submit" value="UPDATE"/></td>
+			            </tr>
+			        </form:form>
+			        </c:forEach>
+                    <form:form name="addForm" method="post" action="addemployee" modelAttribute="employee">
+	                    <td> </td>
+	                    <td> <input type='text' name="name" value='${employee.name}'/></td>
+	                    <td> <input type='text' name="email" value='${employee.email}'/></td>
+	                    <td> <input type='text' name="password" value='${employee.password}'/></td>
+	                    <td> <input type='text' name="address" value='${employee.address}'/></td>
+	                    <td> <input type='text' name="phone" value='${employee.phone}'/></td>
+	                    <td style="color:blue"><input type="submit" value="ADD Employee "/></td>            
+                    </form:form>       
+	            </table>
+        </div>
+        
+        
+         <div align="center">
+           <h1 Style=' color :blue' ><i> Day <b></b></i></h1>
+	            <table border="1">
+		            <tr>
+		                <th>S.No.</th>
+		                <th>Employee name</th>
+		                <th>Employee email</th>
+		                <th>Employee password</th>
+		                <th>Employee address</th>
+		                <th>Employee phone</th>
+		                <th>Select</th>
+		                <th>Delete</th>
+		                <th>Update</th>
+		            </tr>
+	                <c:forEach var="employee" items="${employees}" varStatus="status">
+	                <form:form name="employeeForm" method="post" action="addDay" modelAttribute="employee">
 		                <tr>
 		                    <td>${status.index + 1}</td>
 		                    <input type='hidden' name="id" value='${employee.id}'/>

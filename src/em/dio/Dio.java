@@ -26,8 +26,7 @@ public interface Dio {
 	void updateDay(Day day);
 	public List<Day> listDay();
 	public void logout() ;
-	public List<Employee> checkLogin();
-
+	public Employee checkLogin(String email,String password) ;
 
 
 //MOHAMAD 
