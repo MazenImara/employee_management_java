@@ -112,7 +112,7 @@ public class MainController {
 	
 	@RequestMapping(value="/getemployee")
 	public ModelAndView emp(@RequestParam(value="id", required=true) int  id) {
-		ModelAndView model = new ModelAndView("employee");
+		ModelAndView model = new ModelAndView("mangeemployee");
 		Employee employee = dio.getEmployee(id);
 		model.addObject("employee", employee);
 		return model;
@@ -136,6 +136,51 @@ public class MainController {
         dio.deleteEmployee(employeeId);
         return "redirect:admin";		 
     }
+	
+	@RequestMapping(value="/getproject")
+	public ModelAndView project(@RequestParam(value="id", required=true) int  id) {
+		ModelAndView model = new ModelAndView("project");
+		Project project = dio.getProject(id);
+		List<Suggestion> suggestions=dio.getSuggestions();
+		List<Task>tasks=dio.getTasks();
+		List<Employee> employees=dio.getEmployees();
+		model.addObject("project", project);
+		model.addObject("suggestions", suggestions);
+		model.addObject("tasks", tasks);
+		model.addObject("employees", employees);
+		return model;	
+	}	
+	
+	@RequestMapping(value = "/updateproject" ,method = RequestMethod.POST)	
+	 public String update(@ModelAttribute("project") Project project) {	
+		System.out.println(project.id);
+	     if(null != project ) {	
+	        dio.updateProject(project);
+	     }
+	     return "redirect:admin";		     	
+    }
+	
+	@RequestMapping(value = "/addproject" ,method = RequestMethod.POST)
+	 public String addProject(@ModelAttribute("project") Project project) {
+		project.status="New";
+        project.timeSpend="0";
+	    dio.addProject(project); 
+	    return "redirect:admin";
+	} 
+
+	@RequestMapping(value="/deleteproject")
+    public String deleteproject(@RequestParam(value="id", required=true) int id) {
+        dio.deleteProject(id);
+        return "redirect:admin";	 
+    }
+	@RequestMapping(value="/projectsList")
+    public ModelAndView projectsList() {	
+    	List<Project> getProjects = dio.getProjects();
+    	ModelAndView model = new ModelAndView("projectsList");
+        model.addObject("getProjects", getProjects );
+        return model;
+    }
+	
 
 	@RequestMapping(value = "/addnewtask" ,method = RequestMethod.POST)
 
@@ -196,57 +241,40 @@ public class MainController {
 	    
 		
 	}
-	
-	// End 	MOHAMAD
-	
-	// Ikram + MOHAMAD Code
-	
-	 
-		@RequestMapping(value="/getproject")
-		public ModelAndView project(@RequestParam(value="id", required=true) int  id) {
-			ModelAndView model = new ModelAndView("project");
-			Project project = dio.getProject(id);
-			List<Suggestion> suggestions=dio.getSuggestions();
-			List<Task>tasks=dio.getTasks();
-			List<Employee> employees=dio.getEmployees();
-			model.addObject("project", project);
-			model.addObject("suggestions", suggestions);
-			model.addObject("tasks", tasks);
-			model.addObject("employees", employees);
-			return model;	
-		}	
-		
-		@RequestMapping(value = "/updateproject" ,method = RequestMethod.POST)	
-		 public String update(@ModelAttribute("project") Project project) {	
-			System.out.println(project.id);
-		     if(null != project ) {	
-		        dio.updateProject(project);
-		     }
-		     return "redirect:admin";		     	
-	    }
-		
-		@RequestMapping(value = "/addproject" ,method = RequestMethod.POST)
-		 public String addProject(@ModelAttribute("project") Project project) {
-			project.status="New";
-	        project.timeSpend="0";
-		    dio.addProject(project); 
-		    return "redirect:admin";
-		} 
+    
+    @RequestMapping(value = "/mangeemployee" ,method = RequestMethod.POST,params = { "update" })
+	 public String updateEmployeeInMangeEmplyeePage(@ModelAttribute("employee") Employee employee) {
+	   if(null != employee )
+	      dio.updateEmployee(employee);
+	   return "redirect:getemployee?id="+employee.id;
+	}
+    @RequestMapping(value = "/mangeemployee" ,method = RequestMethod.POST,params = { "signToAdmin" })
+	 public String signToAdmin(@ModelAttribute("employee") Employee employee) {
+    	Admin admin=new Admin();
+    	admin.employee_id=employee.id;
+		dio.addAdmin(admin);   
+	   return "redirect:getemployee?id="+employee.id;
+	}
+    @RequestMapping(value = "/mangeemployee" ,method = RequestMethod.POST,params = { "workTimes" })
+	 public String showWorkTimes(@ModelAttribute("employee") Employee employee) {
+	   //if(null != employee )
+	     
+		   
+	   return "redirect:getemployee?id="+employee.id;
+	}
+    @RequestMapping(value = "/mangeemployee" ,method = RequestMethod.POST,params = { "timeOff" })
+	 public String showTimeOff(@ModelAttribute("employee") Employee employee) {
+	  // if(null != employee )
+	    
+		   
+	   return "redirect:getemployee?id="+employee.id;
+	}
+   
 
-		@RequestMapping(value="/deleteproject")
-	    public String deleteproject(@RequestParam(value="id", required=true) int id) {
-	        dio.deleteProject(id);
-	        return "redirect:admin";	 
-	    }
-		@RequestMapping(value="/projectsList")
-	    public ModelAndView projectsList() {	
-	    	List<Project> getProjects = dio.getProjects();
-	    	ModelAndView model = new ModelAndView("projectsList");
-	        model.addObject("getProjects", getProjects );
-	        return model;
-	    }
+		// End 	MOHAMAD
 		
-		//end Ikram+mohamad
+
+		
 	
 	@RequestMapping(value="/")
 

@@ -9,6 +9,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import em.model.Task;
+import em.model.TimeOff;
 import em.model.User;
 import em.model.Employee;
 import em.model.Project;
@@ -249,6 +250,80 @@ public class DioImpl implements Dio  {
 			    session.getTransaction().commit();
 			    return employee;
 	}	
+		@Override
+		public TimeOff getTimeOff(int timeOffId) {
+		    Session session = sessionFactory.getCurrentSession();
+		    TimeOff timeOff=null;
+		    try {
+		        System.out.println("IN GetIteam");
+		        session.beginTransaction();
+		        timeOff = (TimeOff) session.get(TimeOff.class, timeOffId);
+		    } catch (HibernateException e) {
+		        e.printStackTrace();
+		        session.getTransaction().rollback();
+		    }
+		    session.getTransaction().commit();
+		    return timeOff;
+		}
+
+		   
+		
+		@Override
+		public void addTimeOff(TimeOff timeOff) {
+		    Session session = sessionFactory.getCurrentSession();
+		    try {
+		        session.beginTransaction();
+		        session.save(timeOff);
+		    }
+		    catch (HibernateException e) {
+		          e.printStackTrace();
+		          session.getTransaction().rollback();
+		    }
+		    session.getTransaction().commit();
+		}
+
+		@Override
+		public void updateTimeOff(TimeOff timeOff) {
+			 Session session = sessionFactory.getCurrentSession();
+			    try {
+			        System.out.println("IN Update");
+			        session.beginTransaction();
+			        session.saveOrUpdate(timeOff);
+			        } catch (HibernateException e) {
+			            e.printStackTrace();
+			            session.getTransaction().rollback();
+			        }
+			    session.getTransaction().commit();
+			}
+
+		@Override
+		public void deleteTimeOff(TimeOff timeOffId) {
+		    Session session = sessionFactory.getCurrentSession();
+		    session.beginTransaction();
+		    TimeOff timeOff = (TimeOff) session.get(TimeOff.class, timeOffId);
+		    if(null != timeOff) {
+		        session.delete(timeOffId);
+		    }
+		    session.getTransaction().commit();
+		}
+
+			@SuppressWarnings("unchecked")
+			@Override
+			public List<TimeOff> getTimeOff() {
+			    Session session = sessionFactory.getCurrentSession();
+			    session.beginTransaction();
+			    List<TimeOff> timeOffs = null;
+			    try {
+			        System.out.println("IN LIST");
+			        timeOffs = (List<TimeOff>)session.createQuery("from TimeOff ").list();
+			    }  catch (HibernateException e) {
+			        e.printStackTrace();
+			        session.getTransaction().rollback();
+			    }
+			     session.getTransaction().commit();
+
+				    return timeOffs;
+			}
 			
 		
 		 // end MOHAMAD

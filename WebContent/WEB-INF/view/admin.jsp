@@ -15,7 +15,6 @@
 <h1>Account: ${logedEmployee.name }</h1>
  <a href="logout"><button>Logout</button></a>
 </div>
-
 	 <div align="center">
 	     <h1 Style=' color :blue' ><i>Projects<b></b></i></h1>
 		     <table border="1">
@@ -46,7 +45,6 @@
 			      </c:forEach>   
 
 	              <form:form name="formAddProject" method="post" action ="addproject" modelAttribute="project">
-
 	                    <td> </td>
 	                    <td> <input type='text' name="title" value='${project.title}'/></td>
 	                    <td> <input type='text' name="description" value='${project.description}'/></td>
@@ -55,7 +53,6 @@
 	                     <td><strike>New</strike></td>
 	                     <td><strike>0</strike></td>
 	                    <td style="color:blue"><input type="submit" value="ADD Project "/></td>
-		                               
 		           </form:form>            
 	            </table>
        </div>
@@ -72,6 +69,7 @@
 		                <th>Select</th>
 		                <th>Delete</th>
 		                <th>Update</th>
+		              
 		            </tr>
 	                <c:forEach var="employee" items="${employees}" varStatus="status">
 	                <form:form name="employeeForm" method="post" action="updateemployee" modelAttribute="employee">
@@ -80,7 +78,7 @@
 		                    <input type='hidden' name="id" value='${employee.id}'/>
 		                    <td><input type='text' name="name" value='${employee.name}'/></td>
 		                    <td><input type='text' name="email" value='${employee.email}'/></td>
-		                    <td><input type='text' name="password" value='${employee.password}'/></td>
+		                    <td><input type='password' name="password" value='${employee.password}'/></td>
 		                    <td><input type='text' name="address" value='${employee.address}'/></td>
 		                    <td><input type='text' name="phone" value='${employee.phone}'/></td>
 		                    <td style="color:blue"><a  href="getemployee?id=${employee.id}">GO</a></td>
@@ -100,9 +98,6 @@
                     </form:form>       
 	            </table>
         </div>
-        
-        
 </body>
-
 </html>
 

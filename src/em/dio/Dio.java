@@ -6,6 +6,7 @@ import java.util.List;
 import em.model.Day;
 
 import em.model.Task;
+import em.model.TimeOff;
 import em.model.Employee;
 import em.model.Project;
 import em.model.Suggestion;
@@ -44,6 +45,14 @@ public interface Dio {
 	public List<Employee> getEmployees();
 	public Employee checkLogin(String email, String password);
 	List<Admin> getAdminsByEmployeeId(int employeeId);
+	public void addAdmin(Admin admin);
+	public void addTimeOff(TimeOff timeOff);
+	public void updateTimeOff(TimeOff timeOff);
+	public void deleteTimeOff(TimeOff timeOffId);
+	public List<TimeOff> getTimeOff();
+	public TimeOff getTimeOff(int timeOffId);
+	
+	
 
 
 
@@ -71,8 +80,6 @@ public interface Dio {
 	public List<Suggestion> getSuggestions();
 	public List<Task> getTasksByProjectId(int project_id);
 	public List<Task> checkStatus(String status);
-	public void addAdmin(Admin admin);
-	
 	
 	
 	
