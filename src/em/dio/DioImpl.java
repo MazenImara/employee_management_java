@@ -309,21 +309,39 @@ public class DioImpl implements Dio  {
 
 			@SuppressWarnings("unchecked")
 			@Override
-			public List<TimeOff> getTimeOff() {
+			public List<TimeOff> getTimesOff() {
 			    Session session = sessionFactory.getCurrentSession();
 			    session.beginTransaction();
-			    List<TimeOff> timeOffs = null;
+			    List<TimeOff> timesOff = null;
 			    try {
 			        System.out.println("IN LIST");
-			        timeOffs = (List<TimeOff>)session.createQuery("from TimeOff ").list();
+			        timesOff = (List<TimeOff>)session.createQuery("from TimeOff ").list();
 			    }  catch (HibernateException e) {
 			        e.printStackTrace();
 			        session.getTransaction().rollback();
 			    }
 			     session.getTransaction().commit();
 
-				    return timeOffs;
+				    return timesOff;
 			}
+			@SuppressWarnings("unchecked")
+			@Override
+			public List<TimeOff> getTimesOffByEmployeeId(int employeeId) {
+					Session session = sessionFactory.getCurrentSession();
+				    session.beginTransaction();
+				    List<TimeOff> timesOff = null;
+				    try {
+				        System.out.println("IN LIST");
+				        timesOff = (List<TimeOff>)session.createQuery("from TimeOff where employee_id="+employeeId).list();
+				
+				    } catch (HibernateException e) {
+				        e.printStackTrace();
+				        session.getTransaction().rollback();
+				    }
+				    session.getTransaction().commit();
+				    return timesOff;
+				}
+			
 			
 		
 		 // end MOHAMAD

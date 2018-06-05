@@ -2,6 +2,8 @@
     pageEncoding="ISO-8859-1"%>
      <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
     <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+    
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -9,8 +11,12 @@
 <title>Insert title here</title>
 </head>
 <body>
+
+
+
+                            
 <div align="center">
-           <h1 Style=' color :blue' ><i>Employee List<b></b></i></h1>
+           <h1 Style=' color :blue' ><i><b>Employee List</b></i></h1>
 	            <table border="1">
 		            <tr>
 		                <th>Employee name</th>
@@ -20,9 +26,6 @@
 		                <th>Employee phone</th>
 		                <th>Uppdate</th>
 		                <th>Sign To Admin</th>
-		                <th>View WorkTimes</th>
-		                <th>View TimeOff</th>
-		              
 		            </tr>
 		            <form:form name="mangeEmployee" method="post" action="mangeemployee" modelAttribute="employee">
 		                <tr>
@@ -34,11 +37,42 @@
 		                    <td><input type='text' name="phone" value='${employee.phone}'/></td>
 		                    <td style="color:blue"><input type="submit" name="update" value="UPDATE"/></td>
 		                    <td style="color:blue"><input type="submit" name="signToAdmin"value="Sign To Admin"/></td>
-		                    <td style="color:blue"><input type="submit" name="workTime"value="WorkTimes          "/></td>
-		                    <td style="color:blue"><input type="submit" name="TimeOff"value="TimeOff          "/></td>
 			            </tr>
 			        </form:form>
 	      </table>
-   </div>
+	      
+	      
+	      
+</div>
+<div align="center">
+           <h1 Style=' color :blue' ><i>Time Off <b></b></i></h1>
+	            <table border="1">
+		            <tr>
+		                <th>S.No.</th>
+		                <th>From</th>
+		                <th>To</th>
+		            </tr>
+		             <c:forEach var="timeOff" items="${timesOffList}" varStatus="status">
+		                <tr>
+		                    <td>${status.index + 1}</td>
+		                    <td>
+			                    <jsp:useBean id="dateObject" class="java.util.Date" />
+								<jsp:setProperty name="dateObject" property="time" value="${timeOff.from}" />
+							    <b><fmt:formatDate value="${dateObject }" pattern="dd/MM/yyyy--" /></b>
+								<b><fmt:formatDate value="${dateObject }" pattern="hh:mm a" /></b>
+		                    </td>
+		                    <td>
+			                    <jsp:useBean id="dateObject2" class="java.util.Date" />
+								<jsp:setProperty name="dateObject" property="time" value="${timeOff.to}" />
+								<b><fmt:formatDate value="${dateObject }" pattern="dd/MM/yyyy--" /></b>
+								<b><fmt:formatDate value="${dateObject }" pattern="hh:mm a" /></b>
+							</td>		                
+		                 <tr>   
+			          </c:forEach>  
+	             </table>
+   </div>   
 </body>
 </html>
+
+
+

@@ -5,7 +5,10 @@ import javax.servlet.http.HttpSession;
 import javax.xml.ws.Response;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
+
 import javax.servlet.http.HttpSession;
 import org.hibernate.Session;
 
@@ -23,6 +26,7 @@ import em.model.Employee;
 import em.model.Project;
 import em.model.Suggestion;
 import em.model.Task;
+import em.model.TimeOff;
 import em.model.Log;
 
 
@@ -114,6 +118,14 @@ public class MainController {
 	public ModelAndView emp(@RequestParam(value="id", required=true) int  id) {
 		ModelAndView model = new ModelAndView("mangeemployee");
 		Employee employee = dio.getEmployee(id);
+		List<TimeOff> timesOff=dio. getTimesOffByEmployeeId(employee.id);
+	    List<TimeOff> timesOffList= new ArrayList<TimeOff>();
+	    for(TimeOff timeOff :timesOff) {
+			timeOff.from=TimeUnit.SECONDS.toMillis(timeOff.from );
+			timeOff.to=TimeUnit.SECONDS.toMillis(timeOff.to );
+			timesOffList.add(timeOff);
+		}
+	    model.addObject("timesOffList",timesOffList);
 		model.addObject("employee", employee);
 		return model;
 	}	
@@ -127,7 +139,6 @@ public class MainController {
 	 public String updateEmployee(@ModelAttribute("employee") Employee employee) {
 	     if(null != employee )
 	        dio.updateEmployee(employee);
-	        
 	     return "redirect:admin";
 	}
 	
@@ -143,10 +154,32 @@ public class MainController {
 		Project project = dio.getProject(id);
 		List<Suggestion> suggestions=dio.getSuggestions();
 		List<Task>tasks=dio.getTasks();
+		/*
+		List<Task> tasks= new ArrayList<Task>();
+		
+	    for(Task task1 :tasks1) {
+			Task task=new Task();;
+			task.timespend=TimeUnit.SECONDS.toMillis(task1.timespend );
+			task.started=TimeUnit.SECONDS.toMillis(task1.started);
+			task.finish=TimeUnit.SECONDS.toMillis(task1.finish);
+			task.timespend=task1.timespend ;
+			task.started=task1.started;
+			task.finish=task1.finish;
+			task.employee=task1.employee;
+			task.id=task1.id;
+			task.project=task1.project;
+			task.status=task1.status;
+			task.title=task1.title;
+			task.timetemp=task1.timetemp;
+			tasks.add(task);
+		}
+		*/
+		
+		
 		List<Employee> employees=dio.getEmployees();
 		model.addObject("project", project);
 		model.addObject("suggestions", suggestions);
-		model.addObject("tasks", tasks);
+		model.addObject("taskList", tasks);
 		model.addObject("employees", employees);
 		return model;	
 	}	
@@ -248,13 +281,21 @@ public class MainController {
 	      dio.updateEmployee(employee);
 	   return "redirect:getemployee?id="+employee.id;
 	}
-    @RequestMapping(value = "/mangeemployee" ,method = RequestMethod.POST,params = { "signToAdmin" })
+    @SuppressWarnings("null")
+	@RequestMapping(value = "/mangeemployee" ,method = RequestMethod.POST,params = { "signToAdmin" })
 	 public String signToAdmin(@ModelAttribute("employee") Employee employee) {
     	Admin admin=new Admin();
-    	admin.employee_id=employee.id;
-		dio.addAdmin(admin);   
+    	List<Admin> admins =  dio.getAdminsByEmployeeId(employee.id);
+    	for(Admin ad : admins) {
+    		admin=ad;
+    	}
+    	if (admin.id==0) {
+	    	admin.employee_id=employee.id;
+			dio.addAdmin(admin);
+    	}
 	   return "redirect:getemployee?id="+employee.id;
-	}
+    }
+    /*
     @RequestMapping(value = "/mangeemployee" ,method = RequestMethod.POST,params = { "workTimes" })
 	 public String showWorkTimes(@ModelAttribute("employee") Employee employee) {
 	   //if(null != employee )
@@ -270,7 +311,7 @@ public class MainController {
 	   return "redirect:getemployee?id="+employee.id;
 	}
    
-
+     */
 		// End 	MOHAMAD
 		
 

@@ -34,12 +34,16 @@
 <!-- ikram & gab -->
 		<mapping class="em.model.Project" />
 		<mapping class="em.model.Task" />
-		<mapping class="em.model.Employee" />		
 		<mapping class="em.model.Suggestion" />
-		<mapping class="em.model.User" />
+		
+<!-- Mohamad Model -->	
 		<mapping class="em.model.Admin" />
-		
-		
+		<mapping class="em.model.TimeOff" />
+		<mapping class="em.model.Employee" />
+		<mapping class="em.model.Log" />
+<!-- Nidal Model -->	
+		<mapping class="em.model.Day" />
+			
 <!-- end project -->
 
 

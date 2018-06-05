@@ -36,23 +36,7 @@ public interface Dio {
 
 
 
-//MOHAMAD 
-	
-	void addEmployee(Employee employee);
-	Employee getEmployee(int id);
-	void updateEmployee(Employee employee);
-	void deleteEmployee(int employeeId);
-	public List<Employee> getEmployees();
-	public Employee checkLogin(String email, String password);
-	List<Admin> getAdminsByEmployeeId(int employeeId);
-	public void addAdmin(Admin admin);
-	public void addTimeOff(TimeOff timeOff);
-	public void updateTimeOff(TimeOff timeOff);
-	public void deleteTimeOff(TimeOff timeOffId);
-	public List<TimeOff> getTimeOff();
-	public TimeOff getTimeOff(int timeOffId);
-	
-	
+
 
 
 
@@ -81,10 +65,25 @@ public interface Dio {
 	public List<Task> getTasksByProjectId(int project_id);
 	public List<Task> checkStatus(String status);
 	
-	
-	
-
-	
 //end ikram	
+	
+	
+	//MOHAMAD 
+	
+		public void addEmployee(Employee employee);
+		public Employee getEmployee(int id);
+		public void updateEmployee(Employee employee);
+		public void deleteEmployee(int employeeId);
+		public List<Employee> getEmployees();
+		public Employee checkLogin(String email, String password);
+		public List<Admin> getAdminsByEmployeeId(int employeeId);
+		public void addAdmin(Admin admin);
+		public void addTimeOff(TimeOff timeOff);
+		public void updateTimeOff(TimeOff timeOff);
+		public void deleteTimeOff(TimeOff timeOffId);
+		public List<TimeOff> getTimesOff();
+		public TimeOff getTimeOff(int timeOffId);
+		public List<TimeOff> getTimesOffByEmployeeId(int employeeId);
+	//end MOHAMAD	
 
 }
