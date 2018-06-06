@@ -153,33 +153,9 @@ public class MainController {
 		ModelAndView model = new ModelAndView("project");
 		Project project = dio.getProject(id);
 		List<Suggestion> suggestions=dio.getSuggestions();
-		List<Task>tasks=dio.getTasks();
-		/*
-		List<Task> tasks= new ArrayList<Task>();
-		
-	    for(Task task1 :tasks1) {
-			Task task=new Task();;
-			task.timespend=TimeUnit.SECONDS.toMillis(task1.timespend );
-			task.started=TimeUnit.SECONDS.toMillis(task1.started);
-			task.finish=TimeUnit.SECONDS.toMillis(task1.finish);
-			task.timespend=task1.timespend ;
-			task.started=task1.started;
-			task.finish=task1.finish;
-			task.employee=task1.employee;
-			task.id=task1.id;
-			task.project=task1.project;
-			task.status=task1.status;
-			task.title=task1.title;
-			task.timetemp=task1.timetemp;
-			tasks.add(task);
-		}
-		*/
-		
-		
 		List<Employee> employees=dio.getEmployees();
 		model.addObject("project", project);
 		model.addObject("suggestions", suggestions);
-		model.addObject("taskList", tasks);
 		model.addObject("employees", employees);
 		return model;	
 	}	

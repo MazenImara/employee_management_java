@@ -23,7 +23,7 @@
 		              <td>${project.title}</td>
 		              <td>${project.description}</td>
 		              <td>${project.status}</td>
-		              <td>project.timeSpend}</td>
+		              <td>${project.timeSpend}</td>
 			      </tr>
          	</table>
 	</div>
@@ -52,40 +52,46 @@
 				              <td><input type='text' name="title" value='${task.title} '/></td>
 				              <td><input type='hidden' name="status" value='${task.status}'/>${task.status}</td>
 				              <td><input type='hidden' name="timespend" value='${task.timespend}'/>
-			                    <c:choose>
-								    <c:when test="${task.timespend<=999}">
-								       0
-								    </c:when>    
-								    <c:otherwise>
-					                  <jsp:useBean id="dateObject1" class="java.util.Date" />
-							    	  <jsp:setProperty name="dateObject1" property="time" value="${task.timespend}" />
-								      <b><fmt:formatDate value="${dateObject1 }" pattern="hh:mm " /></b>
-						            </c:otherwise>
-								 </c:choose>
+				                    <c:choose>
+									    <c:when test="${task.timespend<=999}">
+									       00:00
+									    </c:when> 
+									    <c:when test="${task.timespend >= 1000 && task.timespend <= 3599000 }">
+									      <jsp:useBean id="dateObject1" class="java.util.Date" />
+								    	  <jsp:setProperty name="dateObject1" property="time" value="${task.timespend}" />
+									      <b><fmt:formatDate value="${dateObject1 }" pattern=" 00:mm " /></b>
+									     
+									    </c:when>    
+									    <c:otherwise>
+						                  <jsp:useBean id="dateObject2" class="java.util.Date" />
+								    	  <jsp:setProperty name="dateObject2" property="time" value="${task.timespend-3600000}" />
+									      <b><fmt:formatDate value="${dateObject2 }" pattern="hh:mm " /></b>
+							            </c:otherwise>
+									 </c:choose>
 				              </td>
 				              <td><input type='hidden' name="started" value='${task.started}'/>
 				                  <c:choose>
 									    <c:when test="${task.started==0}">
-									       0
+									        00:00
 									    </c:when>    
 									    <c:otherwise>
-									       <jsp:useBean id="dateObject2" class="java.util.Date" />
-								    	   <jsp:setProperty name="dateObject2" property="time" value="${task.started}" />
-								           <b><fmt:formatDate value="${dateObject2 }" pattern="dd/MM/yyyy--" /></b>
-									       <b><fmt:formatDate value="${dateObject2 }" pattern="hh:mm a" /></b>
+									       <jsp:useBean id="dateObject3" class="java.util.Date" />
+								    	   <jsp:setProperty name="dateObject3" property="time" value="${task.started}" />
+								           <b><fmt:formatDate value="${dateObject3 }" pattern="dd/MM/yyyy--" /></b>
+									       <b><fmt:formatDate value="${dateObject3 }" pattern="hh:mm a" /></b>
 									    </c:otherwise>
 									</c:choose>
 				                  </td>
 				              <td><input type='hidden' name="finish" value='${task.finish}'/>
 				                  <c:choose>
 				                        <c:when test="${task.finish==0}">
-									       0
+									        00:00
 									    </c:when>    
 									    <c:otherwise>
-						                   <jsp:useBean id="dateObject3" class="java.util.Date" />
+						                   <jsp:useBean id="dateObject4" class="java.util.Date" />
 								    	   <jsp:setProperty name="dateObject3" property="time" value="${task.finish}" />
-								           <b><fmt:formatDate value="${dateObject3 }" pattern="dd/MM/yyyy--" /></b>
-									       <b><fmt:formatDate value="${dateObject3 }" pattern="hh:mm a" /></b>
+								           <b><fmt:formatDate value="${dateObject4 }" pattern="dd/MM/yyyy--" /></b>
+									       <b><fmt:formatDate value="${dateObject4 }" pattern="hh:mm a" /></b>
 							            </c:otherwise>
 								  </c:choose>
 				                  </td>

@@ -57,7 +57,7 @@
 			                    <input type='hidden' name="employeeId" value='${employee.id}'/>
 			                    <td>${employee.name}</td>
 			                    <td>${employee.email}</td>
-			                    <td>>${employee.password}</td>
+			                    <td>***</td>
 			                    <td>${employee.address}</td>
 			                    <td>${employee.phone}</td>
 			                    <input type='hidden' name="projectId" value='${project1.id}'/>
