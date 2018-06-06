@@ -45,7 +45,7 @@
 	      
 </div>
 <div align="center">
-           <h1 Style=' color :blue' ><i>Time Off <b></b></i></h1>
+           <h2 Style=' color :blue' ><i>Time Off <b></b></i></h2>
 	            <table border="1">
 		            <tr>
 		                <th>S.No.</th>
@@ -70,7 +70,24 @@
 		                 <tr>   
 			          </c:forEach>  
 	             </table>
-   </div>   
+   </div> 
+   
+   
+   <div align="center">
+           <h4 Style=' color :blue' ><i>Work Times <b></b></i></h4>
+	            <table border="1">
+		            <tr>
+		                <th>S.No.</th>
+		                <th>Date</th>
+		                <th>Start Time</th>
+		                <th>End Time</th>
+		                <th>TimeSpend</th>
+		                
+		            </tr>
+		            
+		                   
+	             </table>
+    </div> 
 </body>
 </html>
 
