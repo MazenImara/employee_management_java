@@ -617,54 +617,23 @@ public Task getTask(int id) {
 	    return Days;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
-	public User getUser(int id) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Day> getDayByEmployeeId(int employeeId) {
+		Session session = sessionFactory.getCurrentSession();
+	    session.beginTransaction();
+	    List<Day> days = null;
+	    try {
+	        System.out.println("IN LIST");
+	        days = (List<Day>)session.createQuery("from Day where employee_id="+employeeId).list();
+	
+	    } catch (HibernateException e) {
+	        e.printStackTrace();
+	        session.getTransaction().rollback();
+	    }
+	    session.getTransaction().commit();
+	    return days;
 	}
-
-	@Override
-	public void addUser(User user) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void deleteUser(int id) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void updateUser(User User) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public List<User> getUsers() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void updateDay(List<Day> day) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public List<Day> listDay() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void logout() {
-		// TODO Auto-generated method stub
-		
-	}
-
 
 }
 

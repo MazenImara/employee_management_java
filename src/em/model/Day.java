@@ -2,6 +2,9 @@ package em.model;
 
 
 import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,31 +19,32 @@ public class Day implements Serializable  {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	
+	
     @Id
     @GeneratedValue
     @Column(name="id")
     public int id;
     
-    @Column(name="employeeId")
+    @Column(name="employee_id")
     public int employeeId;
     
     @Column(name="date")
     public long date;
     
-    @Column(name="start")
+    @Column(name="start_time")
     public long start;
     
-    @Column(name="endtime")
-    public long endtime;
+    @Column(name="end_time")
+    public long endTime;
     
-    @Column(name="temp")
-    public long temp;
+   
     
-    @Column(name="timeSpend")
-    public int timeSpend;
+    @Column(name="time_spend")
+    public long timeSpend;
     
-    @Column(name="check")
-    public boolean check;
+    
     
     public int getId() {
 		return id;
@@ -75,13 +79,56 @@ public class Day implements Serializable  {
 	}
 
 	public long getEndtime() {
-		return endtime;
+		return endTime;
 	}
 
-	public void setEndtime(long endtime) {
-		this.endtime = endtime;
+	public void setEndTime(long endTime) {
+		this.endTime = endTime;
+	}
+	
+	public long getTimeSpend() {
+		return timeSpend;
 	}
 
+	public void setTimeSpend(long timeSpend) {
+		this.timeSpend = timeSpend;
+	}
+	
+	
+	
+
+	
+	public String toDate(long millisecond) {
+	    Date date = new Date(millisecond);
+	    return new SimpleDateFormat("yyyy-MM-dd").format(date);
+	}
+	
+	public long toMillisecond(String myDate) throws ParseException {
+	SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+	Date date = sdf.parse(myDate);
+	long millis = date.getTime();
+	return millis;
+	}
+
+	
+
+}	
+     
+   
+	/*
+    *
+    *
+    *public boolean isCheck() {
+		return check;
+	}
+
+	public void setCheck(boolean check) {
+		this.check = check;
+	}
+	
+	
+    // @Column(name="temp")
+    //  public long temp; 
 	public long getTemp() {
 		return temp;
 	}
@@ -89,15 +136,6 @@ public class Day implements Serializable  {
 	public void setTemp(long temp) {
 		this.temp = temp;
 	}
-
-	public int getTimeSpend() {
-		return timeSpend;
-	}
-
-	public void setTimeSpend(int timeSpend) {
-		this.timeSpend = timeSpend;
-	}
-
 	public boolean isCheck() {
 		return check;
 	}
@@ -105,7 +143,7 @@ public class Day implements Serializable  {
 	public void setCheck(boolean check) {
 		this.check = check;
 	}
-
+    
 	public long getPeriod1() {
 		return period1;
 	}
@@ -127,11 +165,11 @@ public class Day implements Serializable  {
     
     @Column(name="period2")
     public long period2;
-  }  
+    
+*/
+    
+    
 
-    
-    
-    
    
     
     

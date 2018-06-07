@@ -5,6 +5,7 @@ import javax.servlet.http.HttpSession;
 import javax.xml.ws.Response;
 
 import java.sql.Timestamp;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -51,8 +52,8 @@ public class MainController {
 	
 	@SuppressWarnings("unused")
 	@RequestMapping(value="/checklogin",method = RequestMethod.POST)
- 	public String  login(HttpSession session,@RequestParam(value="email", required=true) String  email,@RequestParam(value="password", required=true) String  password) {
- 		Employee employee=dio.checkLogin(email,password);
+ 	public String  login(HttpSession session,@RequestParam(value="email", required=true) String  email,@RequestParam(value="password", required=true) String  password) {	
+		Employee employee=dio.checkLogin(email,password);
  		if (employee!=null) {
  			Admin admin=new Admin();
  			Log log = new Log();
@@ -62,11 +63,29 @@ public class MainController {
  			}
  			if( admin.id == 0 ) {
  				log.role = "Employee";
+ 				
+                Day day =new Day();
  			}
  			else {
  				log.role = "Admin" ;
  			}
-	 		session.setAttribute("log", log);
+	 		
+	 		Day day =new Day();
+			day.start=System.currentTimeMillis();
+			day.date=System.currentTimeMillis();
+			day.employeeId=employee.id;
+			
+			dio.addDay(day);
+			
+			List <Day> days=dio.getDayByEmployeeId(employee.id);
+			for (Day day1 :days) {
+				if(day1.start==day.start) {
+					log.setDay(day);	
+				}
+			}
+			session.setAttribute("log", log);
+	 		session.setMaxInactiveInterval(-1);
+			
  		}
  		return "redirect:main";
  	}
@@ -77,8 +96,10 @@ public class MainController {
 		Log log = (Log)session.getAttribute("log");
 		if(log != null) {
 			if(log.role == "Admin") {
+				
 				return "redirect:admin";
 			}else {
+				session.getCreationTime();
 				return "redirect:employee";
 			}
 		} else {
@@ -92,7 +113,23 @@ public class MainController {
 	}
 	
 	@RequestMapping(value="/logout")
-	public String logout(HttpSession session) {
+	public String logout(HttpSession session) throws ParseException {
+		Log log = (Log) session.getAttribute("log");
+		//Day day=new Day();
+		//long  startTimestamp=log.day.date;
+		//java.util.Date date = new java.util.Date(startTimestamp);
+		//long firstLoginDateInMillisecond=day.toMillisecond(day.toDate(log.day.date));
+		//long currentDateInMillisecond= day.toMillisecond(day.toDate(System.currentTimeMillis()));
+		
+		//if (firstLoginDateInMillisecond == currentDateInMillisecond) {
+			
+		//}
+		 	
+		log.day.endTime=System.currentTimeMillis();
+		log.day.timeSpend=log.day.endTime - log.day.start ;
+		
+		dio.updateDay(log.day);
+		
 		session.removeAttribute("log");
 		return "redirect:login";			
 	}
@@ -247,8 +284,6 @@ public class MainController {
 		System.out.print(projectId);
     	dio.deleteSuggestion(id);
 	    return "redirect:makesuggestion?taskId="+taskId+"&projectId="+projectId;
-	    
-		
 	}
     
     @RequestMapping(value = "/mangeemployee" ,method = RequestMethod.POST,params = { "update" })
@@ -275,15 +310,11 @@ public class MainController {
     @RequestMapping(value = "/mangeemployee" ,method = RequestMethod.POST,params = { "workTimes" })
 	 public String showWorkTimes(@ModelAttribute("employee") Employee employee) {
 	   //if(null != employee )
-	     
-		   
 	   return "redirect:getemployee?id="+employee.id;
 	}
     @RequestMapping(value = "/mangeemployee" ,method = RequestMethod.POST,params = { "timeOff" })
 	 public String showTimeOff(@ModelAttribute("employee") Employee employee) {
 	  // if(null != employee )
-	    
-		   
 	   return "redirect:getemployee?id="+employee.id;
 	}
    

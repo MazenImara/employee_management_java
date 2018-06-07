@@ -15,22 +15,15 @@ import em.model.Admin;
 
 public interface Dio {
 
-	public User getUser(int id);
-	public void addUser(User user);
-	public void deleteUser(int id);
-	public void updateUser(User User);
-	public List<User> getUsers();
+	
 
 	
 	//Nidal
-	public Day getDay(int id);
+	public Day  getDay(int id);
 	public void addDay(Day day);
-	void deleteDay(int id);
-	public void updateDay(List<Day> day);
+	public void deleteDay(int id);
+	public void updateDay(Day day);
 	public List<Day> getDays();
-	void updateDay(Day day);
-	public List<Day> listDay();
-	public void logout() ;
 
 // end Nidal
 
@@ -84,6 +77,7 @@ public interface Dio {
 		public List<TimeOff> getTimesOff();
 		public TimeOff getTimeOff(int timeOffId);
 		public List<TimeOff> getTimesOffByEmployeeId(int employeeId);
-	//end MOHAMAD	
+		public List<Day> getDayByEmployeeId(int employeeId);
+		
 
 }
