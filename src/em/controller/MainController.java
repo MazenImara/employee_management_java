@@ -169,15 +169,17 @@ public class MainController {
 	public ModelAndView emp(@RequestParam(value="id", required=true) int  id) {
 		ModelAndView model = new ModelAndView("mangeemployee");
 		Employee employee = dio.getEmployee(id);
-		List<TimeOff> timesOff=dio. getTimesOffByEmployeeId(employee.id);
+		List<TimeOff> timesOff=dio.getTimesOffByEmployeeId(employee.id);
 	    List<TimeOff> timesOffList= new ArrayList<TimeOff>();
 	    for(TimeOff timeOff :timesOff) {
 			timeOff.from=TimeUnit.SECONDS.toMillis(timeOff.from );
 			timeOff.to=TimeUnit.SECONDS.toMillis(timeOff.to );
 			timesOffList.add(timeOff);
 		}
+	    List<Day> days=dio.getDayByEmployeeId(employee.id);
 	    model.addObject("timesOffList",timesOffList);
 		model.addObject("employee", employee);
+		model.addObject("days", days);
 		return model;
 	}	
 	

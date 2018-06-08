@@ -80,14 +80,16 @@ public class Day implements Serializable  {
 		this.start = start;
 	}
 
-	public long getEndtime() {
-		return endTime;
-	}
+	
 
 	public void setEndTime(long endTime) {
 		this.endTime = endTime;
 	}
 	
+	public long getEndTime() {
+		return endTime;
+	}
+
 	public long getTimeSpend() {
 		return timeSpend;
 	}

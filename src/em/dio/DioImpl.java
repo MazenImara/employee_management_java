@@ -600,13 +600,12 @@ public Task getTask(int id) {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Day> getDays() {
-	
 	    Session session = sessionFactory.getCurrentSession();
 	    session.beginTransaction();
-	    List<Day> Days = null;
+	    List<Day>days = null;
 	    try {
 	        System.out.println("IN LIST");
-	        Days = (List<Day>)session.createQuery("from day").list();
+	        days = (List<Day>)session.createQuery("from day").list();
 	
 	    } catch (HibernateException e) {
 	        e.printStackTrace();
@@ -614,7 +613,7 @@ public Task getTask(int id) {
 	    }
 	    session.getTransaction().commit();
 
-	    return Days;
+	    return days;
 	}
 
 	@SuppressWarnings("unchecked")

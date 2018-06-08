@@ -63,9 +63,9 @@
 		                    </td>
 		                    <td>
 			                    <jsp:useBean id="dateObject2" class="java.util.Date" />
-								<jsp:setProperty name="dateObject" property="time" value="${timeOff.to}" />
-								<b><fmt:formatDate value="${dateObject }" pattern="dd/MM/yyyy--" /></b>
-								<b><fmt:formatDate value="${dateObject }" pattern="hh:mm a" /></b>
+								<jsp:setProperty name="dateObject2" property="time" value="${timeOff.to}" />
+								<b><fmt:formatDate value="${dateObject2 }" pattern="dd/MM/yyyy--" /></b>
+								<b><fmt:formatDate value="${dateObject2}" pattern="hh:mm a" /></b>
 							</td>		                
 		                 <tr>   
 			          </c:forEach>  
@@ -84,7 +84,60 @@
 		                <th>TimeSpend</th>
 		                
 		            </tr>
-		            
+		            <tr>
+		                  <c:forEach var="day" items="${days}" varStatus="status">
+		                    <td>${status.index + 1}</td>
+		                    <td>
+		                       <jsp:useBean id="dateObject7" class="java.util.Date" />
+					    	   <jsp:setProperty name="dateObject7" property="time" value="${day.date}" />
+					           <b><fmt:formatDate value="${dateObject7 }" pattern="dd/MM/yyyy" /></b>
+		                    </td>
+		                    <td>
+			                     <c:choose>
+									    <c:when test="${day.start==0}">
+									        00:00
+									    </c:when>    
+									    <c:otherwise>
+									       <jsp:useBean id="dateObject3" class="java.util.Date" />
+								    	   <jsp:setProperty name="dateObject3" property="time" value="${day.start}" />
+								           <b><fmt:formatDate value="${dateObject3 }" pattern="dd/MM/yyyy--" /></b>
+									       <b><fmt:formatDate value="${dateObject3 }" pattern="hh:mm a" /></b>
+									    </c:otherwise>
+						    	</c:choose>
+				            </td>
+		                    <td>
+			                    <c:choose>
+									    <c:when test="${day.endTime==0}">
+									        00:00
+									    </c:when>    
+									    <c:otherwise>
+									       <jsp:useBean id="dateObject4" class="java.util.Date" />
+								    	   <jsp:setProperty name="dateObject4" property="time" value="${day.endTime}" />
+								           <b><fmt:formatDate value="${dateObject4 }" pattern="dd/MM/yyyy--" /></b>
+									       <b><fmt:formatDate value="${dateObject4 }" pattern="hh:mm a" /></b>
+									    </c:otherwise>
+						    	</c:choose>
+							</td>
+							<td>
+							  <c:choose>
+								    <c:when test="${day.timeSpend<=999}">
+								       00:00
+								    </c:when> 
+								    <c:when test="${day.timeSpend >= 1000 && day.timeSpend <= 3599000 }">
+								      <jsp:useBean id="dateObject5" class="java.util.Date" />
+							    	  <jsp:setProperty name="dateObject5" property="time" value="${day.timeSpend}" />
+								      <b><fmt:formatDate value="${dateObject5 }" pattern=" 00:mm " /></b>
+								     
+								    </c:when>    
+								    <c:otherwise>
+					                  <jsp:useBean id="dateObject6" class="java.util.Date" />
+							    	  <jsp:setProperty name="dateObject6" property="time" value="${day.timeSpend-3600000}" />
+								      <b><fmt:formatDate value="${dateObject6 }" pattern="hh:mm " /></b>
+						            </c:otherwise>
+						      </c:choose>
+							</td>    
+		             </c:forEach> 
+		             </tr>     
 		                   
 	             </table>
     </div> 
