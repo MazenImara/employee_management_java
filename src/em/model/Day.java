@@ -39,12 +39,14 @@ public class Day implements Serializable  {
     @Column(name="end_time")
     public long endTime;
     
-   
-    
     @Column(name="time_spend")
     public long timeSpend;
+
+
+    @Column(name="temp")
+	public long temp;
     
-    
+   
     
     public int getId() {
 		return id;
@@ -94,10 +96,11 @@ public class Day implements Serializable  {
 		this.timeSpend = timeSpend;
 	}
 	
+   
+    
 	
 	
 
-	
 	public String toDate(long millisecond) {
 	    Date date = new Date(millisecond);
 	    return new SimpleDateFormat("yyyy-MM-dd").format(date);

@@ -52,7 +52,7 @@ public class MainController {
 	
 	@SuppressWarnings("unused")
 	@RequestMapping(value="/checklogin",method = RequestMethod.POST)
- 	public String  login(HttpSession session,@RequestParam(value="email", required=true) String  email,@RequestParam(value="password", required=true) String  password) {	
+ 	public String  login(HttpSession session,@RequestParam(value="email", required=true) String  email,@RequestParam(value="password", required=true) String  password)   {	
 		Employee employee=dio.checkLogin(email,password);
  		if (employee!=null) {
  			Admin admin=new Admin();
@@ -63,29 +63,42 @@ public class MainController {
  			}
  			if( admin.id == 0 ) {
  				log.role = "Employee";
- 				
-                Day day =new Day();
  			}
  			else {
  				log.role = "Admin" ;
  			}
-	 		
-	 		Day day =new Day();
-			day.start=System.currentTimeMillis();
-			day.date=System.currentTimeMillis();
-			day.employeeId=employee.id;
-			
-			dio.addDay(day);
-			
-			List <Day> days=dio.getDayByEmployeeId(employee.id);
-			for (Day day1 :days) {
-				if(day1.start==day.start) {
-					log.setDay(day);	
-				}
-			}
+ 			Day day =new Day();
+ 			day.employeeId=employee.id;
+ 			boolean check = false; 
+		    List<Day> days=dio.getDayByEmployeeId(employee.id);
+		    outer:
+		    for( Day day1: days) {
+		       if (day1!=null) {
+				       if (day.toDate(System.currentTimeMillis()).contentEquals(day.toDate(day1.date))  && day1.employeeId == employee.id) {
+				    	   day1.temp=System.currentTimeMillis();
+				    	   day.temp=day1.temp;
+				    	   day.date=day1.date;
+				    	   day.start=day1.start;
+				    	   day.timeSpend=day1.timeSpend;
+				    	   day.endTime=day1.endTime;
+				    	  
+				    	   check=true;
+				    	   dio.updateDay(day1);
+				    	   log.setDay(day1);
+				    	   break outer;
+				       }
+				       System.out.println("current Time is"+day.toDate(System.currentTimeMillis()));
+				       System.out.println("day is"+ day.toDate(day1.date));
+		       }
+		    }
+		    if (check !=true) {
+			    day.date = System.currentTimeMillis();	
+			    day.start= System.currentTimeMillis();
+				dio.addDay(day);
+				log.setDay(day);
+            }
 			session.setAttribute("log", log);
 	 		session.setMaxInactiveInterval(-1);
-			
  		}
  		return "redirect:main";
  	}
@@ -102,7 +115,8 @@ public class MainController {
 				session.getCreationTime();
 				return "redirect:employee";
 			}
-		} else {
+		} 
+		else {
 			return "redirect:notlogin";
 		}			
 	}
@@ -115,20 +129,20 @@ public class MainController {
 	@RequestMapping(value="/logout")
 	public String logout(HttpSession session) throws ParseException {
 		Log log = (Log) session.getAttribute("log");
-		//Day day=new Day();
-		//long  startTimestamp=log.day.date;
-		//java.util.Date date = new java.util.Date(startTimestamp);
-		//long firstLoginDateInMillisecond=day.toMillisecond(day.toDate(log.day.date));
-		//long currentDateInMillisecond= day.toMillisecond(day.toDate(System.currentTimeMillis()));
 		
-		//if (firstLoginDateInMillisecond == currentDateInMillisecond) {
+		
+		if (log.day.temp==0) {	
+			log.day.endTime=System.currentTimeMillis();
+			log.day.timeSpend=log.day.endTime - log.day.start ;
 			
-		//}
-		 	
-		log.day.endTime=System.currentTimeMillis();
-		log.day.timeSpend=log.day.endTime - log.day.start ;
-		
-		dio.updateDay(log.day);
+			dio.updateDay(log.day);
+		}
+		else {
+			log.day.endTime=System.currentTimeMillis();	
+			log.day.timeSpend=(log.day.endTime - log.day.temp)+log.day.timeSpend ;
+			log.day.temp=0;
+			dio.updateDay(log.day);
+		}
 		
 		session.removeAttribute("log");
 		return "redirect:login";			
