@@ -18,7 +18,7 @@
 
 <!-- MOHAMAD code -->
 <div  class="box "  align='center'>
-<h1>Account: ${logedEmployee.name }</h1>
+<h1>Account: ${log.employee.name }</h1>
  <a href="logout"><button>Logout</button></a>
 </div>
 

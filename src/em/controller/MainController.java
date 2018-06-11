@@ -57,6 +57,7 @@ public class MainController {
  		if (employee!=null) {
  			Admin admin=new Admin();
  			Log log = new Log();
+ 			log.employee=employee;
  			List<Admin> admins =  dio.getAdminsByEmployeeId(employee.id);
  			for (Admin ad :admins) {
  				admin=ad;
@@ -129,19 +130,19 @@ public class MainController {
 	@RequestMapping(value="/logout")
 	public String logout(HttpSession session) throws ParseException {
 		Log log = (Log) session.getAttribute("log");
-		
-		
-		if (log.day.temp==0) {	
-			log.day.endTime=System.currentTimeMillis();
-			log.day.timeSpend=log.day.endTime - log.day.start ;
-			
-			dio.updateDay(log.day);
-		}
-		else {
-			log.day.endTime=System.currentTimeMillis();	
-			log.day.timeSpend=(log.day.endTime - log.day.temp)+log.day.timeSpend ;
-			log.day.temp=0;
-			dio.updateDay(log.day);
+		if(log != null) {
+			if (log.day.temp==0) {	
+				log.day.endTime=System.currentTimeMillis();
+				log.day.timeSpend=log.day.endTime - log.day.start ;
+				
+				dio.updateDay(log.day);
+			}
+			else {
+				log.day.endTime=System.currentTimeMillis();	
+				log.day.timeSpend=(log.day.endTime - log.day.temp)+log.day.timeSpend ;
+				log.day.temp=0;
+				dio.updateDay(log.day);
+			}
 		}
 		
 		session.removeAttribute("log");
@@ -157,6 +158,7 @@ public class MainController {
 	 		 List<Employee>employees = dio.getEmployees();
 	 	    model.addObject("projects", projects);	
 	 	    model.addObject("employees", employees);
+	 	    model.addObject("log.role",log.role);
 	 	   return model;
 		}
 		else {
