@@ -7,6 +7,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<style><%@include file="/WEB-INF/css/mystyle.css"%></style>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
 </head>
@@ -18,7 +19,7 @@
 <div align="center">
            <h1 Style=' color :blue' ><i><b>Employee List</b></i></h1>
 	            <table border="1">
-		            <tr>
+		             <tr style= "background:yellow">
 		                <th>Employee name</th>
 		                <th>Employee email</th>
 		                <th>Employee password</th>
@@ -40,14 +41,11 @@
 			            </tr>
 			        </form:form>
 	      </table>
-	      
-	      
-	      
 </div>
 <div align="center">
-           <h2 Style=' color :blue' ><i>Time Off <b></b></i></h2>
+          <h1 Style=' color :blue' ><i><b>Time Off</b></i></h1>
 	            <table border="1">
-		            <tr>
+		             <tr style= "background:yellow">
 		                <th>S.No.</th>
 		                <th>From</th>
 		                <th>To</th>
@@ -74,17 +72,15 @@
    
    
    <div align="center">
-           <h4 Style=' color :blue' ><i>Work Times <b></b></i></h4>
+           <h1 Style=' color :blue' ><i><b>Work Time</b></i></h1>
 	            <table border="1">
-		            <tr>
+		             <tr style= "background:yellow">
 		                <th>S.No.</th>
 		                <th>Date</th>
 		                <th>Start Time</th>
 		                <th>End Time</th>
 		                <th>TimeSpend</th>
-		                
 		            </tr>
-		           
 		                  <c:forEach var="day" items="${days}" varStatus="status">
 		                   <tr>
 		                    <td>${status.index + 1}</td>
