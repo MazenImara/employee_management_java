@@ -6,6 +6,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<style><%@include file="/WEB-INF/css/mystyle.css"%></style>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Mange Project</title>
 </head>
@@ -13,7 +14,7 @@
 	 <div align="center">
 	     <h1 Style=' color:blue' ><i>Project<b></b></i></h1>
 		     <table border="1">
-			      <tr>
+			       <tr style= "background:yellow">
 			          <th>project title</th>
 			          <th>project description</th>
 			          <th>project status</th>
@@ -31,7 +32,7 @@
 	<div align="center">
 	     <h1 Style=' color :blue' ><i>Tasks<b></b></i></h1>
 		     <table border="1">
-			      <tr>
+			       <tr style= "background:yellow">
 			          <th>S.No.</th>
 			          <th> title</th>
 			          <th> Status</th>

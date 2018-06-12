@@ -84,8 +84,9 @@
 		                <th>TimeSpend</th>
 		                
 		            </tr>
-		            <tr>
+		           
 		                  <c:forEach var="day" items="${days}" varStatus="status">
+		                   <tr>
 		                    <td>${status.index + 1}</td>
 		                    <td>
 		                       <jsp:useBean id="dateObject7" class="java.util.Date" />
@@ -135,9 +136,9 @@
 								      <b><fmt:formatDate value="${dateObject6 }" pattern="hh:mm " /></b>
 						            </c:otherwise>
 						      </c:choose>
-							</td>    
+							</td>  
+				      </tr> 
 		             </c:forEach> 
-		             </tr>     
 		                   
 	             </table>
     </div> 

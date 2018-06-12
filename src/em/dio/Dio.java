@@ -75,7 +75,7 @@ public interface Dio {
 		public void addAdmin(Admin admin);
 		public void addTimeOff(TimeOff timeOff);
 		public void updateTimeOff(TimeOff timeOff);
-		public void deleteTimeOff(TimeOff timeOffId);
+		public void deleteTimeOff(int timeOffId);
 		public List<TimeOff> getTimesOff();
 		public TimeOff getTimeOff(int timeOffId);
 		public List<TimeOff> getTimesOffByEmployeeId(int employeeId);

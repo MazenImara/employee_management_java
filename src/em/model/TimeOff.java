@@ -18,20 +18,19 @@ public class TimeOff implements Serializable {
 
 	@Id
     @GeneratedValue
-    
     @Column(name="id")
 	public int id;
 
-    @Column(name="from")
+    @Column(name="from_date")
 	public long from;
 
     
-    @Column(name="to")
+    @Column(name="to_date")
 	public long to;
 
 
     @Column(name="employee_id")
-	public String employee_id;
+	public int employee_id;
 
 
 	public int getId() {
@@ -64,12 +63,12 @@ public class TimeOff implements Serializable {
 	}
 
 
-	public String getEmployee_id() {
+	public int getEmployee_id() {
 		return employee_id;
 	}
 
 
-	public void setEmployee_id(String employee_id) {
+	public void setEmployee_id(int employee_id) {
 		this.employee_id = employee_id;
 	}
 
