@@ -180,20 +180,23 @@ public class MainController {
 		ModelAndView model = new ModelAndView("mangeemployee");
 		Employee employee = dio.getEmployee(id);
 		List<TimeOff> timesOff=dio.getTimesOffByEmployeeId(employee.id);
-		/*
-	    List<TimeOff> timesOffList= new ArrayList<TimeOff>();
-	    for(TimeOff timeOff :timesOff) {
-			timeOff.from=TimeUnit.SECONDS.toMillis(timeOff.from );
-			timeOff.to=TimeUnit.SECONDS.toMillis(timeOff.to );
-			timesOffList.add(timeOff);
-		}
-		*/
+		
 	    List<Day> days=dio.getDayByEmployeeId(employee.id);
+	    
 	    model.addObject("timesOffList",timesOff);
 		model.addObject("employee", employee);
 		model.addObject("days", days);
 		return model;
 	}	
+	
+	/*
+    List<TimeOff> timesOffList= new ArrayList<TimeOff>();
+    for(TimeOff timeOff :timesOff) {
+		timeOff.from=TimeUnit.SECONDS.toMillis(timeOff.from );
+		timeOff.to=TimeUnit.SECONDS.toMillis(timeOff.to );
+		timesOffList.add(timeOff);
+	}
+	*/
 	
 	@RequestMapping(value = "/addemployee" ,method = RequestMethod.POST)
 	 public String addEmployee(@ModelAttribute("employee") Employee employee) {
@@ -539,14 +542,18 @@ public class MainController {
 	    @RequestMapping(value="/test")
 	    public ModelAndView test() {	
 	    	ModelAndView model = new ModelAndView("test");
-	    	Admin a = new Admin();
-	    	a.employee_id = 1;
-	    	//dio.addAdmin(a);
-	    	List<Admin> admins =  dio.getAdminsByEmployeeId(1);
- 			for (Admin ad : admins) {
- 				System.out.println("adminget"+ad.id);
+	    	
+	    	long date1=1523433777777L;
+	    	long date2=1523499999999L;
+	    	int employeeId =3;
+	    	List<Day> days =(List<Day>) dio.selectEmployeesWorkTimeForPeriod( date1, date2 , employeeId);
+	    
+ 			for (Day day : days) {
+ 				
+ 				System.out.println("from"+day.start);
+ 				System.out.println("from"+day.endTime);
  			}
-	    	System.out.println(a.id);
+	    	
 	        return model;
 	    }
     

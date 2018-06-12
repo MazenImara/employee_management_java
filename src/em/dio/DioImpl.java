@@ -343,7 +343,24 @@ public class DioImpl implements Dio  {
 				    return timesOff;
 				}
 			
-			
+		    @SuppressWarnings("unchecked")
+		    @Override
+			public List<Day> selectEmployeesWorkTimeForPeriod(long date1,long date2 ,int employeeId){
+				 Session session = sessionFactory.getCurrentSession();
+				    session.beginTransaction();
+				    List<Day> days = null;
+				    try {
+				        System.out.println("IN LIST");
+				        days = (List<Day>)session.createQuery("from Day left join employee on day.employee_id="+employeeId +" having `date`>= '"+date1+"' and `date`<='"+date2+"'  order by employee_id").list();
+				    
+				    } catch (HibernateException e) {
+				        e.printStackTrace();
+				        session.getTransaction().rollback();
+				    }
+				    session.getTransaction().commit();
+				    
+				return days;
+			 }
 		
 		 // end MOHAMAD
 

@@ -68,12 +68,21 @@
 		                 <tr>   
 			          </c:forEach>  
 	             </table>
-   </div> 
+  
+   
    
    
    <div align="center">
+    
            <h1 Style=' color :blue' ><i><b>Work Time</b></i></h1>
 	            <table border="1">
+	                 <tr style= "background:blue">
+	                     <th> <input type="hidden"/><button>  This Month </button></th>
+	                     <th> From <input type="date"/></th>
+	                     <th> To <input type="date"/></th>
+	                 </tr>
+	                 </table>
+	              <table border="1">        
 		             <tr style= "background:yellow">
 		                <th>S.No.</th>
 		                <th>Date</th>
