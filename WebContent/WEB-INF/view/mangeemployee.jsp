@@ -12,8 +12,11 @@
 <title>Insert title here</title>
 </head>
 <body>
-
-
+<div  class="box "  align='center'>
+   Account: ${log.employee.name } <br>
+   <a href="logout"><button>Logout</button></a>
+</div>
+<input type="button" value="To Admin Menu" onclick="window.location.href='http://localhost:8080/em/admin'">
 
                             
 <div align="center">

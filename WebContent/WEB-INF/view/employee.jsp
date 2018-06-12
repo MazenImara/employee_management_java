@@ -15,8 +15,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h1>test ${log.employee.name }</h1>
-
 <!-- MOHAMAD code -->
 <div  class="box "  align='center'>
    Account: ${log.employee.name } <br>
@@ -27,7 +25,6 @@
     <a href="allsuggestions">Suggestions List</a>
 </div>
  
-<!-- End Mohamad -->
 <!-- MOHAMAD End -->
 
 <!-- Gab -->

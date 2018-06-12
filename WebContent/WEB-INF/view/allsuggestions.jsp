@@ -13,6 +13,9 @@
 </head>
 <body>
 
+<input type="button" value="To Employee Menu" onclick="window.location.href='http://localhost:8080/em/employee'">
+
+
 <div align="center">
            <h1 Style=' color :blue' ><i> The Suggestion For All Projects<b></b></i></h1>
 	            <table border="1">

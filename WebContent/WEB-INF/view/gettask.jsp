@@ -10,6 +10,8 @@
 <title>Insert title here</title>
 </head>
 <body>
+	
+	<input type="button" value="To Admin Menu" onclick="window.location.href='http://localhost:8080/em/admin'">
  
      <div align="center">
 		    <h1 Style=' color :blue' ><i>The Task Selected<b></b></i></h1>

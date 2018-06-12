@@ -177,17 +177,24 @@ public class MainController {
  	}	   
 	
 	@RequestMapping(value="/getemployee")
-	public ModelAndView emp(@RequestParam(value="id", required=true) int  id) {
-		ModelAndView model = new ModelAndView("mangeemployee");
-		Employee employee = dio.getEmployee(id);
-		List<TimeOff> timesOff=dio.getTimesOffByEmployeeId(employee.id);
-		
-	    List<Day> days=dio.getDayByEmployeeId(employee.id);
-	    
-	    model.addObject("timesOffList",timesOff);
-		model.addObject("employee", employee);
-		model.addObject("days", days);
-		return model;
+	public ModelAndView emp(HttpSession session,@RequestParam(value="id", required=true) int  id) {
+		Log log = (Log)session.getAttribute("log");
+		if(log != null && log.role == "Admin") {
+			ModelAndView model = new ModelAndView("mangeemployee");
+			Employee employee = dio.getEmployee(id);
+			List<TimeOff> timesOff=dio.getTimesOffByEmployeeId(employee.id);
+			
+		    List<Day> days=dio.getDayByEmployeeId(employee.id);
+		    
+		    model.addObject("timesOffList",timesOff);
+			model.addObject("employee", employee);
+			model.addObject("days", days);
+			return model;
+		}
+		else {
+	 		ModelAndView model2 = new ModelAndView("notLoged");
+	 		return model2;
+		}
 	}	
 	
 	/*
@@ -393,7 +400,24 @@ public class MainController {
    
 		// End 	MOHAMAD
 
-
+   
+   @RequestMapping(value="/test")
+   public ModelAndView test() {	
+   	ModelAndView model = new ModelAndView("test");
+   	
+   	long date1=1523433777777L;
+   	long date2=1523499999999L;
+   	int employeeId =3;
+   	List<Day> days =(List<Day>) dio.selectEmployeesWorkTimeForPeriod( date1, date2 , employeeId);
+   
+		for (Day day : days) {
+			
+			System.out.println("from"+day.start);
+			System.out.println("from"+day.endTime);
+		}
+   	
+       return model;
+   }
 		
 	
 	@RequestMapping(value="/")
@@ -406,66 +430,6 @@ public class MainController {
 	}
 	
 	
-    //Ikram + gab
-
-
-	@RequestMapping(value="/getSuggestion")
-	public ModelAndView getSuggestion(@RequestParam(value="id", required=true) int id) {
-		System.out.println(id);
-		ModelAndView model = new ModelAndView("suggestion");
-		Suggestion suggestion = dio.getSuggestion(id);
-	//	Project project = dio.getProject(suggestion.project.id);
-		Task task = dio.getTask(suggestion.task_id);
-		model.addObject("suggestion", suggestion);
-		//model.addObject("project", project);
-		model.addObject("task", task);
-		return model;			
-	}
-	
-	@RequestMapping(value = "/addSuggestion", method = RequestMethod.POST)
-	public ModelAndView addSuggestion(@ModelAttribute("suggestion") Suggestion suggestion) {
-		System.out.println(suggestion);
-		dio.addSuggestion(suggestion);
-		ModelAndView model = new ModelAndView("index");
-		suggestion=new Suggestion();
-		model.addObject("suggestion", suggestion);
-		List<Suggestion> getSuggestions = dio.getSuggestions();
-		model.addObject("getSuggestions", getSuggestions);
-		return model;			
-	}
-//end ikram
-
-//gab
-	@RequestMapping(value="/deleteSuggestion")
-	public String  deleteSuggestion(@RequestParam(value="id", required=true) int id) {
-		dio.deleteSuggestion(id);
-	    return "redirect:suggestionList";
-	}
-
-	@RequestMapping(value = "/updateSuggestion", method = RequestMethod.POST)
-	public ModelAndView updateSuggestion(@ModelAttribute("suggestion") Suggestion suggestion) {
-		if(null != suggestion )
-	    dio.updateSuggestion(suggestion);
-	    ModelAndView model = new ModelAndView("index");
-	    suggestion=new Suggestion();
-	    model.addObject("suggestion", suggestion);
-	    List<Suggestion> getSuggestions = dio.getSuggestions();
-	    model.addObject("getSuggestions", getSuggestions);
-	    return model;
-	}
-	
-	@RequestMapping(value="/suggestionList")
-	public ModelAndView SuggestionsList1() {	
-		List<Suggestion> getSuggestions = dio.getSuggestions();
-		List<Project> getProjects = dio.getProjects();
-		List<Task> getTasks = dio.getTasks();
- 	    ModelAndView model = new ModelAndView("suggestionList");
-	    model.addObject("getProjects", getProjects);
-	    model.addObject("getTasks", getTasks);
-	    model.addObject("getSuggestions", getSuggestions );
-	    return model;
-	}
-//gab endline
 	  
 //Gab start
    
@@ -480,83 +444,6 @@ public class MainController {
 		return model;			
 	}
  
-	//Nidal code
-		
-	@RequestMapping(value="/day")
-	public ModelAndView getDay() {
-		ModelAndView model = new ModelAndView("day");
-		Day day = new Day();
-		model.addObject("day", day);
-		return model;			
-	}
-	
-	@RequestMapping(value="/getDay")
-	public ModelAndView getDay(@RequestParam(value="id", required=true) int id) {
-		System.out.println(id);
-		ModelAndView model = new ModelAndView("day");
-		Day day = dio.getDay(id);
-		model.addObject("day", day);
-		return model;			
-	}
-
-	@RequestMapping(value = "/addDay", method = RequestMethod.POST)
-	public ModelAndView addDay(@ModelAttribute("day") Day day) {
-		System.out.println(day.getDate());
-		dio.addDay(day);
-		ModelAndView model = new ModelAndView("day");
-		day=new Day();
-		model.addObject("day", day);
-		List<Day> getDays = dio.getDays();
-		model.addObject("getDays", getDays);
-		return model;			
-	}
-	
-	 @RequestMapping(value="/deleteDay")
-	    public String  deleteProject(@RequestParam(value="id", required=true) int id) {
-	        dio.deleteDay(id);
-	        return "redirect:dayList";
-	    }
-	    
-	    @RequestMapping(value = "/updateDay", method = RequestMethod.POST)
-	    public ModelAndView updateProject(@ModelAttribute("day") Day day) {
-	        System.out.println(day.getDate());
-	        if(null != day )
-	        dio.updateDay(day);
-	        ModelAndView model = new ModelAndView("day");
-	        day=new Day();
-	        model.addObject("day", day);
-	        List<Day> getDays = dio.getDays();
-	        model.addObject("getDays", getDays);
-	        return model;
-	    }
-	    
-	    @RequestMapping(value="/DaysList")
-	    public ModelAndView daysList() {	
-	    	List<Day> getDays = dio.getDays();
-	    	ModelAndView model = new ModelAndView("DaysList");
-	        model.addObject("getDays", getDays );
-	        return model;
-	    }
-	
-	    
-	    
-	    @RequestMapping(value="/test")
-	    public ModelAndView test() {	
-	    	ModelAndView model = new ModelAndView("test");
-	    	
-	    	long date1=1523433777777L;
-	    	long date2=1523499999999L;
-	    	int employeeId =3;
-	    	List<Day> days =(List<Day>) dio.selectEmployeesWorkTimeForPeriod( date1, date2 , employeeId);
-	    
- 			for (Day day : days) {
- 				
- 				System.out.println("from"+day.start);
- 				System.out.println("from"+day.endTime);
- 			}
-	    	
-	        return model;
-	    }
     
     @RequestMapping(value="/tasksList")
     public ModelAndView tasksList() {	
@@ -583,18 +470,6 @@ public class MainController {
 	    }
 	}	   
    
-	
-		
-    
-	    @RequestMapping(value="/SuggestionsList")
-	    public ModelAndView SuggestionsList() {	
-	    	List<Suggestion> getSuggestions = dio.getSuggestions();
-	    	ModelAndView model = new ModelAndView("suggestionsList");
-	        model.addObject("getSuggestions", getSuggestions );
-	        return model;
-	    }
-   //gab+ ikram endline
-
 
     @RequestMapping(value="/checkStatus")
     public ModelAndView checkstatus() {
