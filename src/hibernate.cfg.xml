@@ -41,7 +41,6 @@
 		<mapping class="em.model.TimeOff" />
 		<mapping class="em.model.Employee" />
 		<mapping class="em.model.Log" />
-<!-- Nidal Model -->	
 		<mapping class="em.model.Day" />
 			
 <!-- end project -->

@@ -4,7 +4,9 @@ package em.model;
 import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.TimeZone;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -107,10 +109,13 @@ public class Day implements Serializable  {
 	}
 	
 	public long toMillisecond(String myDate) throws ParseException {
-	SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-	Date date = sdf.parse(myDate);
-	long millis = date.getTime();
-	return millis;
+		Calendar c1 = Calendar.getInstance(TimeZone.getTimeZone("UTC")); 
+	    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+	    sdf.setTimeZone(TimeZone.getTimeZone("UTC")); 
+        c1.setTime(sdf.parse(myDate));
+        long millieSeconde=c1.getTimeInMillis();
+	    System.out.println("c1:"+c1.getTimeInMillis());
+	    return millieSeconde;
 	}
 
 	

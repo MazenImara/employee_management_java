@@ -6,15 +6,22 @@ import javax.xml.ws.Response;
 
 import java.sql.Timestamp;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
 import javax.servlet.http.HttpSession;
 import org.hibernate.Session;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -38,6 +45,7 @@ public class MainController {
 	@Autowired
 	
 	private Dio dio;
+	private int offset;
 	
 
 	
@@ -172,14 +180,16 @@ public class MainController {
 		ModelAndView model = new ModelAndView("mangeemployee");
 		Employee employee = dio.getEmployee(id);
 		List<TimeOff> timesOff=dio.getTimesOffByEmployeeId(employee.id);
+		/*
 	    List<TimeOff> timesOffList= new ArrayList<TimeOff>();
 	    for(TimeOff timeOff :timesOff) {
 			timeOff.from=TimeUnit.SECONDS.toMillis(timeOff.from );
 			timeOff.to=TimeUnit.SECONDS.toMillis(timeOff.to );
 			timesOffList.add(timeOff);
 		}
+		*/
 	    List<Day> days=dio.getDayByEmployeeId(employee.id);
-	    model.addObject("timesOffList",timesOffList);
+	    model.addObject("timesOffList",timesOff);
 		model.addObject("employee", employee);
 		model.addObject("days", days);
 		return model;
@@ -324,21 +334,48 @@ public class MainController {
     	}
 	   return "redirect:getemployee?id="+employee.id;
     }
-    /*
-    @RequestMapping(value = "/mangeemployee" ,method = RequestMethod.POST,params = { "workTimes" })
-	 public String showWorkTimes(@ModelAttribute("employee") Employee employee) {
-	   //if(null != employee )
-	   return "redirect:getemployee?id="+employee.id;
+   @RequestMapping(value="/managetimeoff",method = RequestMethod.GET)
+	public ModelAndView  manageTimeOff(@RequestParam(value="employeeId", required=true) int  employeeId ){
+	   List<TimeOff> timesOff=dio.getTimesOffByEmployeeId(employeeId);
+	   ModelAndView model = new ModelAndView("manageTimeOff");
+	   model.addObject("timesOff", timesOff);
+	    return model;
 	}
-    @RequestMapping(value = "/mangeemployee" ,method = RequestMethod.POST,params = { "timeOff" })
-	 public String showTimeOff(@ModelAttribute("employee") Employee employee) {
-	  // if(null != employee )
-	   return "redirect:getemployee?id="+employee.id;
-	}
+   @RequestMapping(value="/deletetimeoff",method = RequestMethod.POST)
+   public String deleteTimeOff(@ModelAttribute("timeOff") TimeOff timeOff) {
+	   System.out.println("id"+timeOff.id+"    -employeeId"+timeOff.employee_id);
+       dio.deleteTimeOff(timeOff.id);
+       return "redirect:managetimeoff?employeeId="+timeOff.employee_id;	
+   }
    
-     */
+   @InitBinder
+   public void initBinder(WebDataBinder binder) {
+       SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy");
+       sdf.setLenient(true);
+       binder.registerCustomEditor(Date.class, new CustomDateEditor(sdf, true));
+   }
+   @RequestMapping(value="/addtimeoff",method = RequestMethod.POST)
+   public String addTimeOff(@RequestParam(value="employeeId", required=true) int  employeeId,@RequestParam(value="date1", required=true) char[]  date1,@RequestParam(value="date2", required=true) char[]  date2  ) throws ParseException {  
+	   Day day=new Day();
+	   TimeOff timeOff=new TimeOff();
+	   
+	   String d1=String.valueOf(date1, 0, 10);
+	   String t1=String.copyValueOf(date1, 11, 5);
+	   
+	   String d2=String.valueOf(date2, 0, 10);
+	   String t2=String.copyValueOf(date2, 11, 5);
+	   
+	   timeOff.from = day.toMillisecond(d1+" "+t1);
+	   timeOff.to = day.toMillisecond(d2+" "+t2);
+	   timeOff.employee_id= employeeId;
+	   
+       dio.addTimeOff(timeOff);
+       return "redirect:managetimeoff?employeeId="+timeOff.employee_id;	
+   }
+   
+   
 		// End 	MOHAMAD
-		
+
 
 		
 	

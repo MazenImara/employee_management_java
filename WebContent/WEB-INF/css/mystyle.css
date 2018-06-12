@@ -50,11 +50,24 @@
 }
     
 .box{ 
-  background-color:yellow;
+  background-color:lightgrey;
+   border: 5px solid black;
   position: right;
   height: 20%;
   width: 21%;
   left: 20%;
   top: 20%;
 
+}
+.timeOff  {
+    background-color: lightgrey;
+    font-size: 18px;
+     text-decoration: underline;
+    width: 300px;
+    border: 5px solid gray;
+   
+    margin: 500px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+   
 }

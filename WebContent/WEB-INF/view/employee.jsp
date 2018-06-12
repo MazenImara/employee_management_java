@@ -18,7 +18,7 @@
 
 <!-- MOHAMAD code -->
 <div  class="box "  align='center'>
-<h1>Account: ${log.employee.name }</h1>
+Account: ${log.employee.name } <br>
  <a href="logout"><button>Logout</button></a>
 </div>
 
@@ -82,6 +82,14 @@
 		
 </div>
 <!-- Gab endline -->
+<!-- MOHAMAD CODE -->
 
+ <div  class="timeOff"   align='center' >
+    <a href="managetimeoff?employeeId=${log.employee.id}">Manage your TimeOff</a>
+ </div>
+   
+
+
+<!-- End Mohamad -->
 </body>
 </html>

@@ -268,20 +268,20 @@ public class DioImpl implements Dio  {
 
 		   
 		
+		
 		@Override
 		public void addTimeOff(TimeOff timeOff) {
 		    Session session = sessionFactory.getCurrentSession();
 		    try {
 		        session.beginTransaction();
 		        session.save(timeOff);
-		    }
-		    catch (HibernateException e) {
+		      } catch (HibernateException e) {
 		          e.printStackTrace();
 		          session.getTransaction().rollback();
 		    }
-		    session.getTransaction().commit();
+		        session.getTransaction().commit();
 		}
-
+		
 		@Override
 		public void updateTimeOff(TimeOff timeOff) {
 			 Session session = sessionFactory.getCurrentSession();
@@ -297,15 +297,16 @@ public class DioImpl implements Dio  {
 			}
 
 		@Override
-		public void deleteTimeOff(TimeOff timeOffId) {
+		public void deleteTimeOff(int timeOffId) {
 		    Session session = sessionFactory.getCurrentSession();
 		    session.beginTransaction();
 		    TimeOff timeOff = (TimeOff) session.get(TimeOff.class, timeOffId);
 		    if(null != timeOff) {
-		        session.delete(timeOffId);
+		        session.delete(timeOff);
 		    }
 		    session.getTransaction().commit();
 		}
+		
 
 			@SuppressWarnings("unchecked")
 			@Override
