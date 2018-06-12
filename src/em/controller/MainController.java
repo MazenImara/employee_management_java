@@ -62,10 +62,10 @@ public class MainController {
 	@RequestMapping(value="/checklogin",method = RequestMethod.POST)
  	public String  login(HttpSession session,@RequestParam(value="email", required=true) String  email,@RequestParam(value="password", required=true) String  password)   {	
 		Employee employee=dio.checkLogin(email,password);
- 		if (employee!=null) {
+ 		if (employee != null) {
  			Admin admin=new Admin();
  			Log log = new Log();
- 			log.employee=employee;
+ 			log.employee = employee;
  			List<Admin> admins =  dio.getAdminsByEmployeeId(employee.id);
  			for (Admin ad :admins) {
  				admin=ad;
@@ -138,22 +138,23 @@ public class MainController {
 	@RequestMapping(value="/logout")
 	public String logout(HttpSession session) throws ParseException {
 		Log log = (Log) session.getAttribute("log");
-		if(log != null) {
-			if (log.day.temp==0) {	
-				log.day.endTime=System.currentTimeMillis();
-				log.day.timeSpend=log.day.endTime - log.day.start ;
-				
-				dio.updateDay(log.day);
-			}
-			else {
-				log.day.endTime=System.currentTimeMillis();	
-				log.day.timeSpend=(log.day.endTime - log.day.temp)+log.day.timeSpend ;
-				log.day.temp=0;
-				dio.updateDay(log.day);
-			}
+		if(log != null ) {
+		if (log.day.temp==0) {	
+			log.day.endTime=System.currentTimeMillis();
+			log.day.timeSpend=log.day.endTime - log.day.start ;
+			
+			dio.updateDay(log.day);
+		}
+		else {
+			log.day.endTime=System.currentTimeMillis();	
+			log.day.timeSpend=(log.day.endTime - log.day.temp)+log.day.timeSpend ;
+			log.day.temp=0;
+			dio.updateDay(log.day);
+
 		}
 		
 		session.removeAttribute("log");
+		}
 		return "redirect:login";			
 	}
 	
@@ -569,16 +570,16 @@ public class MainController {
 	public ModelAndView employee(HttpSession session) {
     	Log log = (Log)session.getAttribute("log");
     	if(log != null && log.role == "Employee") {	
-		ModelAndView model = new ModelAndView("employee");
-		Task task = new Task();
-		List<Project> getProjects = dio.getProjects();
-		model.addObject("task", task);
-	    model.addObject("getProjects", getProjects);
-		return model;			
+			ModelAndView model = new ModelAndView("employee");
+			Task task = new Task();
+			List<Project> getProjects = dio.getProjectsByEmployeeId(log.employee.id);
+			model.addObject("task", task);
+		    model.addObject("getProjects", getProjects);
+			return model;			
 	    }
     	else {
- 		ModelAndView model2 = new ModelAndView("notLoged");
- 		return model2;
+	 		ModelAndView model2 = new ModelAndView("notLoged");
+	 		return model2;
 	    }
 	}	   
    
@@ -606,19 +607,27 @@ public class MainController {
     	
     }
     @RequestMapping(value="/start")
-    public String start(@RequestParam(value="id", required=true) int id) {
-    	Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-    	Task task = dio.getTask(id);
-    	if(task.status != "Started") {
-    		if(task.status.equals("New") ) {
-    			task.started = timestamp.getTime();   
-    			dio.updateTask(task);
-    		}
-        	task.status = "Started";
-        	task.timetemp = timestamp.getTime();
+    public String start(@RequestParam(value="id", required=true) int id, HttpSession session) {
+    	Log log = (Log)session.getAttribute("log");
+    	if(log != null) {
+	    	Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+	    	Task task = dio.getTask(id);
+	    	task.employee = log.employee;
+	    	System.out.println("the id: "+log.employee.id);
+	    	if(task.status != "Started") {
+	    		if(task.status.equals("New") ) {
+	    			task.started = timestamp.getTime(); 
+	    		}
+	        	task.status = "Started";
+	        	task.timetemp = timestamp.getTime();
+	    	}
+
         	dio.updateTask(task);    		
+	    	return "redirect:employee"; 
     	}
-    	return "redirect:employee";    	
+    	else 
+        	return "redirect:/"; 
+    		
     }
     @RequestMapping(value="/pause")
     public String pause(@RequestParam(value="id", required=true) int id) {

@@ -119,6 +119,27 @@ public class DioImpl implements Dio  {
 	   }
 	    return projects;
 	}
+	@SuppressWarnings("unchecked")
+	@Override
+	
+	public List<Project> getProjectsByEmployeeId(int employeeId) {
+	    Session session = sessionFactory.getCurrentSession();
+	    session.beginTransaction();
+	    List<Project> projects = null;
+	    try {
+	        System.out.println("IN LIST");
+	        projects = (List<Project>)session.createQuery("from Project").list();
+	
+	    } catch (HibernateException e) {
+	        e.printStackTrace();
+	        session.getTransaction().rollback();
+	    }
+	    session.getTransaction().commit();
+	    for(Project project: projects) {
+	    	project.tasks = getTasksByProjectIdEmployeeId(project.id, employeeId);
+	   }
+	    return projects;
+	}
 		//end ikram
 	
 
@@ -453,6 +474,24 @@ public Task getTask(int id) {
 	    try {
 	        System.out.println("IN LIST");
 	        tasks = (List<Task>)session.createQuery("from Task where project_id="+project_id).list();
+	
+	    } catch (HibernateException e) {
+	        e.printStackTrace();
+	        session.getTransaction().rollback();
+	    }
+	    session.getTransaction().commit();
+	    return tasks;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Task> getTasksByProjectIdEmployeeId(int project_id, int employeeId) {
+		Session session = sessionFactory.getCurrentSession();
+	    session.beginTransaction();
+	    List<Task> tasks = null;
+	    try {
+	        System.out.println("IN LIST");
+	        tasks = (List<Task>)session.createQuery("from Task WHERE (project_id ="+ project_id + " and status = 'New') or (project_id ="+ project_id + " and employee_id = "+employeeId+")").list();
 	
 	    } catch (HibernateException e) {
 	        e.printStackTrace();
