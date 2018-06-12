@@ -18,17 +18,23 @@
 
 <!-- MOHAMAD code -->
 <div  class="box "  align='center'>
-Account: ${log.employee.name } <br>
- <a href="logout"><button>Logout</button></a>
+   Account: ${log.employee.name } <br>
+   <a href="logout"><button>Logout</button></a>
 </div>
-
+ <div  class="employee_timeOff"   align='center' >
+    <a href="managetimeoff?employeeId=${log.employee.id}">Manage your TimeOff</a><br>
+    <a href="allsuggestions">Suggestions List</a>
+</div>
+ 
+<!-- End Mohamad -->
 <!-- MOHAMAD End -->
 
 <!-- Gab -->
+
 <div class="col-sm-12">
 	<div class="row">
-	<div class="header">
-	<h1>Employee List</h1>
+	<div class="header2">
+	 <h1  align="center">Employee List</h1>
 	</div>
 		<c:forEach var="project" items="${getProjects }">
 			<div class="muu3">
@@ -81,15 +87,8 @@ Account: ${log.employee.name } <br>
 		<br>
 		
 </div>
+
 <!-- Gab endline -->
-<!-- MOHAMAD CODE -->
 
- <div  class="timeOff"   align='center' >
-    <a href="managetimeoff?employeeId=${log.employee.id}">Manage your TimeOff</a>
- </div>
-   
-
-
-<!-- End Mohamad -->
 </body>
 </html>

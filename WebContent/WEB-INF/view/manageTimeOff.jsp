@@ -39,7 +39,7 @@
 							   <b><fmt:formatDate value="${dateObject2 }" pattern="dd/MM/yyyy--" /></b>
 						 	   <b><fmt:formatDate value="${dateObject2}" pattern="hh:mm a" /></b>
 				    	   <input type='hidden' name="employee_id" value='${timeOff.employee_id}'/>
-						   <td style="color:blue"><input type="submit" value="DELETE"/></td>
+						   <td style="color:blue"><input type="submit" value="DELETE   "/></td>
 	                     </tr> 
 	                      </form:form>
 	                      </c:forEach>
