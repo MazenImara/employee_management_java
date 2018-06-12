@@ -15,6 +15,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+<h1>test ${log.employee.name }</h1>
 
 <!-- MOHAMAD code -->
 <div  class="box "  align='center'>

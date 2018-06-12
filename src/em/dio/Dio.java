@@ -35,6 +35,8 @@ public interface Dio {
 
 // for Task 
 // Gab	
+	public List<Project> getProjectsByEmployeeId(int employeeId);
+	public List<Task> getTasksByProjectIdEmployeeId(int project_id, int employeeId);
 	public Task getTask(int id);
 	public void addTask(Task task);
 	public void deleteTask(int id);
@@ -78,6 +80,7 @@ public interface Dio {
 		public TimeOff getTimeOff(int timeOffId);
 		public List<TimeOff> getTimesOffByEmployeeId(int employeeId);
 		public List<Day> getDayByEmployeeId(int employeeId);
+		
 		
 
 }
