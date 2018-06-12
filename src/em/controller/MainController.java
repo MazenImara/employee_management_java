@@ -372,6 +372,19 @@ public class MainController {
        dio.addTimeOff(timeOff);
        return "redirect:managetimeoff?employeeId="+timeOff.employee_id;	
    }
+   @RequestMapping(value="/allsuggestions",method = RequestMethod.GET)
+   public ModelAndView  allsuggestion(){    	
+	   ModelAndView model = new ModelAndView("allsuggestions");
+		List<Project> projects = dio.getProjects();
+		List<Suggestion> suggestions=dio.getSuggestions();
+		List<Employee> employees=dio.getEmployees();
+		List<Task> tasks =dio.getTasks();
+		model.addObject("projects", projects);
+		model.addObject("suggestions", suggestions);
+		model.addObject("employees", employees);
+		model.addObject("tasks", tasks);
+		return model;	
+	}	
    
    
 		// End 	MOHAMAD

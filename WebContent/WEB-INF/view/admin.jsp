@@ -12,8 +12,8 @@
 <body>
 <!-- MOHAMAD Code -->
 <div  class="box "  align='center'>
-<h1>Account: ${log.employee.name }</h1>
- <a href="logout"><button>Logout</button></a>
+   Account: ${log.employee.name } <br>
+   <a href="logout"><button>Logout</button></a>
 </div>
 	 <div align="center">
 	     <h1 Style=' color :blue' ><i>Projects<b></b></i></h1>
@@ -38,7 +38,7 @@
 				              <td><input type='hidden' name="status" value='${project.status}'/>${project.status}</td>
 				              <td><input type='hidden' name="timeSpend" value='${project.timeSpend}'/>${project.timeSpend}</td>
 				              <td style="color:blue"><a href="getproject?id=${project.id}">GO</a></td>
-				              <td style="color:blue"><a href="deleteproject?id=${project.id}">DEL</a></td>	                   
+				              <td style="color:blue"><a href="deleteproject?id=${project.id}">DELETE</a></td>	                   
 				              <td style="color:blue"><input type="submit" value="UPDATE"/></td>
 					      </tr>
 		              </form:form>

@@ -20,7 +20,6 @@
 		                <th>Employee name</th>
 		                <th>Project name</th>
 		                <th>Task Name</th>
-		                 <th>DELETE</th>
 		            </tr>
 	                <c:forEach var="suggestion" items="${suggestions}" varStatus="status">
 	                <tr>

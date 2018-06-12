@@ -56,7 +56,7 @@ input[type=button], input[type=submit], input[type=reset] {
     background-color: #4CAF50;
     border: none;
     color: white;
-    padding: 16px 32px;
+    padding: 5px 20px;
     text-decoration: none;
     margin: 4px 2px;
     cursor: pointer;
@@ -72,7 +72,7 @@ input[type=button], input[type=submit], input[type=reset] {
   background-color:lightgrey;
    border: 5px solid black;
   height: 20%;
-  width: 21%;
+  width: 23%;
   left: 20%;
   top: 20%;
   margin: 20px;
@@ -87,7 +87,7 @@ input[type=button], input[type=submit], input[type=reset] {
      padding-top: 5px;
      padding-bottom: 5px;
      height: 20%;
-     width: 96%;
+     width: 97%;
     left: 150%;
     top: 20%;
 }
