@@ -7,6 +7,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<style><%@include file="/WEB-INF/css/mystyle.css"%></style>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
 </head>
@@ -15,7 +16,7 @@
    <div align="center">
 	     <h1 Style=' color :blue' ><i>Your TimeOff <b></b></i></h1>
 		     <table border="1">
-			      <tr>
+			      <tr style= "background:yellow">
 			          <th>S.No.</th>
 			          <th>From</th>
 			          <th>To</th>

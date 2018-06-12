@@ -18,7 +18,7 @@
 	 <div align="center">
 	     <h1 Style=' color :blue' ><i>Projects<b></b></i></h1>
 		     <table border="1">
-			      <tr>
+			      <tr style= "background:yellow">
 			          <th>S.No.</th>
 			          <th>project title</th>
 			          <th>project description</th>
@@ -59,7 +59,7 @@
        <div align="center">
            <h1 Style=' color :blue' ><i>Employee List<b></b></i></h1>
 	            <table border="1">
-		            <tr>
+		             <tr style= "background:yellow">
 		                <th>S.No.</th>
 		                <th>Employee name</th>
 		                <th>Employee email</th>
