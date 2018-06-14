@@ -171,7 +171,7 @@ public class MainController {
 	 		return model2;
 		}
  	}	   
-	
+	 @SuppressWarnings("unused")
 	@RequestMapping(value="/getemployee")
 	public ModelAndView emp(HttpSession session,@RequestParam(value="id", required=true) int  id) throws ParseException {
 		Log log = (Log)session.getAttribute("log");
@@ -180,11 +180,15 @@ public class MainController {
 			Employee employee = dio.getEmployee(id);
 			List<TimeOff> timesOff=dio.getTimesOffByEmployeeId(employee.id);
 		    Day day= new Day();
-		    
+			long sum=0;
 			List<Day> days =(List<Day>) dio.selectEmployeesWorkTimeForPeriod( day.firstDayInCurrentMonth() , day.lastDayInCurrentMonth() , employee.id); 
-		    model.addObject("timesOffList",timesOff);
+		    for ( Day day1:days) {
+		    	sum = sum + day1.timeSpend;
+		    }
+			model.addObject("timesOffList",timesOff);
 			model.addObject("employee", employee);
 			model.addObject("days", days);
+			model.addObject("sum", sum);
 			return model;
 		}
 		else {
@@ -482,10 +486,18 @@ public class MainController {
         return model;
     }
     
+    @RequestMapping(value="/loginasemployee")
+	public ModelAndView loginAsEmployee(HttpSession session) {
+    	Log log = (Log)session.getAttribute("log");
+    	ModelAndView model = new ModelAndView("employee");
+    	log.role ="Employee";
+    	return model;
+    }
+   
     @RequestMapping(value="/employee")
 	public ModelAndView employee(HttpSession session) {
     	Log log = (Log)session.getAttribute("log");
-    	if(log != null && log.role == "Employee") {	
+    	if(log != null && log.role == "Employee" ) {	
 			ModelAndView model = new ModelAndView("employee");
 			Task task = new Task();
 			List<Project> getProjects = dio.getProjectsByEmployeeId(log.employee.id);

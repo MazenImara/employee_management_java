@@ -106,7 +106,7 @@
 									    <c:otherwise>
 									       <jsp:useBean id="dateObject3" class="java.util.Date" />
 								    	   <jsp:setProperty name="dateObject3" property="time" value="${day.start}" />
-								           <b><fmt:formatDate value="${dateObject3 }" pattern="dd/MM/yyyy--" /></b>
+								       
 									       <b><fmt:formatDate value="${dateObject3 }" pattern="hh:mm a" /></b>
 									    </c:otherwise>
 						    	</c:choose>
@@ -119,7 +119,7 @@
 									    <c:otherwise>
 									       <jsp:useBean id="dateObject4" class="java.util.Date" />
 								    	   <jsp:setProperty name="dateObject4" property="time" value="${day.endTime}" />
-								           <b><fmt:formatDate value="${dateObject4 }" pattern="dd/MM/yyyy--" /></b>
+								           
 									       <b><fmt:formatDate value="${dateObject4 }" pattern="hh:mm a" /></b>
 									    </c:otherwise>
 						    	</c:choose>
@@ -146,15 +146,41 @@
 		             </c:forEach> 
 		                   
 	             </table>
-	             <table border="1">
+	                    <table border="1">
+	                        <tr style= "background:lightblue">
+	                         <th> The total times Work for this periode is :
+		                         <c:choose>
+									    <c:when test="${sum<=999}">
+									       00:00
+									    </c:when> 
+									    <c:when test="${sum >= 1000 && sum <= 3599000 }">
+									      <jsp:useBean id="dateObject8" class="java.util.Date" />
+								    	  <jsp:setProperty name="dateObject8" property="time" value="${sum}" />
+									      <b><fmt:formatDate value="${dateObject8 }" pattern=" 00:mm " /></b>
+									     
+									    </c:when>    
+									    <c:otherwise>
+						                  <jsp:useBean id="dateObject9" class="java.util.Date" />
+								    	  <jsp:setProperty name="dateObject9" property="time" value="${sum-3600000}" />
+									      <b><fmt:formatDate value="${dateObject9 }" pattern="hh:mm " /></b>
+							            </c:otherwise>
+							      </c:choose>
+						      </th>
+						      </tr>
+	                      </table>
+	             
+	               <table border="1">
+	              
 	                <form:form name="formshowtimesWorkinperiode" method="post" action="gettimeworkinperiode" modelAttribute="day">
 		                 <tr style= "background:lightblue">
 		                      <input type='hidden' name="id" value='${employee.id}'/>
 		                     <th> From <input type="date" name='date1' value='date1'/></th>
 		                     <th> To   <input type="date" name='date2' value='date2'/></th>
-		                     <th style="color:blue"><input type="submit" value="Show works in periode"/></th>	                   
+		                     <th style="color:blue"><input type="submit" value="Show works in periode"/></th>
 		                 </tr>
+		                
 	                 </form:form>
+	                   
 	              </table>
     </div> 
 </body>

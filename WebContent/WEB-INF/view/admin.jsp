@@ -12,8 +12,9 @@
 <body>
 <!-- MOHAMAD Code -->
 <div  class="box "  align='center'>
-   Account: ${log.employee.name } <br>
-   <a href="logout"><button>Logout</button></a>
+    Account: ${log.employee.name } <br>
+    <a href="logout"><button>Logout</button></a>
+    <a href="loginasemployee"><button>login As Employee</button></a>
 </div>
 	 <div align="center">
 	     <h1 Style=' color :blue' ><i>Projects<b></b></i></h1>
