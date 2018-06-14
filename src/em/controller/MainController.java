@@ -556,8 +556,12 @@ public class MainController {
 					    	dio.updateTask(task);
 					 }   	
 				 }
-				 
 			 }
+			 
+			 
+			 //update Project
+			 
+			
     		//end Mohamad Code
 			 
 	    	Timestamp timestamp = new Timestamp(System.currentTimeMillis());
