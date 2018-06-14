@@ -80,7 +80,7 @@
            <h1 Style=' color :blue' ><i><b>Work Time</b></i></h1>
 	              
 	              <table border="1">    
-	                 <th style= "background:lightblue"> The Work Times In This Month </th>
+	                 <th style= "background:lightblue"> The Work Times between ${d1} and ${d2}  </th>
 	              </table>
 	              <table border="1">    
 		             <tr style= "background:yellow">

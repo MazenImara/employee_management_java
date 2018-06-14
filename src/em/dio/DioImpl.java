@@ -369,11 +369,13 @@ public class DioImpl implements Dio  {
 			public List<Day> selectEmployeesWorkTimeForPeriod(long date1,long date2 ,int employeeId){
 				 Session session = sessionFactory.getCurrentSession();
 				    session.beginTransaction();
+				    Day day=new Day();
 				    List<Day> days = null;
 				    try {
 				        System.out.println("IN LIST");
-				        days = (List<Day>)session.createQuery("from Day left join employee on day.employee_id="+employeeId +" having `date`>= '"+date1+"' and `date`<='"+date2+"'  order by employee_id").list();
-				    
+				        String hql="  from Day day where ( day.date >= '"+date1+"' and day.date <= '"+date2+"'  and day.employeeId = '"+employeeId+"') order by day.id ASC ";
+				        Query query=session.createQuery(hql);
+						 days = query.list();
 				    } catch (HibernateException e) {
 				        e.printStackTrace();
 				        session.getTransaction().rollback();

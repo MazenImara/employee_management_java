@@ -90,7 +90,6 @@ public class MainController {
 				    	   day.start=day1.start;
 				    	   day.timeSpend=day1.timeSpend;
 				    	   day.endTime=day1.endTime;
-				    	  
 				    	   check=true;
 				    	   dio.updateDay(day1);
 				    	   log.setDay(day1);
@@ -142,7 +141,6 @@ public class MainController {
 		if (log.day.temp==0) {	
 			log.day.endTime=System.currentTimeMillis();
 			log.day.timeSpend=log.day.endTime - log.day.start ;
-			
 			dio.updateDay(log.day);
 		}
 		else {
@@ -150,9 +148,7 @@ public class MainController {
 			log.day.timeSpend=(log.day.endTime - log.day.temp)+log.day.timeSpend ;
 			log.day.temp=0;
 			dio.updateDay(log.day);
-
 		}
-		
 		session.removeAttribute("log");
 		}
 		return "redirect:login";			
@@ -177,15 +173,15 @@ public class MainController {
  	}	   
 	
 	@RequestMapping(value="/getemployee")
-	public ModelAndView emp(HttpSession session,@RequestParam(value="id", required=true) int  id) {
+	public ModelAndView emp(HttpSession session,@RequestParam(value="id", required=true) int  id) throws ParseException {
 		Log log = (Log)session.getAttribute("log");
 		if(log != null && log.role == "Admin") {
 			ModelAndView model = new ModelAndView("mangeemployee");
 			Employee employee = dio.getEmployee(id);
 			List<TimeOff> timesOff=dio.getTimesOffByEmployeeId(employee.id);
-			
-		    List<Day> days=dio.getDayByEmployeeId(employee.id);
+		    Day day= new Day();
 		    
+			List<Day> days =(List<Day>) dio.selectEmployeesWorkTimeForPeriod( day.firstDayInCurrentMonth() , day.lastDayInCurrentMonth() , employee.id); 
 		    model.addObject("timesOffList",timesOff);
 			model.addObject("employee", employee);
 			model.addObject("days", days);
@@ -197,6 +193,38 @@ public class MainController {
 		}
 	}	
 	
+	@RequestMapping(value="/gettimeworkinperiode")
+	public ModelAndView timesworkinperiode(HttpSession session,@RequestParam(value="id", required=true) int  id,@RequestParam(value="date1", required=true) char[]  date1,@RequestParam(value="date2", required=true)char[]  date2) throws ParseException {
+		Log log = (Log)session.getAttribute("log");
+		if(log != null && log.role == "Admin") {
+			
+			ModelAndView model = new ModelAndView("mangeemployeeinPeriode");
+			Employee employee = dio.getEmployee(id);
+			
+			List<TimeOff> timesOff=dio.getTimesOffByEmployeeId(employee.id);
+			
+		    Day day=new Day();
+		    String d1= String.valueOf(date1, 0, 10);
+		    String d2= String.valueOf(date2, 0, 10);
+		    String d3=d1+" "+0+":"+0;
+		    String d4=d2+" "+0+":"+0;
+		    long periodeFrom= day.toMillisecond(d3);
+		    long periodeTo  = day.toMillisecond(d4);
+		  
+			List<Day> days =(List<Day>) dio.selectEmployeesWorkTimeForPeriod( periodeFrom , periodeTo ,employee.id);
+			
+		    model.addObject("timesOffList",timesOff);
+			model.addObject("employee", employee);
+			model.addObject("days", days);
+			model.addObject("d1", d1);
+			model.addObject("d2", d2);
+			return model;
+		}
+		else {
+	 		ModelAndView model2 = new ModelAndView("notLoged");
+	 		return model2;
+		}
+	}	
 	/*
     List<TimeOff> timesOffList= new ArrayList<TimeOff>();
     for(TimeOff timeOff :timesOff) {
@@ -405,18 +433,19 @@ public class MainController {
    public ModelAndView test() {	
    	ModelAndView model = new ModelAndView("test");
    	
-   	long date1=1523433777777L;
-   	long date2=1523499999999L;
+   	long date1=1523433777000L;
+   	long date2=1533499999000L;
    	int employeeId =3;
-   	List<Day> days =(List<Day>) dio.selectEmployeesWorkTimeForPeriod( date1, date2 , employeeId);
-   
+   	List<Day> days =(List<Day>) dio.selectEmployeesWorkTimeForPeriod( date1 , date2 , employeeId);
+  
 		for (Day day : days) {
 			
 			System.out.println("from"+day.start);
 			System.out.println("from"+day.endTime);
 		}
-   	
+   
        return model;
+       
    }
 		
 	

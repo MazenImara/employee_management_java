@@ -7,6 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
+import java.util.concurrent.TimeUnit;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -108,6 +109,7 @@ public class Day implements Serializable  {
 	    return new SimpleDateFormat("yyyy-MM-dd").format(date);
 	}
 	
+	
 	public long toMillisecond(String myDate) throws ParseException {
 		Calendar c1 = Calendar.getInstance(TimeZone.getTimeZone("UTC")); 
 	    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
@@ -117,7 +119,28 @@ public class Day implements Serializable  {
 	    System.out.println("c1:"+c1.getTimeInMillis());
 	    return millieSeconde;
 	}
-
+	public long  firstDayInCurrentMonth() throws ParseException {
+		Day day= new Day();
+		long currentTime=System.currentTimeMillis();
+		long currentTimeInMillis=TimeUnit.DAYS.toDays(currentTime);
+		String  currentTimeReadable=day.toDate(currentTimeInMillis);
+		char[] c = currentTimeReadable.toCharArray();
+	    String d=String.valueOf(c, 0, 8)+00+" "+0+":"+0;
+		long   date= day.toMillisecond(d);
+		System.out.println(d);
+		return date; 
+    }
+	public long  lastDayInCurrentMonth() throws ParseException {
+		Day day= new Day();
+		long currentTime=System.currentTimeMillis();
+		long currentTimeInMillis=TimeUnit.DAYS.toDays(currentTime);
+		String  currentTimeReadable=day.toDate(currentTimeInMillis);
+		char[] c = currentTimeReadable.toCharArray();
+	    String d=String.valueOf(c, 0, 8)+31+" "+0+":"+0;
+		long   date= day.toMillisecond(d); 
+		System.out.println(d);
+		return date ;
+    }
 	
 
 }	
