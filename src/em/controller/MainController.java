@@ -134,21 +134,39 @@ public class MainController {
 		return model;			
 	}
 	
+
 	@RequestMapping(value="/logout")
 	public String logout(HttpSession session) throws ParseException {
 		Log log = (Log) session.getAttribute("log");
 		if(log != null ) {
-		if (log.day.temp==0) {	
-			log.day.endTime=System.currentTimeMillis();
-			log.day.timeSpend=log.day.endTime - log.day.start ;
-			dio.updateDay(log.day);
-		}
-		else {
-			log.day.endTime=System.currentTimeMillis();	
-			log.day.timeSpend=(log.day.endTime - log.day.temp)+log.day.timeSpend ;
-			log.day.temp=0;
-			dio.updateDay(log.day);
-		}
+			if (log.day.temp==0) {	
+				log.day.endTime=System.currentTimeMillis();
+				log.day.timeSpend=log.day.endTime - log.day.start ;
+				dio.updateDay(log.day);
+			}
+			else {
+				log.day.endTime=System.currentTimeMillis();	
+				log.day.timeSpend=(log.day.endTime - log.day.temp)+log.day.timeSpend ;
+				log.day.temp=0;
+				dio.updateDay(log.day);
+			}
+		
+			List<Task> tasks=(List<Task>) dio.getTasks();
+			 
+			 for (Task task : tasks ) {
+				 if(task.employee != null) {
+					 if (task.employee.id == log.employee.id && task.status.equals("Started"))  {
+					    	task.status = "Paused";
+					    	Timestamp timestamp = new Timestamp(System.currentTimeMillis()); 
+					    	task.timespend = task.timespend + ( timestamp.getTime() - task.timetemp);
+					    	dio.updateTask(task);
+					 }   	
+				 }
+				 
+			 }
+				
+				 
+			
 		session.removeAttribute("log");
 		}
 		return "redirect:login";			
@@ -526,6 +544,22 @@ public class MainController {
     public String start(@RequestParam(value="id", required=true) int id, HttpSession session) {
     	Log log = (Log)session.getAttribute("log");
     	if(log != null) {
+    		
+    		//Mohamad Code (this code for pause task when another task was Started)
+    		List<Task> tasks=(List<Task>) dio.getTasks();
+			 for (Task task : tasks ) {
+				 if(task.employee != null) {
+					 if (task.employee.id == log.employee.id && task.status.equals("Started"))  {
+					    	task.status = "Paused";
+					    	Timestamp timestamp = new Timestamp(System.currentTimeMillis()); 
+					    	task.timespend = task.timespend + ( timestamp.getTime() - task.timetemp);
+					    	dio.updateTask(task);
+					 }   	
+				 }
+				 
+			 }
+    		//end Mohamad Code
+			 
 	    	Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 	    	Task task = dio.getTask(id);
 	    	task.employee = log.employee;
@@ -537,7 +571,6 @@ public class MainController {
 	        	task.status = "Started";
 	        	task.timetemp = timestamp.getTime();
 	    	}
-
         	dio.updateTask(task);    		
 	    	return "redirect:employee"; 
     	}
