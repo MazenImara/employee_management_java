@@ -384,7 +384,35 @@ public class DioImpl implements Dio  {
 				    
 				return days;
 			 }
-		
+		   
+		    @SuppressWarnings("unchecked")
+			@Override
+			public Suggestion getSuggestionByTaskId(int taskId) {
+
+			    Session session = sessionFactory.getCurrentSession();
+			    session.beginTransaction();
+			    Suggestion suggestion=new Suggestion();
+			    List<Suggestion> suggestions = null;
+			    try {
+			        System.out.println("IN LIST");
+			        suggestions = (List<Suggestion>)session.createQuery("from Suggestion ").list();
+			        outer:
+			        for(Suggestion sugg:suggestions) {
+				    	if(sugg.task_id ==taskId  ) {
+				    		suggestion=sugg;
+				    		break outer;
+				        }
+				    	else {
+				    		suggestion=null;
+				    	}
+			        }
+			    } catch (HibernateException e) {
+			        e.printStackTrace();
+			        session.getTransaction().rollback();
+			    }
+			    session.getTransaction().commit();
+			    return suggestion;
+	}	
 		 // end MOHAMAD
 
 	

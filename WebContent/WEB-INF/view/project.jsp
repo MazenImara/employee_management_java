@@ -118,7 +118,7 @@
 				                  </td>
 						       <c:choose> 
 			                        <c:when test="${task.employee.id != null}">
-			                              <td> ${task.employee.name} </td>
+			                              <td> ${task.employee.name } </td>
 								    </c:when>
 								    <c:when test="${suggestions == null}">
 			                                <td style="color:blue"><a  href="makesuggestion?taskId=${task.id}&projectId=${project.id}">Make Suggestion</a></td>										             

@@ -81,6 +81,7 @@ public interface Dio {
 		public List<TimeOff> getTimesOffByEmployeeId(int employeeId);
 		public List<Day> getDayByEmployeeId(int employeeId);
 		public List<Day> selectEmployeesWorkTimeForPeriod(long date1, long date2, int employeeId);
+		public Suggestion getSuggestionByTaskId(int taskId);
 		
 		
 

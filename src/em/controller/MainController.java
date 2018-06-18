@@ -256,14 +256,6 @@ public class MainController {
 	 		return model2;
 		}
 	}	
-	/*
-    List<TimeOff> timesOffList= new ArrayList<TimeOff>();
-    for(TimeOff timeOff :timesOff) {
-		timeOff.from=TimeUnit.SECONDS.toMillis(timeOff.from );
-		timeOff.to=TimeUnit.SECONDS.toMillis(timeOff.to );
-		timesOffList.add(timeOff);
-	}
-	*/
 	
 	@RequestMapping(value = "/addemployee" ,method = RequestMethod.POST)
 	 public String addEmployee(@ModelAttribute("employee") Employee employee) {
@@ -284,15 +276,23 @@ public class MainController {
     }
 	
 	@RequestMapping(value="/getproject")
-	public ModelAndView project(@RequestParam(value="id", required=true) int  id) {
-		ModelAndView model = new ModelAndView("project");
-		Project project = dio.getProject(id);
-		List<Suggestion> suggestions=dio.getSuggestions();
-		List<Employee> employees=dio.getEmployees();
-		model.addObject("project", project);
-		model.addObject("suggestions", suggestions);
-		model.addObject("employees", employees);
-		return model;	
+	public ModelAndView project(HttpSession session,@RequestParam(value="id", required=true) int  id) {
+		
+		Log log = (Log)session.getAttribute("log");
+		if(log != null && log.role == "Admin") {
+			ModelAndView model1 = new ModelAndView("project");
+			Project project = dio.getProject(id);
+			List<Suggestion> suggestions=dio.getSuggestions();
+			List<Employee> employees=dio.getEmployees();
+			model1.addObject("project", project);
+			model1.addObject("suggestions", suggestions);
+			model1.addObject("employees", employees);
+			return model1;	
+		}
+		else {
+	 		ModelAndView model2 = new ModelAndView("notLoged");
+	 		return model2;
+		}
 	}	
 	
 	@RequestMapping(value = "/updateproject" ,method = RequestMethod.POST)	
@@ -343,10 +343,23 @@ public class MainController {
     @RequestMapping(value = "/del&updatetask",method = RequestMethod.POST,params = { "update" })
     public String updatetask(@ModelAttribute("task") Task task) {
         System.out.println(task.getTitle());
-        if(null != task )
-        dio.updateTask(task);
+        if (task.status.equals("New")) {
+        	dio.updateTask(task);
+        }
+        else{
+	        Task task2=new Task();
+	        task2=dio.getTask(task.id);
+	        if (task2.employee.name != null) {
+	        	task.employee=task2.employee;
+	        	task.timetemp=task2.timetemp;
+	        	System.out.println("task.employee.id"+task.employee.id);
+	        	System.out.println("task.temp"+task.timetemp);
+	        	dio.updateTask(task);
+            }
+        }    
+        
         return "redirect:getproject?id="+task.project.id;
-    }
+        }
     
     @RequestMapping(value="/makesuggestion",method = RequestMethod.GET)
     public ModelAndView  signEmployeeToTasktask(@RequestParam(value="taskId", required=true) int  taskId,@RequestParam(value="projectId", required=true) int projectId) {
@@ -592,11 +605,17 @@ public class MainController {
 	        	task.status = "Started";
 	        	task.timetemp = timestamp.getTime();
 	        	
-     //update Project MOHAMAD Code
+	// MOHAMAD Code     	
+            //update Project
 	        	Project project=dio.getProject(task.project.id);
 	            project.status="Started";
 	            dio.updateProject(project);
-	 //end Update<project MOHAMAD Code
+	        //delete Suggestion when employee choice  task
+	            Suggestion suggestion = dio.getSuggestionByTaskId(task.id);
+	            if ( suggestion !=null) {
+		            dio.deleteSuggestion(suggestion.id);
+	            }
+	 //end  MOHAMAD Code
 	    	}
         	dio.updateTask(task);    		
 	    	return "redirect:employee"; 
