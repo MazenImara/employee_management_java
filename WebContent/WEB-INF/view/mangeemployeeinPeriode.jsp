@@ -12,12 +12,12 @@
 <title>Insert title here</title>
 </head>
 <body>
-<div  class="box "  align='center'>
-   Account: ${log.employee.name } <br>
-   <a href="logout"><button>Logout</button></a>
+<body><div  class="box "  align='center'>
+    Account: ${log.employee.name } <br>
+    <a href="logout"><button>Logout</button></a>
+    <a href="loginasemployee"><button>login As Employee</button></a>
+    <input type="button" value="To Admin Menu" onclick="window.location.href='http://localhost:8080/em/admin'">
 </div>
-<input type="button" value="To Admin Menu" onclick="window.location.href='http://localhost:8080/em/admin'">
-
                             
 <div align="center">
            <h1 Style=' color :blue' ><i><b>Employee List</b></i></h1>
@@ -144,6 +144,28 @@
 							</td>  
 				      </tr> 
 		             </c:forEach> 
+		              <table border="1">
+	                        <tr style= "background:lightblue">
+	                         <th> The total times Work for this periode is :
+		                         <c:choose>
+									    <c:when test="${sum<=999}">
+									       00:00
+									    </c:when> 
+									    <c:when test="${sum >= 1000 && sum <= 3599000 }">
+									      <jsp:useBean id="dateObject8" class="java.util.Date" />
+								    	  <jsp:setProperty name="dateObject8" property="time" value="${sum}" />
+									      <b><fmt:formatDate value="${dateObject8 }" pattern=" 00:mm " /></b>
+									     
+									    </c:when>    
+									    <c:otherwise>
+						                  <jsp:useBean id="dateObject9" class="java.util.Date" />
+								    	  <jsp:setProperty name="dateObject9" property="time" value="${sum-3600000}" />
+									      <b><fmt:formatDate value="${dateObject9 }" pattern="hh:mm " /></b>
+							            </c:otherwise>
+							      </c:choose>
+						      </th>
+						      </tr>
+	                      </table>
 		                   
 	             </table>
 	             <table border="1">
@@ -156,6 +178,7 @@
 		                 </tr>
 	                 </form:form>
 	              </table>
+	              
     </div> 
 </body>
 </html>

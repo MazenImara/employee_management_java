@@ -243,12 +243,16 @@ public class MainController {
 		    long periodeTo  = day.toMillisecond(d4);
 		  
 			List<Day> days =(List<Day>) dio.selectEmployeesWorkTimeForPeriod( periodeFrom , periodeTo ,employee.id);
-			
+			long sum=0;
+			 for ( Day day1:days) {
+			    	sum =  sum + day1.timeSpend;
+			  }
 		    model.addObject("timesOffList",timesOff);
 			model.addObject("employee", employee);
 			model.addObject("days", days);
 			model.addObject("d1", d1);
 			model.addObject("d2", d2);
+			model.addObject("sum", sum);
 			return model;
 		}
 		else {
@@ -317,13 +321,6 @@ public class MainController {
         dio.deleteProject(id);
         return "redirect:admin";	 
     }
-	@RequestMapping(value="/projectsList")
-    public ModelAndView projectsList() {	
-    	List<Project> getProjects = dio.getProjects();
-    	ModelAndView model = new ModelAndView("projectsList");
-        model.addObject("getProjects", getProjects );
-        return model;
-    }
 	
 
 	@RequestMapping(value = "/addnewtask" ,method = RequestMethod.POST)
@@ -362,21 +359,28 @@ public class MainController {
         }
     
     @RequestMapping(value="/makesuggestion",method = RequestMethod.GET)
-    public ModelAndView  signEmployeeToTasktask(@RequestParam(value="taskId", required=true) int  taskId,@RequestParam(value="projectId", required=true) int projectId) {
-    	ModelAndView model = new ModelAndView("gettask");
-	    Task task1=dio.getTask(taskId);
-	    Project project1=dio.getProject(projectId);
-   	    List<Employee> employees = dio.getEmployees();
-   	    List<Task> tasks=dio.getTasks();
-   	    List<Project> projects=dio.getProjects();
-   	    List<Suggestion> suggestions=dio.getSuggestions();
-	    model.addObject("suggestions", suggestions);
-        model.addObject("employees", employees);
-        model.addObject("projects", projects);
-        model.addObject("tasks", tasks);
-	    model.addObject("task1", task1);
-	    model.addObject("project1", project1);
-        return model;
+    public ModelAndView  signEmployeeToTasktask(HttpSession session,@RequestParam(value="taskId", required=true) int  taskId,@RequestParam(value="projectId", required=true) int projectId) {  	
+        	Log log = (Log)session.getAttribute("log");
+        	if(log != null && log.role == "Admin" ) {
+		    	ModelAndView model = new ModelAndView("gettask");
+			    Task task1=dio.getTask(taskId);
+			    Project project1=dio.getProject(projectId);
+		   	    List<Employee> employees = dio.getEmployees();
+		   	    List<Task> tasks=dio.getTasks();
+		   	    List<Project> projects=dio.getProjects();
+		   	    List<Suggestion> suggestions=dio.getSuggestions();
+			    model.addObject("suggestions", suggestions);
+		        model.addObject("employees", employees);
+		        model.addObject("projects", projects);
+		        model.addObject("tasks", tasks);
+			    model.addObject("task1", task1);
+			    model.addObject("project1", project1);
+		        return model;
+        	}
+        else {
+	 		ModelAndView model2 = new ModelAndView("notLoged");
+	 		return model2;
+	    }
     }
     
     @RequestMapping(value="/signemployeetotask",method = RequestMethod.GET)
@@ -418,11 +422,18 @@ public class MainController {
 	   return "redirect:getemployee?id="+employee.id;
     }
    @RequestMapping(value="/managetimeoff",method = RequestMethod.GET)
-	public ModelAndView  manageTimeOff(@RequestParam(value="employeeId", required=true) int  employeeId ){
-	   List<TimeOff> timesOff=dio.getTimesOffByEmployeeId(employeeId);
-	   ModelAndView model = new ModelAndView("manageTimeOff");
-	   model.addObject("timesOff", timesOff);
-	    return model;
+	public ModelAndView  manageTimeOff(HttpSession session, @RequestParam(value="employeeId", required=true) int  employeeId ){
+	   Log log = (Log)session.getAttribute("log");
+   	if(log != null && log.role == "Employee" ) {
+		   List<TimeOff> timesOff=dio.getTimesOffByEmployeeId(employeeId);
+		   ModelAndView model = new ModelAndView("manageTimeOff");
+		   model.addObject("timesOff", timesOff);
+		    return model;
+   	}
+    else {
+ 		ModelAndView model2 = new ModelAndView("notLoged");
+ 		return model2;
+    }
 	}
    @RequestMapping(value="/deletetimeoff",method = RequestMethod.POST)
    public String deleteTimeOff(@ModelAttribute("timeOff") TimeOff timeOff) {
@@ -456,17 +467,24 @@ public class MainController {
        return "redirect:managetimeoff?employeeId="+timeOff.employee_id;	
    }
    @RequestMapping(value="/allsuggestions",method = RequestMethod.GET)
-   public ModelAndView  allsuggestion(){    	
-	   ModelAndView model = new ModelAndView("allsuggestions");
-		List<Project> projects = dio.getProjects();
-		List<Suggestion> suggestions=dio.getSuggestions();
-		List<Employee> employees=dio.getEmployees();
-		List<Task> tasks =dio.getTasks();
-		model.addObject("projects", projects);
-		model.addObject("suggestions", suggestions);
-		model.addObject("employees", employees);
-		model.addObject("tasks", tasks);
-		return model;	
+   public ModelAndView  allsuggestion( HttpSession session) {  	
+	   	Log log = (Log)session.getAttribute("log");
+	  	if(log != null && log.role == "Employee" ) {
+		    ModelAndView model = new ModelAndView("allsuggestions");
+			List<Project> projects = dio.getProjects();
+			List<Suggestion> suggestions=dio.getSuggestions();
+			List<Employee> employees=dio.getEmployees();
+			List<Task> tasks =dio.getTasks();
+			model.addObject("projects", projects);
+			model.addObject("suggestions", suggestions);
+			model.addObject("employees", employees);
+			model.addObject("tasks", tasks);
+			return model;	
+	       }
+	  	else {
+	 		ModelAndView model2 = new ModelAndView("notLoged");
+	 		return model2;
+	    }
 	}	
    
    

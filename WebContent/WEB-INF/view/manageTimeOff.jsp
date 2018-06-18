@@ -12,8 +12,11 @@
 <title>Insert title here</title>
 </head>
 <body>
-
-<input type="button" value="To Employee Menu" onclick="window.location.href='http://localhost:8080/em/employee'">
+<div  class="box "  align='center'>
+    Account: ${log.employee.name } <br>
+    <a href="logout"><button>Logout</button></a><br>
+    <input type="button" value="To Employee Menu" onclick="window.location.href='http://localhost:8080/em/employee'">
+</div>
 
    <div align="center">
 	     <h1 Style=' color :blue' ><i>Your TimeOff <b></b></i></h1>
