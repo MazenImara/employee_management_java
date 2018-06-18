@@ -149,22 +149,7 @@
 	                    <table border="1">
 	                        <tr style= "background:lightblue">
 	                         <th> The total times Work for this periode is :
-		                         <c:choose>
-									    <c:when test="${sum<=999}">
-									       00:00
-									    </c:when> 
-									    <c:when test="${sum >= 1000 && sum <= 3599000 }">
-									      <jsp:useBean id="dateObject8" class="java.util.Date" />
-								    	  <jsp:setProperty name="dateObject8" property="time" value="${sum}" />
-									      <b><fmt:formatDate value="${dateObject8 }" pattern=" 00:mm " /></b>
-									     
-									    </c:when>    
-									    <c:otherwise>
-						                  <jsp:useBean id="dateObject9" class="java.util.Date" />
-								    	  <jsp:setProperty name="dateObject9" property="time" value="${sum-3600000}" />
-									      <b><fmt:formatDate value="${dateObject9 }" pattern="hh:mm " /></b>
-							            </c:otherwise>
-							      </c:choose>
+		                            ${time }
 						      </th>
 						      </tr>
 	                      </table>

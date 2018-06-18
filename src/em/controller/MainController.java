@@ -212,10 +212,12 @@ public class MainController {
 		    for ( Day day1:days) {
 		    	sum = sum + day1.timeSpend;
 		    }
-			model.addObject("timesOffList",timesOff);
+		    String time= day.getDurationString(sum);
+		    System.out.println("Sum="+sum);
+		    System.out.println("time="+time);
 			model.addObject("employee", employee);
 			model.addObject("days", days);
-			model.addObject("sum", sum);
+			model.addObject("time", time);
 			return model;
 		}
 		else {
@@ -247,12 +249,13 @@ public class MainController {
 			 for ( Day day1:days) {
 			    	sum =  sum + day1.timeSpend;
 			  }
+			 String time= day.getDurationString(sum);
 		    model.addObject("timesOffList",timesOff);
 			model.addObject("employee", employee);
 			model.addObject("days", days);
 			model.addObject("d1", d1);
 			model.addObject("d2", d2);
-			model.addObject("sum", sum);
+			model.addObject("time", time);
 			return model;
 		}
 		else {
