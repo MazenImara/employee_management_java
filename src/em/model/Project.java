@@ -36,7 +36,7 @@ public class Project implements Serializable{
 	public String status;
 	
 	@Column(name="timeSpend")
-	public String timeSpend;
+	public long timeSpend;
 	
 	@OneToMany( mappedBy = "project")
 	public List<Task> tasks;
@@ -72,10 +72,10 @@ public class Project implements Serializable{
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	public String getTimeSpend() {
+	public long getTimeSpend() {
 		return timeSpend;
 	}
-	public void setTimeSpend(String timeSpend) {
+	public void setTimeSpend(long timeSpend) {
 		this.timeSpend = timeSpend;
 	}
 }

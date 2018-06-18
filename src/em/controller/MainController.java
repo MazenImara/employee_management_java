@@ -150,7 +150,7 @@ public class MainController {
 				log.day.temp=0;
 				dio.updateDay(log.day);
 			}
-		
+			//MOHAMAD code  pasuse Task when logout 
 			List<Task> tasks=(List<Task>) dio.getTasks();
 			 
 			 for (Task task : tasks ) {
@@ -160,13 +160,22 @@ public class MainController {
 					    	Timestamp timestamp = new Timestamp(System.currentTimeMillis()); 
 					    	task.timespend = task.timespend + ( timestamp.getTime() - task.timetemp);
 					    	dio.updateTask(task);
+					    	//update Project 
+					    	Project project=dio.getProject(task.project.id);
+					        long sum=0;
+					        List<Task> tasks2=dio.getTasks();
+					        for(Task task1:tasks2) { 
+					        	if (task1.project.id==project.id) {
+					        		sum=sum + task1.timespend;
+					        		System.out.println("sum"+sum);
+					        	}
+					        }
+					        project.timeSpend=sum;
+					        dio.updateProject(project);
+					    	//end Update project
 					 }   	
 				 }
-				 
 			 }
-				
-				 
-			
 		session.removeAttribute("log");
 		}
 		return "redirect:login";			
@@ -298,7 +307,7 @@ public class MainController {
 	@RequestMapping(value = "/addproject" ,method = RequestMethod.POST)
 	 public String addProject(@ModelAttribute("project") Project project) {
 		project.status="New";
-        project.timeSpend="0";
+        project.timeSpend=0;
 	    dio.addProject(project); 
 	    return "redirect:admin";
 	} 
@@ -545,7 +554,7 @@ public class MainController {
     	Log log = (Log)session.getAttribute("log");
     	if(log != null) {
     		
-    		//Mohamad Code (this code for pause task when another task was Started)
+    //MOHAMAD Code (this code for pause task when another task was Started)
     		List<Task> tasks=(List<Task>) dio.getTasks();
 			 for (Task task : tasks ) {
 				 if(task.employee != null) {
@@ -554,15 +563,23 @@ public class MainController {
 					    	Timestamp timestamp = new Timestamp(System.currentTimeMillis()); 
 					    	task.timespend = task.timespend + ( timestamp.getTime() - task.timetemp);
 					    	dio.updateTask(task);
+					   //update Project 
+					    	Project project=dio.getProject(task.project.id);
+					        long sum=0;
+					        List<Task> tasks2=dio.getTasks();
+					        for(Task task1:tasks2) { 
+					        	if (task1.project.id==project.id) {
+					        		sum=sum + task1.timespend;
+					        		System.out.println("sum"+sum);
+					        	}
+					        }
+					        project.timeSpend=sum;
+					        dio.updateProject(project);
+					  	//end Update project
 					 }   	
 				 }
 			 }
-			 
-			 
-			 //update Project
-			 
-			
-    		//end Mohamad Code
+   	//end MOHAMAD Code
 			 
 	    	Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 	    	Task task = dio.getTask(id);
@@ -574,6 +591,12 @@ public class MainController {
 	    		}
 	        	task.status = "Started";
 	        	task.timetemp = timestamp.getTime();
+	        	
+     //update Project MOHAMAD Code
+	        	Project project=dio.getProject(task.project.id);
+	            project.status="Started";
+	            dio.updateProject(project);
+	 //end Update<project MOHAMAD Code
 	    	}
         	dio.updateTask(task);    		
 	    	return "redirect:employee"; 
@@ -589,6 +612,22 @@ public class MainController {
     	Timestamp timestamp = new Timestamp(System.currentTimeMillis()); 
     	task.timespend = task.timespend + ( timestamp.getTime() - task.timetemp);
     	dio.updateTask(task);
+    	
+    	//update Project MOHAMAD code
+    	Project project=dio.getProject(task.project.id);
+        
+        long sum=0;
+        List<Task> tasks=dio.getTasks();
+        for(Task task1:tasks) { 
+        	if (task1.project.id==project.id) {
+        		sum=sum + task1.timespend;
+        		System.out.println("sum"+sum);
+        	}
+        }
+        project.timeSpend=sum;
+        dio.updateProject(project);
+    	//end Update project MOHAMAD code
+        
     	return "redirect:employee";    	
     }
     @RequestMapping(value="/finish")
@@ -600,6 +639,30 @@ public class MainController {
 		task.finish = timestamp.getTime();  
     	task.timespend = task.timespend + ( timestamp.getTime() - task.timetemp);
     	dio.updateTask(task);
+    	
+    	//update Project MOHAMAD code
+    	
+    	Project project=dio.getProject(task.project.id);
+        long sum=0;
+        int j=0,i=0;
+        List<Task> tasks=dio.getTasks();
+        for(Task task1:tasks) { 
+        	if (task1.project.id==project.id) {
+        		sum=sum + task1.timespend;
+        		j=j+1;
+        		System.out.println("sum"+sum);
+        		if (task1.status.equals("Finished")) {
+        			i=i+1;
+        		}
+        	}
+        }
+        if (i==j) {
+        	project.status="Finished";
+        }
+        project.timeSpend=sum;
+        dio.updateProject(project);
+    	//end Update project MOHAMAD code
+        
     	return "redirect:employee";    	
     }
     

@@ -2,6 +2,7 @@
     pageEncoding="ISO-8859-1"%>
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
     <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -37,7 +38,25 @@
 				              <td><input type='text' name="title" value='${project.title}'/></td>
 				              <td><input type='text' name="description" value='${project.description}'/></td>
 				              <td><input type='hidden' name="status" value='${project.status}'/>${project.status}</td>
-				              <td><input type='hidden' name="timeSpend" value='${project.timeSpend}'/>${project.timeSpend}</td>
+				              <td><input type='hidden' name="timeSpend" value='${project.timeSpend}'/>
+				                 
+					                  <c:choose>
+										    <c:when test="${project.timeSpend <= 999}">
+										       00:00
+										    </c:when> 
+										    <c:when test="${project.timeSpend >= 1000 && project.timeSpend <= 3599000 }">
+										      <jsp:useBean id="dateObject10" class="java.util.Date" />
+									    	  <jsp:setProperty name="dateObject10" property="time" value="${project.timeSpend}" />
+										      <b><fmt:formatDate value="${dateObject10 }" pattern=" 00:mm " /></b>
+										     
+										    </c:when>    
+										    <c:otherwise>
+							                  <jsp:useBean id="dateObject11" class="java.util.Date" />
+									    	  <jsp:setProperty name="dateObject11" property="time" value="${project.timeSpend-3600000}" />
+										      <b><fmt:formatDate value="${dateObject11 }" pattern="hh:mm " /></b>
+								            </c:otherwise>
+						         	 </c:choose>
+					              </td>
 				              <td style="color:blue"><a href="getproject?id=${project.id}">GO</a></td>
 				              <td style="color:blue"><a href="deleteproject?id=${project.id}">DELETE</a></td>	                   
 				              <td style="color:blue"><input type="submit" value="UPDATE"/></td>
