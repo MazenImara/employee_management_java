@@ -212,7 +212,9 @@ public class MainController {
 		    for ( Day day1:days) {
 		    	sum = sum + day1.timeSpend;
 		    }
+		   
 		    String time= day.getDurationString(sum);
+		    
 		    System.out.println("Sum="+sum);
 		    System.out.println("time="+time);
 			model.addObject("employee", employee);

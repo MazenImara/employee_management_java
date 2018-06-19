@@ -106,7 +106,7 @@
 									    <c:otherwise>
 									       <jsp:useBean id="dateObject3" class="java.util.Date" />
 								    	   <jsp:setProperty name="dateObject3" property="time" value="${day.start}" />
-								       
+								            <b><fmt:formatDate value="${dateObject3 }" pattern="dd/MM/yyyy" /></b>
 									       <b><fmt:formatDate value="${dateObject3 }" pattern="hh:mm a" /></b>
 									    </c:otherwise>
 						    	</c:choose>
@@ -119,7 +119,7 @@
 									    <c:otherwise>
 									       <jsp:useBean id="dateObject4" class="java.util.Date" />
 								    	   <jsp:setProperty name="dateObject4" property="time" value="${day.endTime}" />
-								           
+								            <b><fmt:formatDate value="${dateObject4 }" pattern="dd/MM/yyyy" /></b>
 									       <b><fmt:formatDate value="${dateObject4 }" pattern="hh:mm a" /></b>
 									    </c:otherwise>
 						    	</c:choose>

@@ -142,28 +142,18 @@ public class Day implements Serializable  {
 		return date ;
     }
 	
-	public String getDurationString(long milliseconds) {
+	
+		public  String getDurationString(long millisecondtTime){
+                long  seconds=millisecondtTime /1000;
+			    int hours = (int) (seconds / 3600);
+			    int minutes = (int) ((seconds % 3600) / 60);
+			     seconds = seconds % 60;
+			    return (hours) + " : " + (minutes) + " : " + (seconds);
+		
+		}
+	
 
-	    long hours = milliseconds/ 3600000;
-	    long minutes = (milliseconds % 3600) / 60000;
-	    long seconds = (milliseconds % 60)/1000;
-
-	    return twoDigitString(hours) + " : " + twoDigitString(minutes) + " : " + twoDigitString(seconds);
-	}
-
-	private String twoDigitString(long hours) {
-
-	    if (hours == 0) {
-	        return "00";
-	    }
-
-	    if (hours / 10 == 0) {
-	        return "0" + hours;
-	    }
-
-	    return String.valueOf(hours);
-	}
-
+	
 }	
      
    
