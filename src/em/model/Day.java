@@ -15,6 +15,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+//MOHAMAD Code
+
 @Entity
 @Table(name="day")
 public class Day implements Serializable  {
@@ -117,7 +119,7 @@ public class Day implements Serializable  {
         c1.setTime(sdf.parse(myDate));
         long millieSeconde=c1.getTimeInMillis();
 	    System.out.println("c1:"+c1.getTimeInMillis());
-	    return millieSeconde;
+	    return millieSeconde-7200000;
 	}
 	public long  firstDayInCurrentMonth() throws ParseException {
 		Day day= new Day();
@@ -156,61 +158,7 @@ public class Day implements Serializable  {
 	
 }	
      
-   
-	/*
-    *
-    *
-    *public boolean isCheck() {
-		return check;
-	}
-
-	public void setCheck(boolean check) {
-		this.check = check;
-	}
-	
-	
-    // @Column(name="temp")
-    //  public long temp; 
-	public long getTemp() {
-		return temp;
-	}
-
-	public void setTemp(long temp) {
-		this.temp = temp;
-	}
-	public boolean isCheck() {
-		return check;
-	}
-
-	public void setCheck(boolean check) {
-		this.check = check;
-	}
-    
-	public long getPeriod1() {
-		return period1;
-	}
-
-	public void setPeriod1(long period1) {
-		this.period1 = period1;
-	}
-
-	public long getPeriod2() {
-		return period2;
-	}
-
-	public void setPeriod2(long period2) {
-		this.period2 = period2;
-	}
-
-	@Column(name="period1")
-    public long period1;
-    
-    @Column(name="period2")
-    public long period2;
-    
-*/
-    
-    
+  
 
    
     

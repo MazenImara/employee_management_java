@@ -10,7 +10,6 @@ import em.model.TimeOff;
 import em.model.Employee;
 import em.model.Project;
 import em.model.Suggestion;
-import em.model.User;
 import em.model.Admin;
 
 public interface Dio {

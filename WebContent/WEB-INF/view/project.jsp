@@ -10,7 +10,11 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Mange Project</title>
 </head>
-<body><div  class="box "  align='center'>
+
+<!--MOHAMAD Code  -->
+
+<body>
+<div  class="box "  align='center'>
     Account: ${log.employee.name } <br>
     <a href="logout"><button>Logout</button></a>
     <a href="loginasemployee"><button>login As Employee</button></a>
@@ -102,7 +106,7 @@
 									    <c:otherwise>
 									       <jsp:useBean id="dateObject3" class="java.util.Date" />
 								    	   <jsp:setProperty name="dateObject3" property="time" value="${task.started}" />
-								           <b><fmt:formatDate value="${dateObject3 }" pattern="dd/MM/yyyy--" /></b>
+								           <b><fmt:formatDate value="${dateObject3 }" pattern="yyyy/MM/dd--" /></b>
 									       <b><fmt:formatDate value="${dateObject3 }" pattern="hh:mm a" /></b>
 									    </c:otherwise>
 									</c:choose>
@@ -115,7 +119,7 @@
 									    <c:otherwise>
 						                   <jsp:useBean id="dateObject4" class="java.util.Date" />
 								    	   <jsp:setProperty name="dateObject3" property="time" value="${task.finish}" />
-								           <b><fmt:formatDate value="${dateObject4 }" pattern="dd/MM/yyyy--" /></b>
+								           <b><fmt:formatDate value="${dateObject4 }" pattern="yyyy/MM/dd--" /></b>
 									       <b><fmt:formatDate value="${dateObject4 }" pattern="hh:mm a" /></b>
 							            </c:otherwise>
 								  </c:choose>
@@ -164,7 +168,6 @@
                     </form:form>
 	          </table>
 	    </div>
-	                    
-	
 </body>
+<!-- End MOHAMAD Code  -->
 </html>

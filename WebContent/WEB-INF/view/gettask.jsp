@@ -9,7 +9,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
 </head>
-<body>
+
+<!--MOHAMAD Code  -->
+
 <body><div  class="box "  align='center'>
     Account: ${log.employee.name } <br>
     <a href="logout"><button>Logout</button></a>
@@ -112,4 +114,6 @@
 	            </table>
         </div>	     
 </body>
+
+<!--End  MOHAMAD Code  -->
 </html>

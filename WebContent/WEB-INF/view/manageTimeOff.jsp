@@ -12,6 +12,8 @@
 <title>Insert title here</title>
 </head>
 <body>
+<!--MOHAMAD Code  -->
+
 <div  class="box "  align='center'>
     Account: ${log.employee.name } <br>
     <a href="logout"><button>Logout</button></a><br>
@@ -61,4 +63,5 @@
 	          </table>  
    </div>
 </body>
+<!-- End MOHAMAD Code  -->
 </html>

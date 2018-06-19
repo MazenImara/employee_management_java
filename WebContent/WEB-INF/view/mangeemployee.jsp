@@ -11,8 +11,11 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
 </head>
+
+<!--MOHAMAD Code  -->
+
 <body>
-<body><div  class="box "  align='center'>
+<div  class="box "  align='center'>
     Account: ${log.employee.name } <br>
     <a href="logout"><button>Logout</button></a>
     <a href="loginasemployee"><button>login As Employee</button></a>
@@ -59,13 +62,13 @@
 		                    <td>
 			                    <jsp:useBean id="dateObject" class="java.util.Date" />
 								<jsp:setProperty name="dateObject" property="time" value="${timeOff.from}" />
-							    <b><fmt:formatDate value="${dateObject }" pattern="dd/MM/yyyy--" /></b>
+							     <b><fmt:formatDate value="${dateObject }" pattern="yyyy/MM/dd--" /></b>
 								<b><fmt:formatDate value="${dateObject }" pattern="hh:mm a" /></b>
 		                    </td>
 		                    <td>
 			                    <jsp:useBean id="dateObject2" class="java.util.Date" />
 								<jsp:setProperty name="dateObject2" property="time" value="${timeOff.to}" />
-								<b><fmt:formatDate value="${dateObject2 }" pattern="dd/MM/yyyy--" /></b>
+								 <b><fmt:formatDate value="${dateObject2}" pattern="yyyy/MM/dd--" /></b>
 								<b><fmt:formatDate value="${dateObject2}" pattern="hh:mm a" /></b>
 							</td>		                
 		                 <tr>   
@@ -96,7 +99,7 @@
 		                    <td>
 		                       <jsp:useBean id="dateObject7" class="java.util.Date" />
 					    	   <jsp:setProperty name="dateObject7" property="time" value="${day.date}" />
-					           <b><fmt:formatDate value="${dateObject7 }" pattern="dd/MM/yyyy" /></b>
+					           <b><fmt:formatDate value="${dateObject7 }" pattern="yyyy/MM/dd" /></b>
 		                    </td>
 		                    <td>
 			                     <c:choose>
@@ -106,7 +109,7 @@
 									    <c:otherwise>
 									       <jsp:useBean id="dateObject3" class="java.util.Date" />
 								    	   <jsp:setProperty name="dateObject3" property="time" value="${day.start}" />
-								            <b><fmt:formatDate value="${dateObject3 }" pattern="dd/MM/yyyy" /></b>
+								           
 									       <b><fmt:formatDate value="${dateObject3 }" pattern="hh:mm a" /></b>
 									    </c:otherwise>
 						    	</c:choose>
@@ -119,7 +122,7 @@
 									    <c:otherwise>
 									       <jsp:useBean id="dateObject4" class="java.util.Date" />
 								    	   <jsp:setProperty name="dateObject4" property="time" value="${day.endTime}" />
-								            <b><fmt:formatDate value="${dateObject4 }" pattern="dd/MM/yyyy" /></b>
+								           
 									       <b><fmt:formatDate value="${dateObject4 }" pattern="hh:mm a" /></b>
 									    </c:otherwise>
 						    	</c:choose>
@@ -169,6 +172,7 @@
 	              </table>
     </div> 
 </body>
+<!-- End MOHAMAD Code  -->
 </html>
 
 

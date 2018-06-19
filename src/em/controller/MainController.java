@@ -216,6 +216,7 @@ public class MainController {
 		    String time= day.getDurationString(sum);
 		    
 		    System.out.println("Sum="+sum);
+		    model.addObject("timesOffList",timesOff);
 		    System.out.println("time="+time);
 			model.addObject("employee", employee);
 			model.addObject("days", days);
@@ -251,7 +252,7 @@ public class MainController {
 			 for ( Day day1:days) {
 			    	sum =  sum + day1.timeSpend;
 			  }
-			 String time= day.getDurationString(sum);
+		    String time= day.getDurationString(sum);
 		    model.addObject("timesOffList",timesOff);
 			model.addObject("employee", employee);
 			model.addObject("days", days);
@@ -396,7 +397,7 @@ public class MainController {
  	    suggestion.task_id=taskId;
  	    dio.addSuggestion(suggestion);
  	    return "redirect:getproject?id="+projectId;
-        //return "redirect:makesuggestion?taskId="+taskId+"&projectId="+projectId;
+       
     } 
     @RequestMapping(value="/deletesuggestion",method = RequestMethod.GET)
 	public String  deleteSuggestion(@RequestParam(value="id", required=true) int  id,@RequestParam(value="taskId", required=true) int  taskId,@RequestParam(value="projectId", required=true) int projectId) {
@@ -493,7 +494,7 @@ public class MainController {
 	}	
    
    
-		// End 	MOHAMAD
+		// End 	MOHAMAD code
 
    
    @RequestMapping(value="/test")
@@ -552,9 +553,18 @@ public class MainController {
     @RequestMapping(value="/loginasemployee")
 	public ModelAndView loginAsEmployee(HttpSession session) {
     	Log log = (Log)session.getAttribute("log");
-    	ModelAndView model = new ModelAndView("employee");
-    	log.role ="Employee";
-    	return model;
+    	if(log != null && log.role == "Admin" ) {	
+			ModelAndView model = new ModelAndView("employee");
+			Task task = new Task();
+			List<Project> getProjects = dio.getProjectsByEmployeeId(log.employee.id);
+			model.addObject("task", task);
+		    model.addObject("getProjects", getProjects);
+			return model;			
+	    }
+    	else {
+	 		ModelAndView model2 = new ModelAndView("notLoged");
+	 		return model2;
+	    }
     }
    
     @RequestMapping(value="/employee")

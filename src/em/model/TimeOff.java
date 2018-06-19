@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+//<!--MOHAMAD Code  -->
 @Entity
 @Table(name="time_off")
 public class TimeOff implements Serializable {

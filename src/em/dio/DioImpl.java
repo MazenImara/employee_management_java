@@ -10,7 +10,6 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import em.model.Task;
 import em.model.TimeOff;
-import em.model.User;
 import em.model.Employee;
 import em.model.Project;
 import em.model.Suggestion;
