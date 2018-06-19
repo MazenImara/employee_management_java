@@ -633,7 +633,8 @@ public class MainController {
 	    	System.out.println("the id: "+log.employee.id);
 	    	if(task.status != "Started") {
 	    		if(task.status.equals("New") ) {
-	    			task.started = timestamp.getTime(); 
+	    			task.started = timestamp.getTime();
+	    			
 	    		}
 	        	task.status = "Started";
 	        	task.timetemp = timestamp.getTime();
