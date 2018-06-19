@@ -3,6 +3,8 @@ package em.model;
 
 
 import java.io.Serializable;
+import java.sql.Timestamp;
+
 import javax.persistence.Column;
 
 import javax.persistence.Entity;
@@ -18,6 +20,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import javax.persistence.Table;
+
+import em.dio.Dio;
 
 
 
@@ -139,5 +143,6 @@ public class Task implements Serializable{
 	public void setTimetemp(long timetemp) {
 		this.timetemp = timetemp;
 	}
+	
 
 }

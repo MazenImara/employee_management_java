@@ -90,7 +90,6 @@ public class MainController {
 				    	   day.start=day1.start;
 				    	   day.timeSpend=day1.timeSpend;
 				    	   day.endTime=day1.endTime;
-				    	  
 				    	   check=true;
 				    	   dio.updateDay(day1);
 				    	   log.setDay(day1);
@@ -135,24 +134,48 @@ public class MainController {
 		return model;			
 	}
 	
+
 	@RequestMapping(value="/logout")
 	public String logout(HttpSession session) throws ParseException {
 		Log log = (Log) session.getAttribute("log");
 		if(log != null ) {
-		if (log.day.temp==0) {	
-			log.day.endTime=System.currentTimeMillis();
-			log.day.timeSpend=log.day.endTime - log.day.start ;
-			
-			dio.updateDay(log.day);
-		}
-		else {
-			log.day.endTime=System.currentTimeMillis();	
-			log.day.timeSpend=(log.day.endTime - log.day.temp)+log.day.timeSpend ;
-			log.day.temp=0;
-			dio.updateDay(log.day);
-
-		}
-		
+			if (log.day.temp==0) {	
+				log.day.endTime=System.currentTimeMillis();
+				log.day.timeSpend=log.day.endTime - log.day.start ;
+				dio.updateDay(log.day);
+			}
+			else {
+				log.day.endTime=System.currentTimeMillis();	
+				log.day.timeSpend=(log.day.endTime - log.day.temp)+log.day.timeSpend ;
+				log.day.temp=0;
+				dio.updateDay(log.day);
+			}
+			//MOHAMAD code  pasuse Task when logout 
+			List<Task> tasks=(List<Task>) dio.getTasks();
+			 
+			 for (Task task : tasks ) {
+				 if(task.employee != null) {
+					 if (task.employee.id == log.employee.id && task.status.equals("Started"))  {
+					    	task.status = "Paused";
+					    	Timestamp timestamp = new Timestamp(System.currentTimeMillis()); 
+					    	task.timespend = task.timespend + ( timestamp.getTime() - task.timetemp);
+					    	dio.updateTask(task);
+					    	//update Project 
+					    	Project project=dio.getProject(task.project.id);
+					        long sum=0;
+					        List<Task> tasks2=dio.getTasks();
+					        for(Task task1:tasks2) { 
+					        	if (task1.project.id==project.id) {
+					        		sum=sum + task1.timespend;
+					        		System.out.println("sum"+sum);
+					        	}
+					        }
+					        project.timeSpend=sum;
+					        dio.updateProject(project);
+					    	//end Update project
+					 }   	
+				 }
+			 }
 		session.removeAttribute("log");
 		}
 		return "redirect:login";			
@@ -175,20 +198,24 @@ public class MainController {
 	 		return model2;
 		}
  	}	   
-	
+	 @SuppressWarnings("unused")
 	@RequestMapping(value="/getemployee")
-	public ModelAndView emp(HttpSession session,@RequestParam(value="id", required=true) int  id) {
+	public ModelAndView emp(HttpSession session,@RequestParam(value="id", required=true) int  id) throws ParseException {
 		Log log = (Log)session.getAttribute("log");
 		if(log != null && log.role == "Admin") {
 			ModelAndView model = new ModelAndView("mangeemployee");
 			Employee employee = dio.getEmployee(id);
 			List<TimeOff> timesOff=dio.getTimesOffByEmployeeId(employee.id);
-			
-		    List<Day> days=dio.getDayByEmployeeId(employee.id);
-		    
-		    model.addObject("timesOffList",timesOff);
+		    Day day= new Day();
+			long sum=0;
+			List<Day> days =(List<Day>) dio.selectEmployeesWorkTimeForPeriod( day.firstDayInCurrentMonth() , day.lastDayInCurrentMonth() , employee.id); 
+		    for ( Day day1:days) {
+		    	sum = sum + day1.timeSpend;
+		    }
+			model.addObject("timesOffList",timesOff);
 			model.addObject("employee", employee);
 			model.addObject("days", days);
+			model.addObject("sum", sum);
 			return model;
 		}
 		else {
@@ -197,6 +224,38 @@ public class MainController {
 		}
 	}	
 	
+	@RequestMapping(value="/gettimeworkinperiode")
+	public ModelAndView timesworkinperiode(HttpSession session,@RequestParam(value="id", required=true) int  id,@RequestParam(value="date1", required=true) char[]  date1,@RequestParam(value="date2", required=true)char[]  date2) throws ParseException {
+		Log log = (Log)session.getAttribute("log");
+		if(log != null && log.role == "Admin") {
+			
+			ModelAndView model = new ModelAndView("mangeemployeeinPeriode");
+			Employee employee = dio.getEmployee(id);
+			
+			List<TimeOff> timesOff=dio.getTimesOffByEmployeeId(employee.id);
+			
+		    Day day=new Day();
+		    String d1= String.valueOf(date1, 0, 10);
+		    String d2= String.valueOf(date2, 0, 10);
+		    String d3=d1+" "+0+":"+0;
+		    String d4=d2+" "+0+":"+0;
+		    long periodeFrom= day.toMillisecond(d3);
+		    long periodeTo  = day.toMillisecond(d4);
+		  
+			List<Day> days =(List<Day>) dio.selectEmployeesWorkTimeForPeriod( periodeFrom , periodeTo ,employee.id);
+			
+		    model.addObject("timesOffList",timesOff);
+			model.addObject("employee", employee);
+			model.addObject("days", days);
+			model.addObject("d1", d1);
+			model.addObject("d2", d2);
+			return model;
+		}
+		else {
+	 		ModelAndView model2 = new ModelAndView("notLoged");
+	 		return model2;
+		}
+	}	
 	/*
     List<TimeOff> timesOffList= new ArrayList<TimeOff>();
     for(TimeOff timeOff :timesOff) {
@@ -248,7 +307,7 @@ public class MainController {
 	@RequestMapping(value = "/addproject" ,method = RequestMethod.POST)
 	 public String addProject(@ModelAttribute("project") Project project) {
 		project.status="New";
-        project.timeSpend="0";
+        project.timeSpend=0;
 	    dio.addProject(project); 
 	    return "redirect:admin";
 	} 
@@ -405,18 +464,19 @@ public class MainController {
    public ModelAndView test() {	
    	ModelAndView model = new ModelAndView("test");
    	
-   	long date1=1523433777777L;
-   	long date2=1523499999999L;
+   	long date1=1523433777000L;
+   	long date2=1533499999000L;
    	int employeeId =3;
-   	List<Day> days =(List<Day>) dio.selectEmployeesWorkTimeForPeriod( date1, date2 , employeeId);
-   
+   	List<Day> days =(List<Day>) dio.selectEmployeesWorkTimeForPeriod( date1 , date2 , employeeId);
+  
 		for (Day day : days) {
 			
 			System.out.println("from"+day.start);
 			System.out.println("from"+day.endTime);
 		}
-   	
+   
        return model;
+       
    }
 		
 	
@@ -453,10 +513,18 @@ public class MainController {
         return model;
     }
     
+    @RequestMapping(value="/loginasemployee")
+	public ModelAndView loginAsEmployee(HttpSession session) {
+    	Log log = (Log)session.getAttribute("log");
+    	ModelAndView model = new ModelAndView("employee");
+    	log.role ="Employee";
+    	return model;
+    }
+   
     @RequestMapping(value="/employee")
 	public ModelAndView employee(HttpSession session) {
     	Log log = (Log)session.getAttribute("log");
-    	if(log != null && log.role == "Employee") {	
+    	if(log != null && log.role == "Employee" ) {	
 			ModelAndView model = new ModelAndView("employee");
 			Task task = new Task();
 			List<Project> getProjects = dio.getProjectsByEmployeeId(log.employee.id);
@@ -485,6 +553,34 @@ public class MainController {
     public String start(@RequestParam(value="id", required=true) int id, HttpSession session) {
     	Log log = (Log)session.getAttribute("log");
     	if(log != null) {
+    		
+    //MOHAMAD Code (this code for pause task when another task was Started)
+    		List<Task> tasks=(List<Task>) dio.getTasks();
+			 for (Task task : tasks ) {
+				 if(task.employee != null) {
+					 if (task.employee.id == log.employee.id && task.status.equals("Started"))  {
+					    	task.status = "Paused";
+					    	Timestamp timestamp = new Timestamp(System.currentTimeMillis()); 
+					    	task.timespend = task.timespend + ( timestamp.getTime() - task.timetemp);
+					    	dio.updateTask(task);
+					   //update Project 
+					    	Project project=dio.getProject(task.project.id);
+					        long sum=0;
+					        List<Task> tasks2=dio.getTasks();
+					        for(Task task1:tasks2) { 
+					        	if (task1.project.id==project.id) {
+					        		sum=sum + task1.timespend;
+					        		System.out.println("sum"+sum);
+					        	}
+					        }
+					        project.timeSpend=sum;
+					        dio.updateProject(project);
+					  	//end Update project
+					 }   	
+				 }
+			 }
+   	//end MOHAMAD Code
+			 
 	    	Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 	    	Task task = dio.getTask(id);
 	    	task.employee = log.employee;
@@ -496,8 +592,13 @@ public class MainController {
 	    		}
 	        	task.status = "Started";
 	        	task.timetemp = timestamp.getTime();
+	        	
+     //update Project MOHAMAD Code
+	        	Project project=dio.getProject(task.project.id);
+	            project.status="Started";
+	            dio.updateProject(project);
+	 //end Update<project MOHAMAD Code
 	    	}
-
         	dio.updateTask(task);    		
 	    	return "redirect:employee"; 
     	}
@@ -512,6 +613,22 @@ public class MainController {
     	Timestamp timestamp = new Timestamp(System.currentTimeMillis()); 
     	task.timespend = task.timespend + ( timestamp.getTime() - task.timetemp);
     	dio.updateTask(task);
+    	
+    	//update Project MOHAMAD code
+    	Project project=dio.getProject(task.project.id);
+        
+        long sum=0;
+        List<Task> tasks=dio.getTasks();
+        for(Task task1:tasks) { 
+        	if (task1.project.id==project.id) {
+        		sum=sum + task1.timespend;
+        		System.out.println("sum"+sum);
+        	}
+        }
+        project.timeSpend=sum;
+        dio.updateProject(project);
+    	//end Update project MOHAMAD code
+        
     	return "redirect:employee";    	
     }
     @RequestMapping(value="/finish")
@@ -523,6 +640,30 @@ public class MainController {
 		task.finish = timestamp.getTime();  
     	task.timespend = task.timespend + ( timestamp.getTime() - task.timetemp);
     	dio.updateTask(task);
+    	
+    	//update Project MOHAMAD code
+    	
+    	Project project=dio.getProject(task.project.id);
+        long sum=0;
+        int j=0,i=0;
+        List<Task> tasks=dio.getTasks();
+        for(Task task1:tasks) { 
+        	if (task1.project.id==project.id) {
+        		sum=sum + task1.timespend;
+        		j=j+1;
+        		System.out.println("sum"+sum);
+        		if (task1.status.equals("Finished")) {
+        			i=i+1;
+        		}
+        	}
+        }
+        if (i==j) {
+        	project.status="Finished";
+        }
+        project.timeSpend=sum;
+        dio.updateProject(project);
+    	//end Update project MOHAMAD code
+        
     	return "redirect:employee";    	
     }
     

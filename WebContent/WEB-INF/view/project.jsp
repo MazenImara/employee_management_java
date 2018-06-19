@@ -27,7 +27,24 @@
 		              <td>${project.title}</td>
 		              <td>${project.description}</td>
 		              <td>${project.status}</td>
-		              <td>${project.timeSpend}</td>
+		              <td>
+		                  <c:choose>
+							    <c:when test="${project.timeSpend <= 999}">
+							       00:00
+							    </c:when> 
+							    <c:when test="${project.timeSpend >= 1000 && project.timeSpend <= 3599000 }">
+							      <jsp:useBean id="dateObject10" class="java.util.Date" />
+						    	  <jsp:setProperty name="dateObject10" property="time" value="${project.timeSpend}" />
+							      <b><fmt:formatDate value="${dateObject10 }" pattern=" 00:mm " /></b>
+							     
+							    </c:when>    
+							    <c:otherwise>
+				                  <jsp:useBean id="dateObject11" class="java.util.Date" />
+						    	  <jsp:setProperty name="dateObject11" property="time" value="${project.timeSpend-3600000}" />
+							      <b><fmt:formatDate value="${dateObject11 }" pattern="hh:mm " /></b>
+					            </c:otherwise>
+			         	 </c:choose>
+		              </td>
 			      </tr>
          	</table>
 	</div>

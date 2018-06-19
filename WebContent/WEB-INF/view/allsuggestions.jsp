@@ -43,8 +43,13 @@
 		                    <td>${task.title}</td>
 		                    </c:if>
 			            </c:forEach>
-			            
+			            <form:form name="SelectTaskFRomSuggestion" method="post" action="start" modelAttribute="task">
+			               <input type='hidden' name="id" value='${suggestion.task_id}'/>
+			               <td style="color:blue"><input type="submit" value="Start"/></td>
+			            </form:form>
+		            
 		            </tr>
+		             
 			         </c:forEach>
 	            </table>
         </div>	       
