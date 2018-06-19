@@ -430,10 +430,17 @@ public class MainController {
    @RequestMapping(value="/managetimeoff",method = RequestMethod.GET)
 	public ModelAndView  manageTimeOff(HttpSession session, @RequestParam(value="employeeId", required=true) int  employeeId ){
 	   Log log = (Log)session.getAttribute("log");
-   	if(log != null && log.role == "Employee" ) {
+   	if(log != null && (log.role == "Employee" || log.role == "Admin") ) {
 		   List<TimeOff> timesOff=dio.getTimesOffByEmployeeId(employeeId);
 		   ModelAndView model = new ModelAndView("manageTimeOff");
 		   model.addObject("timesOff", timesOff);
+		   if (log.role=="Employee") {
+			    model.addObject("loginasadmin",false);
+			}
+			else {
+				model.addObject("loginasadmin",true);
+			}
+		   
 		    return model;
    	}
     else {
@@ -475,7 +482,7 @@ public class MainController {
    @RequestMapping(value="/allsuggestions",method = RequestMethod.GET)
    public ModelAndView  allsuggestion( HttpSession session) {  	
 	   	Log log = (Log)session.getAttribute("log");
-	  	if(log != null && log.role == "Employee" ) {
+	  	if(log != null && (log.role == "Employee" || log.role == "Admin") ) {
 		    ModelAndView model = new ModelAndView("allsuggestions");
 			List<Project> projects = dio.getProjects();
 			List<Suggestion> suggestions=dio.getSuggestions();
@@ -485,6 +492,12 @@ public class MainController {
 			model.addObject("suggestions", suggestions);
 			model.addObject("employees", employees);
 			model.addObject("tasks", tasks);
+			if (log.role=="Employee") {
+			    model.addObject("loginasadmin",false);
+			}
+			else {
+				model.addObject("loginasadmin",true);
+			}
 			return model;	
 	       }
 	  	else {
@@ -576,6 +589,7 @@ public class MainController {
 			List<Project> getProjects = dio.getProjectsByEmployeeId(log.employee.id);
 			model.addObject("task", task);
 		    model.addObject("getProjects", getProjects);
+		    model.addObject("loginasadmin",false);
 			return model;			
 	    }
     	else {
