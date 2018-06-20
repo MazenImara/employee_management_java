@@ -11,6 +11,7 @@
 <style><%@include file="/WEB-INF/css/bootstrap.css"%></style>
 <style><%@include file="/WEB-INF/css/jquery.min.js"%></style>
 <style><%@include file="/WEB-INF/css/bootstrap.min.js"%></style>
+<style><%@include file="/WEB-INF/css2/mystyle.css"%></style>
 
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Hello</title>

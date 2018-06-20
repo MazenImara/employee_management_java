@@ -7,6 +7,7 @@
 <html>
 <head>
 <style><%@include file="/WEB-INF/css/mystyle.css"%></style>
+<style><%@include file="/WEB-INF/css2/mystyle.css"%></style>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Mange Project</title>
 </head>
@@ -14,7 +15,7 @@
 <!--MOHAMAD Code  -->
 
 <body>
-<div  class="box "  align='center'>
+<div  class="box2 "  align='center'>
     Account: ${log.employee.name } <br>
     <a href="logout"><button>Logout</button></a>
     <a href="loginasemployee"><button>login As Employee</button></a>
@@ -23,9 +24,9 @@
 	
 
 	 <div align="center">
-	     <h1 Style=' color:blue' ><i>Project<b></b></i></h1>
+	     <h1 ><i>Project<b></b></i></h1>
 		     <table border="1">
-			       <tr style= "background:yellow">
+			       <tr class="staticInfoTable"">
 			          <th>project title</th>
 			          <th>project description</th>
 			          <th>project status</th>
@@ -60,7 +61,7 @@
 	<div align="center">
 	     <h1 Style=' color :blue' ><i>Tasks<b></b></i></h1>
 		     <table border="1">
-			       <tr style= "background:yellow">
+			       <tr class="staticInfoTable">
 			          <th>S.No.</th>
 			          <th> title</th>
 			          <th> Status</th>
@@ -147,8 +148,8 @@
 							        </c:otherwise>
 					           </c:choose>  
 				              <input type='hidden' name="project.id" value='${project.id}'/>
-				              <td style="color:blue"><input type="submit"   name="delete"value="DELETE"></td>	
-				              <td style="color:blue"><input type="submit"  name="update" value="UPDATE"/></td> 
+				              <td ><input type="submit"   name="delete"value="DELETE"></td>	
+				              <td ><input type="submit"  name="update" value="UPDATE"/></td> 
 				          </tr>
 				        </form:form>  
 				      </c:forEach> 
@@ -162,7 +163,7 @@
 		                          <td><strike>0</strike></td>
 		                          <td><strike>0</strike></td>
 		                          <td><strike>0</strike></td>
-		                          <td style="color:blue"><input type="submit" value="ADD Task "/></td>
+		                          <td ><input type="submit" value="ADD Task "/></td>
 		                      </tr>
 	                  
                     </form:form>

@@ -7,22 +7,24 @@
 <html>
 <head>
 <style><%@include file="/WEB-INF/css/mystyle.css"%></style>
+<style><%@include file="/WEB-INF/css2/mystyle.css"%></style>
    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
    <title>Administrator</title>
 </head>
 <body>
 
+
 <!-- MOHAMAD Code -->
 
-<div  class="box "  align='center'>
+<div  class="box2 "  align='center'>
     Account: ${log.employee.name } <br>
     <a href="logout"><button>Logout</button></a>
     <a href="loginasemployee"><button>login As Employee</button></a>
 </div>
 	 <div align="center">
-	     <h1 Style=' color :blue' ><i>Projects<b></b></i></h1>
+	     <h1 ><i>Projects<b></b></i></h1>
 		     <table border="1">
-			      <tr style= "background:yellow">
+			      <tr class="staticInfoTable">
 			          <th>S.No.</th>
 			          <th>project title</th>
 			          <th>project description</th>
@@ -59,9 +61,9 @@
 								            </c:otherwise>
 						         	 </c:choose>
 					              </td>
-				              <td style="color:blue"><a href="getproject?id=${project.id}">GO</a></td>
-				              <td style="color:blue"><a href="deleteproject?id=${project.id}">DELETE</a></td>	                   
-				              <td style="color:blue"><input type="submit" value="UPDATE"/></td>
+				              <td ><a href="getproject?id=${project.id}">GO</a></td>
+				              <td ><a href="deleteproject?id=${project.id}">DELETE</a></td>	                   
+				              <td ><input type="submit" value="UPDATE"/></td>
 					      </tr>
 		              </form:form>
 			      </c:forEach>   
@@ -79,9 +81,9 @@
 	            </table>
        </div>
        <div align="center">
-           <h1 Style=' color :blue' ><i>Employee List<b></b></i></h1>
+           <h1><i>Employee List<b></b></i></h1>
 	            <table border="1">
-		             <tr style= "background:yellow">
+		             <tr class="staticInfoTable">
 		                <th>S.No.</th>
 		                <th>Employee name</th>
 		                <th>Employee email</th>
@@ -103,9 +105,9 @@
 		                    <td><input type='password' name="password" value='${employee.password}'/></td>
 		                    <td><input type='text' name="address" value='${employee.address}'/></td>
 		                    <td><input type='text' name="phone" value='${employee.phone}'/></td>
-		                    <td style="color:blue"><a  href="getemployee?id=${employee.id}">GO</a></td>
-		                    <td style="color:blue"><a  href="deleteemployee?id=${employee.id}">DELETE</a></td>
-		                    <td style="color:blue"><input type="submit" value="UPDATE"/></td>
+		                    <td ><a  href="getemployee?id=${employee.id}">GO</a></td>
+		                    <td><a  href="deleteemployee?id=${employee.id}">DELETE</a></td>
+		                    <td ><input type="submit" value="UPDATE"/></td>
 			            </tr>
 			        </form:form>
 			        </c:forEach>
@@ -116,7 +118,7 @@
 	                    <td> <input type='text' name="password" value='${employee.password}'/></td>
 	                    <td> <input type='text' name="address" value='${employee.address}'/></td>
 	                    <td> <input type='text' name="phone" value='${employee.phone}'/></td>
-	                    <td style="color:blue"><input type="submit" value="ADD Employee     "/></td>            
+	                    <td ><input type="submit" value="ADD Employee     "/></td>            
                     </form:form>       
 	            </table>
         </div>

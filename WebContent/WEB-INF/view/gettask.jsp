@@ -6,22 +6,23 @@
 <html>
 <head>
 <style><%@include file="/WEB-INF/css/mystyle.css"%></style>
+<style><%@include file="/WEB-INF/css2/mystyle.css"%></style>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
 </head>
 
 <!--MOHAMAD Code  -->
 
-<body><div  class="box "  align='center'>
+<body><div  class="box2 "  align='center'>
     Account: ${log.employee.name } <br>
     <a href="logout"><button>Logout</button></a>
     <a href="loginasemployee"><button>login As Employee</button></a>
     <input type="button" value="To Admin Menu" onclick="window.location.href='http://localhost:8080/em/admin'">
 </div>
      <div align="center">
-		    <h1 Style=' color :blue' ><i>The Task Selected<b></b></i></h1>
+		    <h1 ><i>The Task Selected<b></b></i></h1>
 		     <table border="1">
-			      <tr style= "background:yellow">
+			      <tr class="staticInfoTable">
 			          <th>S.No.</th>
 			          <th> title</th>
 			          <th> Status</th>
@@ -48,7 +49,7 @@
        <div align="center">
            <h1 Style=' color :blue' ><i>Select Employee<b></b></i></h1>
 	            <table border="1">
-		            <tr style= "background:yellow">
+		            <tr class="staticInfoTable">
 		                <th>S.No.</th>
 		                <th>Employee name</th>
 		                <th>Employee email</th>
@@ -69,16 +70,16 @@
 			                    <td>${employee.address}</td>
 			                    <td>${employee.phone}</td>
 			                    <input type='hidden' name="projectId" value='${project1.id}'/>
-			                    <td style="color:blue"><input type="submit" value="Select"/></td>
+			                    <td ><input type="submit" value="Select"/></td>
 				            </tr>
 				        </form:form>
 			        </c:forEach>
 	            </table>
         </div>
 		<div align="center">
-           <h1 Style=' color :blue' ><i> The Suggestion For All Projects<b></b></i></h1>
+           <h1><i> The Suggestion For All Projects<b></b></i></h1>
 	            <table border="1">
-		            <tr style= "background:yellow">
+		            <tr style= class="staticInfoTable">
 		                <th>S.No.</th>
 		                <th>Employee name</th>
 		                <th>Project name</th>
@@ -107,7 +108,7 @@
 					        <input type="hidden" name="projectId" value=' ${ project1.id}'>
 					         <input type="hidden" name="taskId" value='${task1.id}'>
 					         <input type="hidden" name="id" value='${suggestion.id}'> 
-					         <td style="color:blue"><input type="submit" value="Delete"/></td> 
+					         <td><input type="submit" value="Delete"/></td> 
 			            </form:form>
 		            </tr>
 			         </c:forEach>

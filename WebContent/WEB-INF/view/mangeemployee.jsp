@@ -8,6 +8,7 @@
 <html>
 <head>
 <style><%@include file="/WEB-INF/css/mystyle.css"%></style>
+<style><%@include file="/WEB-INF/css2/mystyle.css"%></style>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
 </head>
@@ -15,7 +16,7 @@
 <!--MOHAMAD Code  -->
 
 <body>
-<div  class="box "  align='center'>
+<div  class="box2 "  align='center'>
     Account: ${log.employee.name } <br>
     <a href="logout"><button>Logout</button></a>
     <a href="loginasemployee"><button>login As Employee</button></a>
@@ -25,7 +26,7 @@
 <div align="center">
            <h1 Style=' color :blue' ><i><b>Employee List</b></i></h1>
 	            <table border="1">
-		             <tr style= "background:yellow">
+		             <tr class="staticInfoTable">
 		                <th>Employee name</th>
 		                <th>Employee email</th>
 		                <th>Employee password</th>
@@ -51,7 +52,7 @@
 <div align="center">
           <h1 Style=' color :blue' ><i><b>Time Off</b></i></h1>
 	            <table border="1">
-		             <tr style= "background:yellow">
+		             <tr class="staticInfoTable">
 		                <th>S.No.</th>
 		                <th>From</th>
 		                <th>To</th>
@@ -83,10 +84,10 @@
            <h1 Style=' color :blue' ><i><b>Work Time</b></i></h1>
 	              
 	              <table border="1">    
-	                 <th style= "background:lightblue"> The Work Times In This Month </th>
+	                 <th style=class="staticInfoTable"> The Work Times In This Month </th>
 	              </table>
 	              <table border="1">    
-		             <tr style= "background:yellow">
+		             <tr class="staticInfoTable">
 		                <th>S.No.</th>
 		                <th>Date</th>
 		                <th>Start Time</th>
@@ -99,7 +100,7 @@
 		                    <td>
 		                       <jsp:useBean id="dateObject7" class="java.util.Date" />
 					    	   <jsp:setProperty name="dateObject7" property="time" value="${day.date}" />
-					           <b><fmt:formatDate value="${dateObject7 }" pattern="yyyy/MM/dd" /></b>
+					           <b><fmt:formatDate value="${dateObject7 }" pattern="yyyy/MM/dd  : " /></b>
 		                    </td>
 		                    <td>
 			                     <c:choose>
@@ -150,7 +151,7 @@
 		                   
 	             </table>
 	                    <table border="1">
-	                        <tr style= "background:lightblue">
+	                        <tr class="staticInfoTable">
 	                         <th> The total times Work for this periode is :
 		                            ${time }
 						      </th>
@@ -160,7 +161,7 @@
 	               <table border="1">
 	              
 	                <form:form name="formshowtimesWorkinperiode" method="post" action="gettimeworkinperiode" modelAttribute="day">
-		                 <tr style= "background:lightblue">
+		                 <tr style= class="staticInfoTable">
 		                      <input type='hidden' name="id" value='${employee.id}'/>
 		                     <th> From <input type="date" name='date1' value='date1'/></th>
 		                     <th> To   <input type="date" name='date2' value='date2'/></th>
