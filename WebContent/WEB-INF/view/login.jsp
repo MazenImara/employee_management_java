@@ -5,15 +5,18 @@
 <html>
 <head>
 <style><%@include file="/WEB-INF/css/mystyle.css"%></style>
+<style><%@include file="/WEB-INF/css2/mystyle.css"%></style>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title> Login</title>
 </head>
 <body>
 <div   align="center">
-        <h1 Style=' color :blue' ><i>login</i></h1>
-        <div class="box" align="center">
+		<h1 style="color:#00c7fc">
+			<i>login</i>
+		</h1>
+        <div align="center">
 				<form:form name="login" method="post" action="checklogin" modelAttribute="employee">
-			        <table border="1">
+			        <table class="loginTable">
 				        <tr>
 				           <td>  Email </td>
 				           <td>  <input type='text' name="email" value='${employee.email}'/></td>
@@ -21,7 +24,7 @@
 				        <tr>
 				            <td>  password </td>
 				            <td> <input type='password' name="password" value='${employee.password}'/></td>
-				            <td style="color:blue"><input type="submit" value="login"/></td> 
+				            <td style="color:blue"><input class="btnLogin" type="submit" value="login"/></td> 
 				        </tr>
 			        </table>
 			     </form:form>

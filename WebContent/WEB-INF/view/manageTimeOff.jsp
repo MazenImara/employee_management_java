@@ -8,13 +8,15 @@
 <html>
 <head>
 <style><%@include file="/WEB-INF/css/mystyle.css"%></style>
+
+<style><%@include file="/WEB-INF/css2/mystyle.css"%></style>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
 </head>
 <body>
 <!--MOHAMAD Code  -->
 
-<div  class="box "  align='center'>
+<div  class="box2 "  align='center'>
     Account: ${log.employee.name } <br>
     <a href="logout"><button>Logout</button></a><br>
     <c:if test="${ loginasadmin == false}" >
@@ -28,9 +30,9 @@
 
 
    <div align="center">
-	     <h1 Style=' color :blue' ><i>Your TimeOff <b></b></i></h1>
+	     <h1 ><i>Your TimeOff <b></b></i></h1>
 		     <table border="1">
-			      <tr style= "background:yellow">
+			      <tr class="staticInfoTable">
 			          <th>S.No.</th>
 			          <th>From</th>
 			          <th>To</th>
@@ -54,7 +56,7 @@
 							   <b><fmt:formatDate value="${dateObject2 }" pattern="dd/MM/yyyy--" /></b>
 						 	   <b><fmt:formatDate value="${dateObject2}" pattern="hh:mm a" /></b>
 				    	   <input type='hidden' name="employee_id" value='${timeOff.employee_id}'/>
-						   <td style="color:blue"><input type="submit" value="DELETE   "/></td>
+						   <td><input type="submit" value="DELETE   "/></td>
 	                     </tr> 
 	                      </form:form>
 	                      </c:forEach>
@@ -64,7 +66,7 @@
 			                      <input type='hidden' name="employeeId" value='${log.employee.id}'/>
 			                      <td><input type='datetime-local'   name = "date1" value='${date1}'/></td>
 			                      <td><input type='datetime-local'   name = "date2" value='${date2}'/></td>
-			                      <td style="color:blue"><input type="submit" value="   ADD      "/></td> 
+			                      <td><input type="submit" value="   ADD      "/></td> 
 		                      </form:form>
 	                     </tr>
 	          </table>  

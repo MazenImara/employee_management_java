@@ -43,6 +43,8 @@
 	<bean id="transactionManager"   class="org.springframework.orm.hibernate4.HibernateTransactionManager">
     	<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
-
+	
+	<mvc:annotation-driven />	
+	<mvc:resources mapping="/resources/**" location="/resources/" />
             
 </beans>

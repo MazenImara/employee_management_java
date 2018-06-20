@@ -8,6 +8,8 @@
 <html>
 <head>
 <style><%@include file="/WEB-INF/css/mystyle.css"%></style>
+
+<style><%@include file="/WEB-INF/css2/mystyle.css"%></style>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
 </head>
@@ -15,7 +17,7 @@
 <!--MOHAMAD Code  -->
 
 <body>
-<div  class="box "  align='center'>
+<div  class="box2 "  align='center'>
     Account: ${log.employee.name } <br>
     <a href="logout"><button>Logout</button></a><br>
     <c:if test="${ loginasadmin == false}" >
@@ -28,13 +30,14 @@
 </div>
 
 <div align="center">
-           <h1 Style=' color :blue' ><i> The Suggestion For All Projects<b></b></i></h1>
+           <h1><i> The Suggestion For All Projects<b></b></i></h1>
 	            <table border="1">
-		             <tr style= "background:yellow">
+		             <tr class="staticInfoTable">
 		                <th>S.No.</th>
 		                <th>Employee name</th>
 		                <th>Project name</th>
-		                <th>Task Name</th>
+						<th>Task Name</th>
+						<th>Start</th>
 		            </tr>
 	                <c:forEach var="suggestion" items="${suggestions}" varStatus="status">
 	                <tr>
@@ -56,7 +59,7 @@
 			            </c:forEach>
 			            <form:form name="SelectTaskFRomSuggestion" method="post" action="start" modelAttribute="task">
 			               <input type='hidden' name="id" value='${suggestion.task_id}'/>
-			               <td style="color:blue"><input type="submit" value="Start"/></td>
+			               <td><input type="submit" value="Start"/></td>
 			            </form:form>
 		            
 		            </tr>

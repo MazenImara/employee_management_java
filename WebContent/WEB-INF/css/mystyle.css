@@ -22,30 +22,6 @@
     color: white;
 }
 
-.row{
-	margin-right: 50px;
-    margin-left: 50px;
-    border: 1px solid black;
-    padding: 10px 10px 75px;
-    background-color: lightblue;
-}
-
-.muu{
-	font-size: 20px;
-	
-}
-
-.muu2{
-	border:2px solid black;	
-    display: flex;    
-     font-weight: bold;
-     font-size: 17px;
-}
-.muu3{
-	font-size: 25px;
-    font-weight: bold;
-}
-
 .header{
 	font-weight: bold;
     font-size: 35px;
@@ -53,7 +29,7 @@
 }
  
 input[type=button], input[type=submit], input[type=reset] {
-    background-color: #4CAF50;
+    background-color:cornflowerblue;
     border: none;
     color: white;
     padding: 5px 20px;
@@ -61,13 +37,7 @@ input[type=button], input[type=submit], input[type=reset] {
     margin: 4px 2px;
     cursor: pointer;
 } 
-.header2 {
-    border: 1px solid black;
-    padding: 10px 10px 75px;
-    background-color: lightgreen;
-    padding-top: 5px;
-    padding-bottom: 5px;
-}  
+
 .box{ 
   background-color:lightgrey;
    border: 5px solid black;
