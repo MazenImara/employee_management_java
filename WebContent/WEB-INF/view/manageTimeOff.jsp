@@ -64,8 +64,8 @@
 		                      <form:form name="formaddtimeoff" method="post" action="addtimeoff" modelAttribute="timeOff">
 		                          <td>${status.index + 2}</td>
 			                      <input type='hidden' name="employeeId" value='${log.employee.id}'/>
-			                      <td><input type='datetime-local'   name = "date1" value='${date1}'/></td>
-			                      <td><input type='datetime-local'   name = "date2" value='${date2}'/></td>
+			                      <td><input type='datetime-local'   name = "date1" value='${date1}'required/></td>
+			                      <td><input type='datetime-local'   name = "date2" value='${date2}'required/></td>
 			                      <td><input type="submit" value="   ADD      "/></td> 
 		                      </form:form>
 	                     </tr>

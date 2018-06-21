@@ -14,6 +14,8 @@
 	<context:component-scan base-package="em.model" />
 	<context:component-scan base-package="em.dio" />
     
+  
+    
     <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/view/"></property>
         <property name="suffix" value=".jsp"></property>        

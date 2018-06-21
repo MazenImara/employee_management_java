@@ -37,12 +37,12 @@
 		            </tr>
 		            <form:form name="mangeEmployee" method="post" action="mangeemployee" modelAttribute="employee">
 		                <tr>
-		                    <input type='hidden' name="id" value='${employee.id}'/>
-		                    <td><input type='text' name="name" value='${employee.name}'/></td>
-		                    <td><input type='text' name="email" value='${employee.email}'/></td>
-		                    <td><input type='password' name="password" value='${employee.password}'/></td>
-		                    <td><input type='text' name="address" value='${employee.address}'/></td>
-		                    <td><input type='text' name="phone" value='${employee.phone}'/></td>
+		                    <input type='hidden' name="id" value='${employee.id}'required/>
+		                    <td><input type='text' name="name" value='${employee.name}'required/></td>
+		                    <td><input type='text' name="email" value='${employee.email}'required/></td>
+		                    <td><input type='password' name="password" value='${employee.password}'required/></td>
+		                    <td><input type='text' name="address" value='${employee.address}'required/></td>
+		                    <td><input type='text' name="phone" value='${employee.phone}'required/></td>
 		                    <td style="color:blue"><input type="submit" name="update" value="UPDATE"/></td>
 		                    <td style="color:blue"><input type="submit" name="signToAdmin"value="Sign To Admin"/></td>
 			            </tr>
@@ -163,8 +163,8 @@
 	                <form:form name="formshowtimesWorkinperiode" method="post" action="gettimeworkinperiode" modelAttribute="day">
 		                 <tr style= class="staticInfoTable">
 		                      <input type='hidden' name="id" value='${employee.id}'/>
-		                     <th> From <input type="date" name='date1' value='date1'/></th>
-		                     <th> To   <input type="date" name='date2' value='date2'/></th>
+		                     <th> From <input type="date" name='date1' value='date1' required/></th>
+		                     <th> To   <input type="date" name='date2' value='date2' required/></th>
 		                     <th style="color:blue"><input type="submit" value="Show works in periode"/></th>
 		                 </tr>
 		                

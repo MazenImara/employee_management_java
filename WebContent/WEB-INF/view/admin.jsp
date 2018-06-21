@@ -39,8 +39,8 @@
 					      <tr>
 				              <td>${status.index + 1}</td>
 				              <input type='hidden' name="id" value='${project.id}'/>
-				              <td><input type='text' name="title" value='${project.title}'/></td>
-				              <td><input type='text' name="description" value='${project.description}'/></td>
+				              <td><input type='text' name="title" value='${project.title}' required/></td>
+				              <td><input type='text' name="description" value='${project.description}' required/></td>
 				              <td><input type='hidden' name="status" value='${project.status}'/>${project.status}</td>
 				              <td><input type='hidden' name="timeSpend" value='${project.timeSpend}'/>
 				                 
@@ -70,8 +70,8 @@
 
 	              <form:form name="formAddProject" method="post" action ="addproject" modelAttribute="project">
 	                    <td> </td>
-	                    <td> <input type='text' name="title" value='${project.title}'/></td>
-	                    <td> <input type='text' name="description" value='${project.description}'/></td>
+	                    <td> <input type='text' name="title" value='${project.title}' required/></td>
+	                    <td> <input type='text' name="description" value='${project.description}' required/></td>
 	                     ${project.status}
 	                     ${project.timeSpend}
 	                     <td><strike>New</strike></td>
@@ -100,24 +100,24 @@
 		                <tr>
 		                    <td>${status.index + 1}</td>
 		                    <input type='hidden' name="id" value='${employee.id}'/>
-		                    <td><input type='text' name="name" value='${employee.name}'/></td>
-		                    <td><input type='text' name="email" value='${employee.email}'/></td>
-		                    <td><input type='password' name="password" value='${employee.password}'/></td>
-		                    <td><input type='text' name="address" value='${employee.address}'/></td>
-		                    <td><input type='text' name="phone" value='${employee.phone}'/></td>
+		                    <td><input type='text' name="name" value='${employee.name}'required/></td>
+		                    <td><input type='text' name="email" value='${employee.email}'required/></td>
+		                    <td><input type='password' name="password" value='${employee.password}' required/></td>
+		                    <td><input type='text' name="address" value='${employee.address}' required/></td>
+		                    <td><input type='text' name="phone" value='${employee.phone}' required/></td>
 		                    <td ><a  href="getemployee?id=${employee.id}">GO</a></td>
 		                    <td><a  href="deleteemployee?id=${employee.id}">DELETE</a></td>
 		                    <td ><input type="submit" value="UPDATE"/></td>
 			            </tr>
 			        </form:form>
 			        </c:forEach>
-                    <form:form name="addForm" method="post" action="addemployee" modelAttribute="employee">
-	                    <td> </td>
-	                    <td> <input type='text' name="name" value='${employee.name}'/></td>
-	                    <td> <input type='text' name="email" value='${employee.email}'/></td>
-	                    <td> <input type='text' name="password" value='${employee.password}'/></td>
-	                    <td> <input type='text' name="address" value='${employee.address}'/></td>
-	                    <td> <input type='text' name="phone" value='${employee.phone}'/></td>
+                    <form:form name="addForm" action="addemployee"  method="post" modelAttribute="employee" >
+                        <td></td>
+	                    <td> <input type='text' name="name" value='${employee.name}' required/></td>
+	                    <td> <input type='text' name="email" value='${employee.email}' required/></td>
+	                    <td> <input type='text' name="password" value='${employee.password}' required/></td>
+	                    <td> <input type='text' name="address" value='${employee.address}' required/></td>
+	                    <td> <input type='text' name="phone" value='${employee.phone}' required/></td>
 	                    <td ><input type="submit" value="ADD Employee     "/></td>            
                     </form:form>       
 	            </table>

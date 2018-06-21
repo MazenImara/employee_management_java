@@ -79,7 +79,7 @@
 					      <tr>                                            
 				              <td>${status.index + 1}</td>
 				                  <input type='hidden' name="id" value='${task.id}'/>
-				              <td><input type='text' name="title" value='${task.title} '/></td>
+				              <td><input type='text' name="title" value='${task.title} 'required/></td>
 				              <td><input type='hidden' name="status" value='${task.status}'/>${task.status}</td>
 				              <td><input type='hidden' name="timespend" value='${task.timespend}'/>
 				                    <c:choose>
@@ -156,7 +156,7 @@
 		          <form:form name="formadd Task" method="post" action="addnewtask" modelAttribute="task">
 				              <tr>
 				                   <td></td>
-					              <td> <input type='text' name="title" value='${task.title}'/></td> 
+					              <td> <input type='text' name="title" value='${task.title}'required/></td> 
 					                   <input type='hidden' name="project.id" value="${project.id }"/>
 					              <td><strike>New</strike></td>
 		                          <td><strike>0</strike></td>

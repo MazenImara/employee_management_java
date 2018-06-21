@@ -12,6 +12,7 @@ import java.util.List;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 
+
 // MOHAMAD Code  
 
 @Entity
@@ -23,10 +24,10 @@ public class Employee implements Serializable{
 
 	@Id
     @GeneratedValue
-    
     @Column(name="id")
 	public int id;
-
+	
+    @NotNull
     @Column(name="name")
 	public String name;
 
@@ -39,12 +40,13 @@ public class Employee implements Serializable{
 	public String password;
 
     
-
+    
     @Column(name="address")
 	public String address;
 
-
+   
     @Column(name="phone")
+   
 	public long phone;
 
 

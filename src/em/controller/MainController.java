@@ -20,6 +20,8 @@ import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -182,21 +184,30 @@ public class MainController {
 	}
 	
 	@RequestMapping(value="/admin")
-	public ModelAndView adminpage(HttpSession session) {
+	public ModelAndView adminpage(HttpSession session,@Validated Employee employee, BindingResult bindingResult) {
 		Log log = (Log)session.getAttribute("log");
-		if(log != null && log.role == "Admin") {	
-	 		ModelAndView model = new ModelAndView("admin");
-	 	     List<Project>projects = dio.getProjects();
-	 		 List<Employee>employees = dio.getEmployees();
-	 	    model.addObject("projects", projects);	
-	 	    model.addObject("employees", employees);
-	 	    model.addObject("log.role",log.role);
-	 	   return model;
+		if(log != null && log.role == "Admin") { 
+			
+	        if (bindingResult.hasErrors()) {
+		 		ModelAndView model = new ModelAndView("test");
+		 	   
+		 	    return model;
+	        }
+	        else {
+	        	ModelAndView model = new ModelAndView("admin");
+		 	    List<Project>projects = dio.getProjects();
+		 		List<Employee>employees = dio.getEmployees();
+		 	    model.addObject("projects", projects);	
+		 	    model.addObject("employees", employees);
+		 	    model.addObject("log.role",log.role);
+		 	    return model;
+	        }
 		}
 		else {
 	 		ModelAndView model2 = new ModelAndView("notLoged");
 	 		return model2;
 		}
+	
  	}	   
 	 @SuppressWarnings("unused")
 	@RequestMapping(value="/getemployee")
@@ -214,7 +225,6 @@ public class MainController {
 		    }
 		   
 		    String time= day.getDurationString(sum);
-		    
 		    System.out.println("Sum="+sum);
 		    model.addObject("timesOffList",timesOff);
 		    System.out.println("time="+time);
