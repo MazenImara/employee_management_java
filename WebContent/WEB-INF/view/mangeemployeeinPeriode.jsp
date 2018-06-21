@@ -14,9 +14,10 @@
 </head>
 
 <!--MOHAMAD Code  -->
+ 
 
 <body>
-<div  class="box "  align='center'>
+<div  class="box2 "  align='center'>
     Account: ${log.employee.name } <br>
     <a href="logout"><button>Logout</button></a>
     <a href="loginasemployee"><button>login As Employee</button></a>
@@ -154,20 +155,23 @@
 			                         ${time }
 							     </th>
 						     </tr>
-	                      </table>
-		                   
-	             </table>
-	             <table border="1">
+	                  </table>
+	                  
+	                <table border="1">
 	                <form:form name="formshowtimesWorkinperiode" method="post" action="gettimeworkinperiode" modelAttribute="day">
+
 		                 <tr style= "background:lightblue">
 		                      <input type='hidden' name="id" value='${employee.id}'/>
 		                     <th> From <input type="date" name='date1' value='date1'/></th>
 		                     <th> To   <input type="date" name='date2' value='date2'/></th>
 		                     <th style="color:blue"><input type="submit" value="Show works in periode"/></th>	                   
+
 		                 </tr>
+
 	                 </form:form>
+
 	              </table>
-	              
+					
     </div> 
 </body>
 <!-- End MOHAMAD Code  -->

@@ -233,12 +233,8 @@ public class MainController {
 	public ModelAndView timesworkinperiode(HttpSession session,@RequestParam(value="id", required=true) int  id,@RequestParam(value="date1", required=true) char[]  date1,@RequestParam(value="date2", required=true)char[]  date2) throws ParseException {
 		Log log = (Log)session.getAttribute("log");
 		if(log != null && log.role == "Admin") {
-			
-			ModelAndView model = new ModelAndView("mangeemployeeinPeriode");
 			Employee employee = dio.getEmployee(id);
-			
 			List<TimeOff> timesOff=dio.getTimesOffByEmployeeId(employee.id);
-			
 		    Day day=new Day();
 		    String d1= String.valueOf(date1, 0, 10);
 		    String d2= String.valueOf(date2, 0, 10);
@@ -246,7 +242,13 @@ public class MainController {
 		    String d4=d2+" "+0+":"+0;
 		    long periodeFrom= day.toMillisecond(d3);
 		    long periodeTo  = day.toMillisecond(d4);
-		  
+		    if (periodeFrom > periodeTo) {
+		    	long localVariable=0;
+		    	localVariable= periodeTo;
+		    	periodeTo=periodeFrom;
+		    	periodeFrom=localVariable;
+		    }
+	    	ModelAndView model = new ModelAndView("mangeemployeeinPeriode");
 			List<Day> days =(List<Day>) dio.selectEmployeesWorkTimeForPeriod( periodeFrom , periodeTo ,employee.id);
 			long sum=0;
 			 for ( Day day1:days) {
