@@ -184,7 +184,7 @@ public class MainController {
 	@RequestMapping(value="/admin")
 	public ModelAndView adminpage(HttpSession session) {
 		Log log = (Log)session.getAttribute("log");
-		if(log != null && log.role == "Admin") {	
+		if(log != null && ( log.role == "Admin" ||  log.role == "AdminAsEmployee")) {	
 	 		ModelAndView model = new ModelAndView("admin");
 	 	     List<Project>projects = dio.getProjects();
 	 		 List<Employee>employees = dio.getEmployees();
@@ -202,7 +202,7 @@ public class MainController {
 	@RequestMapping(value="/getemployee")
 	public ModelAndView emp(HttpSession session,@RequestParam(value="id", required=true) int  id) throws ParseException {
 		Log log = (Log)session.getAttribute("log");
-		if(log != null && log.role == "Admin") {
+		if(log != null && ( log.role == "Admin" ||  log.role == "AdminAsEmployee")) {
 			ModelAndView model = new ModelAndView("mangeemployee");
 			Employee employee = dio.getEmployee(id);
 			List<TimeOff> timesOff=dio.getTimesOffByEmployeeId(employee.id);
@@ -232,7 +232,7 @@ public class MainController {
 	@RequestMapping(value="/gettimeworkinperiode")
 	public ModelAndView timesworkinperiode(HttpSession session,@RequestParam(value="id", required=true) int  id,@RequestParam(value="date1", required=true) char[]  date1,@RequestParam(value="date2", required=true)char[]  date2) throws ParseException {
 		Log log = (Log)session.getAttribute("log");
-		if(log != null && log.role == "Admin") {
+		if(log != null && ( log.role == "Admin" ||  log.role == "AdminAsEmployee")) {
 			
 			ModelAndView model = new ModelAndView("mangeemployeeinPeriode");
 			Employee employee = dio.getEmployee(id);
@@ -289,7 +289,7 @@ public class MainController {
 	public ModelAndView project(HttpSession session,@RequestParam(value="id", required=true) int  id) {
 		
 		Log log = (Log)session.getAttribute("log");
-		if(log != null && log.role == "Admin") {
+		if(log != null && ( log.role == "Admin" ||  log.role == "AdminAsEmployee")) {
 			ModelAndView model1 = new ModelAndView("project");
 			Project project = dio.getProject(id);
 			List<Suggestion> suggestions=dio.getSuggestions();
@@ -367,7 +367,7 @@ public class MainController {
     @RequestMapping(value="/makesuggestion",method = RequestMethod.GET)
     public ModelAndView  signEmployeeToTasktask(HttpSession session,@RequestParam(value="taskId", required=true) int  taskId,@RequestParam(value="projectId", required=true) int projectId) {  	
         	Log log = (Log)session.getAttribute("log");
-        	if(log != null && log.role == "Admin" ) {
+        	if(log != null && ( log.role == "Admin" ||  log.role == "AdminAsEmployee") ) {
 		    	ModelAndView model = new ModelAndView("gettask");
 			    Task task1=dio.getTask(taskId);
 			    Project project1=dio.getProject(projectId);
@@ -430,7 +430,7 @@ public class MainController {
    @RequestMapping(value="/managetimeoff",method = RequestMethod.GET)
 	public ModelAndView  manageTimeOff(HttpSession session, @RequestParam(value="employeeId", required=true) int  employeeId ){
 	   Log log = (Log)session.getAttribute("log");
-   	if(log != null && (log.role == "Employee" || log.role == "Admin") ) {
+   	if(log != null && (log.role == "Employee" || log.role == "AdminAsEmployee") ) {
 		   List<TimeOff> timesOff=dio.getTimesOffByEmployeeId(employeeId);
 		   ModelAndView model = new ModelAndView("manageTimeOff");
 		   model.addObject("timesOff", timesOff);
@@ -482,7 +482,7 @@ public class MainController {
    @RequestMapping(value="/allsuggestions",method = RequestMethod.GET)
    public ModelAndView  allsuggestion( HttpSession session) {  	
 	   	Log log = (Log)session.getAttribute("log");
-	  	if(log != null && (log.role == "Employee" || log.role == "Admin") ) {
+	  	if(log != null && (log.role == "Employee" || log.role == "AdminAsEmployee") ) {
 		    ModelAndView model = new ModelAndView("allsuggestions");
 			List<Project> projects = dio.getProjects();
 			List<Suggestion> suggestions=dio.getSuggestions();
@@ -564,26 +564,35 @@ public class MainController {
     }
     
     @RequestMapping(value="/loginasemployee")
-	public ModelAndView loginAsEmployee(HttpSession session) {
+	public String loginAsEmployee(HttpSession session) {
     	Log log = (Log)session.getAttribute("log");
-    	if(log != null && log.role == "Admin" ) {	
-			ModelAndView model = new ModelAndView("employee");
-			Task task = new Task();
-			List<Project> getProjects = dio.getProjectsByEmployeeId(log.employee.id);
-			model.addObject("task", task);
-		    model.addObject("getProjects", getProjects);
-			return model;			
+    	if(log != null && ( log.role == "Admin" ||  log.role == "AdminAsEmployee") ) {
+    		log.role = "AdminAsEmployee";
+    		session.removeAttribute("log");
+    		session.setAttribute("log", log);
+    		return "redirect:employee"; 			
 	    }
     	else {
-	 		ModelAndView model2 = new ModelAndView("notLoged");
-	 		return model2;
+    		return "redirect:notlogin"; 
 	    }
     }
-   
+    @RequestMapping(value="/backToAdmin")
+	public String  backToAdmin(HttpSession session) {
+    	Log log = (Log)session.getAttribute("log");
+    	if(log != null && ( log.role == "Admin" ||  log.role == "AdminAsEmployee") ) {
+    		log.role = "Admin";
+    		session.removeAttribute("log");
+    		session.setAttribute("log", log);
+    		return "redirect:admin"; 			
+	    }
+    	else {
+    		return "redirect:notlogin"; 
+	    }
+    }
     @RequestMapping(value="/employee")
 	public ModelAndView employee(HttpSession session) {
     	Log log = (Log)session.getAttribute("log");
-    	if(log != null && log.role == "Employee" ) {	
+    	if(log != null && ( log.role == "Employee" ||  log.role == "AdminAsEmployee") ) {	
 			ModelAndView model = new ModelAndView("employee");
 			Task task = new Task();
 			List<Project> getProjects = dio.getProjectsByEmployeeId(log.employee.id);

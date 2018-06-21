@@ -16,18 +16,8 @@
 <body>
 <!--MOHAMAD Code  -->
 
-<div  class="box2 "  align='center'>
-    Account: ${log.employee.name } <br>
-    <a href="logout"><button>Logout</button></a><br>
-    <c:if test="${ loginasadmin == false}" >
-	     <input type="button" value="To Employee Menu" onclick="window.location.href='http://localhost:8080/em/employee'">
-	</c:if>
-	<c:if test="${ loginasadmin == true}" >
-	     <input type="button" value="To Employee Menu" onclick="window.location.href='http://localhost:8080/em/loginasemployee'">
-	</c:if>
-    
-</div>
 
+<jsp:include  flush="true" page="/WEB-INF/view/header.jsp"/>
 
    <div align="center">
 	     <h1 ><i>Your TimeOff <b></b></i></h1>

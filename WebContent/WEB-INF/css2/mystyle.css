@@ -51,19 +51,26 @@ table {
   left: 15%;
   width: 65%;
   margin-top: 20px;
+  margin-bottom: 20px;
+  border-radius: 10px;
 }
 
-/* line 49, ../sass/mystyle.scss */
+/* line 50, ../sass/mystyle.scss */
+.taskInfo {
+  background-color: #00c7fc;
+}
+
+/* line 54, ../sass/mystyle.scss */
 div {
   color: white;
 }
-/* line 51, ../sass/mystyle.scss */
+/* line 56, ../sass/mystyle.scss */
 div .projectInfo {
   background-color: #00c7fc;
   font-size: 25px;
   font-weight: bold;
 }
-/* line 56, ../sass/mystyle.scss */
+/* line 61, ../sass/mystyle.scss */
 div .staticInfo {
   background-color: cornflowerblue;
   border: 2px solid black;
@@ -71,7 +78,15 @@ div .staticInfo {
   font-weight: bold;
   font-size: 17px;
 }
-/* line 63, ../sass/mystyle.scss */
+/* line 68, ../sass/mystyle.scss */
+div .taskInfo {
+  background-color: #89c7eb;
+  border: 2px solid black;
+  border-top: none;
+  font-weight: bold;
+  font-size: 17px;
+}
+/* line 75, ../sass/mystyle.scss */
 div .staticInfoTable {
   background-color: cornflowerblue;
   border: 2px solid black;

@@ -1,7 +1,7 @@
-
 $mainBColor: #00c7fc;
 $mainColor: white;
 $employeeDesign: cornflowerblue;
+$borderColor: black;
 
 body{
     background-color: $mainColor;
@@ -11,13 +11,13 @@ h1{
     color:#2006e9;
 }
 table{
-    color: black;   
+    color: $borderColor;   
     background-color: rgb(185, 238, 252);
    
     
 }
 .loginTable{        
-    border: 2px solid black;    
+    border: 2px solid  $borderColor;    
     border-radius: 12px;    
     background-color: $mainBColor;
 }
@@ -42,31 +42,43 @@ table{
     background-color:$employeeDesign;
     font-size: 16px;
     left: 15%;
-    width: 65%;
-    
+    width: 65%;    
     margin-top: 20px;
+    margin-bottom: 20px;    
+    border-radius: 10px;
 }
+.taskInfo{
+    background-color: $mainBColor;
+}
+
 div{
     color: $mainColor;
     .projectInfo{
         background-color: $mainBColor;
         font-size: 25px;
-        font-weight: bold;
+        font-weight: bold;            
     }
     .staticInfo{
         background-color: $employeeDesign;
-        border:2px solid black;	
+        border:2px solid  $borderColor;	
         display: flex;    
+        font-weight: bold;
+        font-size: 17px;
+    }
+    .taskInfo{
+        background-color: #89c7eb;
+        border: 2px solid  $borderColor;
+        border-top: none;
         font-weight: bold;
         font-size: 17px;
     }
     .staticInfoTable{
         background-color: $employeeDesign;
-        border:2px solid black;	
+        border:2px solid  $borderColor;	
          
         font-weight: bold;
         font-size: 17px;
     }
-    
+
     
 }
