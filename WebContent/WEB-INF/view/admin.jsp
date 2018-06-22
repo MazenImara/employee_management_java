@@ -15,12 +15,9 @@
 
 
 <!-- MOHAMAD Code -->
+<jsp:include  flush="true" page="/WEB-INF/view/header.jsp"/>
 
-<div  class="box2 "  align='center'>
-    Account: ${log.employee.name } <br>
-    <a href="logout"><button>Logout</button></a>
-    <a href="loginasemployee"><button>login As Employee</button></a>
-</div>
+
 	 <div align="center">
 	     <h1 ><i>Projects<b></b></i></h1>
 		     <table border="1">

@@ -14,14 +14,8 @@
 
 <!--MOHAMAD Code  -->
 
+<jsp:include  flush="true" page="/WEB-INF/view/header.jsp"/>
 <body>
-<div  class="box2 "  align='center'>
-    Account: ${log.employee.name } <br>
-    <a href="logout"><button>Logout</button></a>
-    <a href="loginasemployee"><button>login As Employee</button></a>
-    <input type="button" value="To Admin Menu" onclick="window.location.href='http://localhost:8080/em/admin'">
-</div>
-	
 
 	 <div align="center">
 	     <h1 ><i>Project<b></b></i></h1>

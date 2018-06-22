@@ -499,7 +499,7 @@ public class MainController {
    @RequestMapping(value="/allsuggestions",method = RequestMethod.GET)
    public ModelAndView  allsuggestion( HttpSession session) {  	
 	   	Log log = (Log)session.getAttribute("log");
-	  	if(log != null && (log.role == "Employee" || log.role == "AdminAsEmployee") ) {
+	  	if(log != null && (log.role == "Employee" || log.role == "AdminAsEmployee" || log.role == "Admin") ) {
 		    ModelAndView model = new ModelAndView("allsuggestions");
 			List<Project> projects = dio.getProjects();
 			List<Suggestion> suggestions=dio.getSuggestions();
@@ -535,20 +535,13 @@ public class MainController {
    	long date2=1533499999000L;
    	int employeeId =3;
    	List<Day> days =(List<Day>) dio.selectEmployeesWorkTimeForPeriod( date1 , date2 , employeeId);
-  
 		for (Day day : days) {
-			
 			System.out.println("from"+day.start);
 			System.out.println("from"+day.endTime);
 		}
-   
        return model;
-       
    }
-		
-	
 	@RequestMapping(value="/")
-
 	public ModelAndView getProject() {
 		ModelAndView model = new ModelAndView("index");
 		Project project = new Project();

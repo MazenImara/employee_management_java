@@ -17,37 +17,65 @@
 <title>Insert title here</title>
 </head>
 <body>
-    <div  class="box2 "  align='center'>
-        Account: ${log.employee.name } <br>
-        <a href="logout"><button>Logout</button></a><br>
-
-    </div>
-
-          
-        <ul  class="nav navbar-nav menuBar">
-            <li>
-                
-	            <input type="button" value="Employee Menu" onclick="window.location.href='http://localhost:8080/em/employee'">
-	           
-
     
-            </li>
 
-            <li>
-                <a href="managetimeoff?employeeId=${log.employee.id}">Manage your TimeOff</a>
-            </li>
+       <c:if test='${ log.role =="Employee"  || log.role == "AdminAsEmployee"  }' >
+           <div  class="box2 "  align='center'>
+		        Account: ${log.employee.name } <br>
+		        <a href="logout"><button>Logout</button></a><br>
 
-            <li>		
-                <a href="allsuggestions">Suggestions List</a>
-            </li>
-            <li>                
-                <c:if test='${  log.role == "AdminAsEmployee"}'>
-                    <a href="backToAdmin"><button>Back  to admin minue</button></a>
-	            </c:if>
-    
-            </li>
-
-        </ul>
+           </div>
+      
+      
+	        <ul  class="nav navbar-nav menuBar">
+	            <li>
+	                
+		            <input type="button" value="Employee Menu" onclick="window.location.href='http://localhost:8080/em/employee'">
+		           
+	
+	    
+	            </li>
+	
+	            <li>
+	                <a href="managetimeoff?employeeId=${log.employee.id}">Manage your TimeOff</a>
+	            </li>
+	
+	            <li>		
+	                <a href="allsuggestions">Suggestions List</a>
+	            </li>
+	            <li>                
+	                <c:if test='${  log.role == "AdminAsEmployee"}'>
+	                    <a href="backToAdmin"><button>Back  to admin Menu</button></a>
+		            </c:if>
+	    
+	            </li>
+	
+	        </ul>
+     </c:if>
+     <c:if test='${ log.role =="Admin"   }' >
+           <div  class="box2 "  align='center'>
+			    Account: ${log.employee.name } <br>
+			    <a href="logout"><button>Logout</button></a>
+			    <a href="loginasemployee"><button>login As Employee</button></a>
+           </div>
+      
+      
+	        <ul  class="nav navbar-nav menuBar">
+	            <li>
+		            <input type="button" value="Admin Menu" onclick="window.location.href='http://localhost:8080/em/admin'">
+	            </li>
+	            <li>		
+	                <a href="allsuggestions">Suggestions List</a>
+	            </li>
+	            <li>                
+	                <c:if test='${  log.role == "AdminAsEmployee"}'>
+	                    <a href="backToAdmin"><button>Back  to admin Menu</button></a>
+		            </c:if>
+	    
+	            </li>
+	
+	        </ul>
+     </c:if>
       
 </body>
 </html>
