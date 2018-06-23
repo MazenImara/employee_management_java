@@ -210,6 +210,59 @@ public class MainController {
 		}
 	
  	}	   
+	
+	@RequestMapping(value="/manageprojectlist")
+	public ModelAndView manageprojectlist(HttpSession session,@Validated Employee employee, BindingResult bindingResult) {
+		Log log = (Log)session.getAttribute("log");
+		if(log != null && ( log.role == "Admin" ||  log.role == "AdminAsEmployee")) {	
+	
+			
+	        if (bindingResult.hasErrors()) {
+		 		ModelAndView model = new ModelAndView("test");
+		 	   
+		 	    return model;
+	        }
+	        else {
+	        	ModelAndView model = new ModelAndView("manageprojectlist");
+		 	    List<Project>projects = dio.getProjects();
+		 		
+		 	    model.addObject("projects", projects);	
+		 	   
+		 	    model.addObject("log.role",log.role);
+		 	    return model;
+	        }
+		}
+		else {
+	 		ModelAndView model2 = new ModelAndView("notLoged");
+	 		return model2;
+		}
+	
+ 	}	
+	@RequestMapping(value="/manageemployeelist")
+	public ModelAndView manageemployeelist(HttpSession session,@Validated Employee employee, BindingResult bindingResult) {
+		Log log = (Log)session.getAttribute("log");
+		if(log != null && ( log.role == "Admin" ||  log.role == "AdminAsEmployee")) {	
+	
+			
+	        if (bindingResult.hasErrors()) {
+		 		ModelAndView model = new ModelAndView("test");
+		 	   
+		 	    return model;
+	        }
+	        else {
+	        	ModelAndView model = new ModelAndView("manageemployeelist");
+		 		List<Employee>employees = dio.getEmployees();
+		 	    model.addObject("employees", employees);
+		 	    model.addObject("log.role",log.role);
+		 	    return model;
+	        }
+		}
+		else {
+	 		ModelAndView model2 = new ModelAndView("notLoged");
+	 		return model2;
+		}
+	
+ 	}	   
 	 @SuppressWarnings("unused")
 	@RequestMapping(value="/getemployee")
 	public ModelAndView emp(HttpSession session,@RequestParam(value="id", required=true) int  id) throws ParseException {
@@ -287,19 +340,19 @@ public class MainController {
 	@RequestMapping(value = "/addemployee" ,method = RequestMethod.POST)
 	 public String addEmployee(@ModelAttribute("employee") Employee employee) {
 	    dio.addEmployee(employee);
-	    return "redirect:admin";	
+	    return "redirect:manageemployeelist";	
 	}
 	@RequestMapping(value = "/updateemployee" ,method = RequestMethod.POST)
 	 public String updateEmployee(@ModelAttribute("employee") Employee employee) {
 	     if(null != employee )
 	        dio.updateEmployee(employee);
-	     return "redirect:admin";
+	     return "redirect:manageemployeelist";
 	}
 	
 	@RequestMapping(value="/deleteemployee")
     public String delete(@RequestParam(value="id", required=true) int employeeId) {    
         dio.deleteEmployee(employeeId);
-        return "redirect:admin";		 
+        return "redirect:manageemployeelist";		 
     }
 	
 	@RequestMapping(value="/getproject")
@@ -328,7 +381,7 @@ public class MainController {
 	     if(null != project ) {	
 	        dio.updateProject(project);
 	     }
-	     return "redirect:admin";		     	
+	     return "redirect:manageprojectlist";		     	
     }
 	
 	@RequestMapping(value = "/addproject" ,method = RequestMethod.POST)
@@ -336,13 +389,13 @@ public class MainController {
 		project.status="New";
         project.timeSpend=0;
 	    dio.addProject(project); 
-	    return "redirect:admin";
+	    return "redirect:manageprojectlist";
 	} 
 
 	@RequestMapping(value="/deleteproject")
     public String deleteproject(@RequestParam(value="id", required=true) int id) {
         dio.deleteProject(id);
-        return "redirect:admin";	 
+        return "redirect:manageprojectlist";	 
     }
 	
 

@@ -64,9 +64,17 @@
 	            <li>
 		            <input type="button" value="Admin Menu" onclick="window.location.href='http://localhost:8080/em/admin'">
 	            </li>
-	            <li>		
-	                <a href="allsuggestions">Suggestions List</a>
+	             <li>
+		            <input type="button" value="Manage Project" onclick="window.location.href='http://localhost:8080/em/manageprojectlist'">
 	            </li>
+	            <li>
+		            <input type="button" value="Manage Employee" onclick="window.location.href='http://localhost:8080/em/manageemployeelist'">
+	            </li>
+	            <li>		
+	                <input type="button" value="Suggestions List" onclick="window.location.href='http://localhost:8080/em/allsuggestions'">
+	                
+	            </li>
+	            
 	            <li>                
 	                <c:if test='${  log.role == "AdminAsEmployee"}'>
 	                    <a href="backToAdmin"><button>Back  to admin Menu</button></a>

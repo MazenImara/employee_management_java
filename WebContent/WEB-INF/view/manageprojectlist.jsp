@@ -27,15 +27,20 @@
 			          <th>project description</th>
 			          <th>project status</th>
 			          <th>project timeSpend</th>
-			         
+			          <th>Select</th>
+			          <th>Delete</th>
+			          <th>Update</th>
 			      </tr>  
 		          <c:forEach var="project" items="${projects}" varStatus="status">
+			          <form:form name="formUpdProject" method="post" action="updateproject" modelAttribute="project">
 					      <tr>
 				              <td>${status.index + 1}</td>
-				              <td>${project.title}</td>
-				              <td>${project.description}</td>
-				              <td>${project.status}</td>
-				              <td>
+				              <input type='hidden' name="id" value='${project.id}'/>
+				              <td><input type='text' name="title" value='${project.title}' required/></td>
+				              <td><input type='text' name="description" value='${project.description}' required/></td>
+				              <td><input type='hidden' name="status" value='${project.status}'/>${project.status}</td>
+				              <td><input type='hidden' name="timeSpend" value='${project.timeSpend}'/>
+				                 
 					                  <c:choose>
 										    <c:when test="${project.timeSpend <= 999}">
 										       00:00
@@ -53,35 +58,26 @@
 								            </c:otherwise>
 						         	 </c:choose>
 					              </td>
+				              <td ><a href="getproject?id=${project.id}">GO</a></td>
+				              <td ><a href="deleteproject?id=${project.id}">DELETE</a></td>	                   
+				              <td ><input type="submit" value="UPDATE"/></td>
 					      </tr>
+		              </form:form>
 			      </c:forEach>   
+
+	              <form:form name="formAddProject" method="post" action ="addproject" modelAttribute="project">
+	                    <td> </td>
+	                    <td> <input type='text' name="title" value='${project.title}' required/></td>
+	                    <td> <input type='text' name="description" value='${project.description}' required/></td>
+	                     ${project.status}
+	                     ${project.timeSpend}
+	                     <td><strike>New</strike></td>
+	                     <td><strike>0</strike></td>
+	                    <td style="color:blue"><input type="submit" value="ADD Project "/></td>
+		           </form:form>            
 	            </table>
        </div>
-       <div align="center">
-           <h1><i>Employee List<b></b></i></h1>
-	            <table border="1">
-		             <tr class="staticInfoTable">
-		                <th>S.No.</th>
-		                <th>Employee name</th>
-		                <th>Employee email</th>
-		                <th>Employee password</th>
-		                <th>Employee address</th>
-		                <th>Employee phone</th>
-		            </tr>
-	                <c:forEach var="employee" items="${employees}" varStatus="status">
-		                <tr>
-		                    <td>${status.index + 1}</td>
-		                    <td>${employee.name}</td>
-		                    <td>${employee.email}</td>
-		                    <td>******</td>
-		                    <td>${employee.address}</td>
-		                    <td>${employee.phone}</td>
-		                   
-			            </tr>
-			        </c:forEach>
-                      
-	            </table>
-        </div>
+      
 </body>
 <!-- End MOHAMAD Code  -->
 </html>
