@@ -30,8 +30,7 @@
 	        <ul  class="nav navbar-nav menuBar">
 	            <li>
 	                
-		            <input type="button" value="Employee Menu" onclick="window.location.href='http://localhost:8080/em/employee'">
-		           
+		            <a href="employee">Employee Menu</a>
 	
 	    
 	            </li>
@@ -45,7 +44,7 @@
 	            </li>
 	            <li>                
 	                <c:if test='${  log.role == "AdminAsEmployee"}'>
-	                    <a href="backToAdmin"><button>Back  to admin Menu</button></a>
+	                    <a style="background-color:#6495ed; border-radius: 30px;" href="backToAdmin">Back  to admin Menu</a>
 		            </c:if>
 	    
 	            </li>
