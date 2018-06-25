@@ -11,7 +11,39 @@
 
 <style><%@include file="/WEB-INF/css2/mystyle.css"%></style>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>Add Time Off</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+	$('#addTimeOff').click(function(){
+		$('.error').remove();  // remove old write error
+		var dateFrom = $('#dateFrom').val();
+		var dateTo = $('#dateTo').val();
+		var addTimeOffForm = $('#addTimeOffForm');
+		var currentDate = new Date();
+		var dateFromObj = new Date(dateFrom)
+		var dateToObj = new Date(dateTo)
+		if(dateFrom != '' && dateTo != ''){
+			if(currentDate.getTime() <= dateFromObj.getTime() && currentDate.getTime() <= dateToObj.getTime()){
+		        if(dateFrom < dateTo){
+		        	addTimeOffForm.submit();
+		        }
+		        else{
+		        	$('#errorDiv').append('<h6 class="error">* plase inter from date lower than To date</h6>')
+		        }				
+			}
+			else{
+				$('#errorDiv').append('<h6 class="error">* please enter future dates</h6>')
+			}
+
+		}
+		else{
+			$('#errorDiv').append('<h6 class="error">* wrong date input</h6>')
+			
+		}
+    });
+});
+</script>
 </head>
 <body>
 <!--MOHAMAD Code  -->
@@ -51,15 +83,16 @@
 	                      </form:form>
 	                      </c:forEach>
 	                     <tr>
-		                      <form:form name="formaddtimeoff" method="post" action="addtimeoff" modelAttribute="timeOff">
+		                      <form:form id='addTimeOffForm' name="formaddtimeoff" method="post" action="addtimeoff" modelAttribute="timeOff">
 		                          <td>${status.index + 2}</td>
 			                      <input type='hidden' name="employeeId" value='${log.employee.id}'/>
-			                      <td><input type='datetime-local'   name = "date1" value='${date1}'required/></td>
-			                      <td><input type='datetime-local'   name = "date2" value='${date2}'required/></td>
-			                      <td><input type="submit" value="   ADD      "/></td> 
+			                      <td><input type='datetime-local' id="dateFrom"   name = "date1" value='${date1}'required/></td>
+			                      <td><input type='datetime-local' id="dateTo"  name = "date2" value='${date2}'required/></td>
+			                      <td><span id="addTimeOff">Add</span></td> 
 		                      </form:form>
 	                     </tr>
-	          </table>  
+	          </table> 
+	          <div id='errorDiv' style='color:red'></div> 
    </div>
 </body>
 <!-- End MOHAMAD Code  -->

@@ -16,8 +16,6 @@
 
 <!-- MOHAMAD Code -->
 <jsp:include  flush="true" page="/WEB-INF/view/header.jsp"/>
-
-
 	 
        <div align="center">
            <h1><i>Employee List<b></b></i></h1>
