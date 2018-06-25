@@ -29,22 +29,23 @@ table {
   margin: 20px;
   padding-top: 5px;
   padding-bottom: 5px;
+  border-radius: 30px;
 }
 
-/* line 32, ../sass/mystyle.scss */
+/* line 33, ../sass/mystyle.scss */
 .btnLogin {
   border-radius: 20px;
   border-color: #00c7fc;
 }
 
-/* line 36, ../sass/mystyle.scss */
+/* line 37, ../sass/mystyle.scss */
 .menuBar {
   font-size: 150%;
   background-color: #00c7fc;
   float: none;
 }
 
-/* line 41, ../sass/mystyle.scss */
+/* line 42, ../sass/mystyle.scss */
 .taskDesign {
   background-color: cornflowerblue;
   font-size: 16px;
@@ -55,22 +56,22 @@ table {
   border-radius: 10px;
 }
 
-/* line 50, ../sass/mystyle.scss */
+/* line 51, ../sass/mystyle.scss */
 .taskInfo {
   background-color: #00c7fc;
 }
 
-/* line 54, ../sass/mystyle.scss */
+/* line 55, ../sass/mystyle.scss */
 div {
   color: white;
 }
-/* line 56, ../sass/mystyle.scss */
+/* line 57, ../sass/mystyle.scss */
 div .projectInfo {
   background-color: #00c7fc;
   font-size: 25px;
   font-weight: bold;
 }
-/* line 61, ../sass/mystyle.scss */
+/* line 62, ../sass/mystyle.scss */
 div .staticInfo {
   background-color: cornflowerblue;
   border: 2px solid black;
@@ -78,7 +79,7 @@ div .staticInfo {
   font-weight: bold;
   font-size: 17px;
 }
-/* line 68, ../sass/mystyle.scss */
+/* line 69, ../sass/mystyle.scss */
 div .taskInfo {
   background-color: #89c7eb;
   border: 2px solid black;
@@ -86,7 +87,7 @@ div .taskInfo {
   font-weight: bold;
   font-size: 17px;
 }
-/* line 75, ../sass/mystyle.scss */
+/* line 76, ../sass/mystyle.scss */
 div .staticInfoTable {
   background-color: cornflowerblue;
   border: 2px solid black;

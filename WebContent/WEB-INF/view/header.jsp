@@ -44,7 +44,7 @@
 	            </li>
 	            <li>                
 	                <c:if test='${  log.role == "AdminAsEmployee"}'>
-	                    <a style="background-color:#6495ed; border-radius: 30px;" href="backToAdmin">Back  to admin Menu</a>
+	                    <a style="background-color:#6495ed; " href="backToAdmin">Back  to admin Menu</a>
 		            </c:if>
 	    
 	            </li>
