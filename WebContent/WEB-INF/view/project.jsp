@@ -20,7 +20,7 @@
 	 <div align="center">
 	     <h1 ><i>Project<b></b></i></h1>
 		     <table border="1">
-			       <tr class="staticInfoTable"">
+			       <tr class="staticInfoTable">
 			          <th>project title</th>
 			          <th>project description</th>
 			          <th>project status</th>
@@ -131,11 +131,11 @@
 							              <c:forEach var="suggestion" items="${suggestions}" varStatus="status">
 							                  <c:forEach var="employee" items="${employees}" varStatus="status">
 										         <c:if test="${suggestion.task_id == task.id && suggestion.employee_id == employee.id}" >
-										             <c:set var="check" value="${true}"/>     
-										             <td>suggested to ${employee.name} </td>
+										             <c:set var="check" value="true"/>    
+										             	<td>suggested to ${employee.name}</td>
 										         </c:if>
-										      </c:forEach>   
-										  </c:forEach>
+										      </c:forEach>										         
+										  </c:forEach>										  
 										         <c:if test="${suggestion.task_id != task.id && check==false}" >     
 										             <td style="color:blue"><a  href="makesuggestion?taskId=${task.id}&projectId=${project.id}">Make Suggestion</a></td>
 										         </c:if>

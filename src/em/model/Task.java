@@ -21,6 +21,9 @@ import javax.persistence.ManyToOne;
 
 import javax.persistence.Table;
 
+import org.springframework.validation.Errors;
+import org.springframework.validation.ValidationUtils;
+
 import em.dio.Dio;
 
 
@@ -143,6 +146,8 @@ public class Task implements Serializable{
 	public void setTimetemp(long timetemp) {
 		this.timetemp = timetemp;
 	}
-	
+	 public void validate(Object target, Errors errors) {
+	       ValidationUtils.rejectIfEmptyOrWhitespace(errors,"title", "field.required");
+	 }
 
 }

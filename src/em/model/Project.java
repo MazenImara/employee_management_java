@@ -13,6 +13,9 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.springframework.validation.Errors;
+import org.springframework.validation.ValidationUtils;
+
 @Entity
 @Table(name="project")
 public class Project implements Serializable{
@@ -78,5 +81,9 @@ public class Project implements Serializable{
 	public void setTimeSpend(long timeSpend) {
 		this.timeSpend = timeSpend;
 	}
+	 public void validate(Object target, Errors errors) {
+	       ValidationUtils.rejectIfEmptyOrWhitespace(errors,"title", "field.required");
+	       ValidationUtils.rejectIfEmptyOrWhitespace(errors,"description", "field.required");
+    }  
 }
 //end ikram

@@ -42,6 +42,9 @@
 		<mapping class="em.model.Employee" />
 		<mapping class="em.model.Log" />
 		<mapping class="em.model.Day" />
+		<mapping class="em.viewmodel._DayVM" />
+		
+		
 			
 <!-- end project -->
 

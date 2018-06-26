@@ -4,6 +4,7 @@ package em.controller;
 import javax.servlet.http.HttpSession;
 import javax.xml.ws.Response;
 
+import java.io.Console;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -38,6 +39,7 @@ import em.model.Suggestion;
 import em.model.Task;
 import em.model.TimeOff;
 import em.model.Log;
+import em.viewmodel._DayVM;
 
 
 
@@ -49,8 +51,8 @@ public class MainController {
 	private Dio dio;
 	private int offset;
 	
-
-	
+	//ViewModel
+    public _DayVM df = new _DayVM();
 	
 	//MOHAMAD CODE
 	
@@ -85,7 +87,7 @@ public class MainController {
 		    outer:
 		    for( Day day1: days) {
 		       if (day1!=null) {
-				       if (day.toDate(System.currentTimeMillis()).contentEquals(day.toDate(day1.date))  && day1.employeeId == employee.id) {
+				       if (df.toDate(System.currentTimeMillis()).contentEquals(df.toDate(day1.date))  && day1.employeeId == employee.id) {
 				    	   day1.temp=System.currentTimeMillis();
 				    	   day.temp=day1.temp;
 				    	   day.date=day1.date;
@@ -97,8 +99,8 @@ public class MainController {
 				    	   log.setDay(day1);
 				    	   break outer;
 				       }
-				       System.out.println("current Time is"+day.toDate(System.currentTimeMillis()));
-				       System.out.println("day is"+ day.toDate(day1.date));
+				       System.out.println("current Time is"+df.toDate(System.currentTimeMillis()));
+				       System.out.println("day is"+ df.toDate(day1.date));
 		       }
 		    }
 		    if (check !=true) {
@@ -212,17 +214,9 @@ public class MainController {
  	}	   
 	
 	@RequestMapping(value="/manageprojectlist")
-	public ModelAndView manageprojectlist(HttpSession session,@Validated Employee employee, BindingResult bindingResult) {
+	public ModelAndView manageprojectlist(HttpSession session) {
 		Log log = (Log)session.getAttribute("log");
 		if(log != null && ( log.role == "Admin" ||  log.role == "AdminAsEmployee")) {	
-	
-			
-	        if (bindingResult.hasErrors()) {
-		 		ModelAndView model = new ModelAndView("test");
-		 	   
-		 	    return model;
-	        }
-	        else {
 	        	ModelAndView model = new ModelAndView("manageprojectlist");
 		 	    List<Project>projects = dio.getProjects();
 		 		
@@ -231,32 +225,25 @@ public class MainController {
 		 	    model.addObject("log.role",log.role);
 		 	    return model;
 	        }
-		}
 		else {
 	 		ModelAndView model2 = new ModelAndView("notLoged");
 	 		return model2;
 		}
 	
  	}	
+	@SuppressWarnings("null")
 	@RequestMapping(value="/manageemployeelist")
-	public ModelAndView manageemployeelist(HttpSession session,@Validated Employee employee, BindingResult bindingResult) {
+	public ModelAndView manageemployeelist(HttpSession session) {
 		Log log = (Log)session.getAttribute("log");
 		if(log != null && ( log.role == "Admin" ||  log.role == "AdminAsEmployee")) {	
-	
 			
-	        if (bindingResult.hasErrors()) {
-		 		ModelAndView model = new ModelAndView("test");
-		 	   
-		 	    return model;
-	        }
-	        else {
 	        	ModelAndView model = new ModelAndView("manageemployeelist");
 		 		List<Employee>employees = dio.getEmployees();
 		 	    model.addObject("employees", employees);
 		 	    model.addObject("log.role",log.role);
 		 	    return model;
 	        }
-		}
+		
 		else {
 	 		ModelAndView model2 = new ModelAndView("notLoged");
 	 		return model2;
@@ -273,12 +260,12 @@ public class MainController {
 			List<TimeOff> timesOff=dio.getTimesOffByEmployeeId(employee.id);
 		    Day day= new Day();
 			long sum=0;
-			List<Day> days =(List<Day>) dio.selectEmployeesWorkTimeForPeriod( day.firstDayInCurrentMonth() , day.lastDayInCurrentMonth() , employee.id); 
+			List<Day> days =(List<Day>) dio.selectEmployeesWorkTimeForPeriod( df.firstDayInCurrentMonth() , df.lastDayInCurrentMonth() , employee.id); 
 		    for ( Day day1:days) {
 		    	sum = sum + day1.timeSpend;
 		    }
 		   
-		    String time= day.getDurationString(sum);
+		    String time= df.getDurationString(sum);
 		    System.out.println("Sum="+sum);
 		    model.addObject("timesOffList",timesOff);
 		    System.out.println("time="+time);
@@ -308,21 +295,20 @@ public class MainController {
 		    String d2= String.valueOf(date2, 0, 10);
 		    String d3=d1+" "+0+":"+0;
 		    String d4=d2+" "+0+":"+0;
-		    long periodeFrom= day.toMillisecond(d3);
-		    long periodeTo  = day.toMillisecond(d4);
+		    long periodeFrom= df.toMillisecond(d3);
+		    long periodeTo  = df.toMillisecond(d4);
 		    if (periodeFrom > periodeTo) {
 		    	long localVariable=0;
 		    	localVariable= periodeTo;
 		    	periodeTo=periodeFrom;
 		    	periodeFrom=localVariable;
 		    }
-	    	
 			List<Day> days =(List<Day>) dio.selectEmployeesWorkTimeForPeriod( periodeFrom , periodeTo ,employee.id);
 			long sum=0;
 			 for ( Day day1:days) {
 			    	sum =  sum + day1.timeSpend;
 			  }
-		    String time= day.getDurationString(sum);
+		    String time= df.getDurationString(sum);
 		    model.addObject("timesOffList",timesOff);
 			model.addObject("employee", employee);
 			model.addObject("days", days);
@@ -338,10 +324,16 @@ public class MainController {
 	}	
 	
 	@RequestMapping(value = "/addemployee" ,method = RequestMethod.POST)
-	 public String addEmployee(@ModelAttribute("employee") Employee employee) {
-	    dio.addEmployee(employee);
-	    return "redirect:manageemployeelist";	
-	}
+	 public String addEmployee(@ModelAttribute("employee") Employee employee,@Validated Employee employee1, BindingResult bindingResult) {
+		employee1=employee;
+		employee1.validate(employee1, bindingResult); 
+		if (bindingResult.hasErrors()) {
+        	 return "redirect:manageemployeelist";
+        }
+        else
+	    dio.addEmployee(employee1);
+	    return "redirect:manageemployeelist";
+        }
 	@RequestMapping(value = "/updateemployee" ,method = RequestMethod.POST)
 	 public String updateEmployee(@ModelAttribute("employee") Employee employee) {
 	     if(null != employee )
@@ -385,11 +377,18 @@ public class MainController {
     }
 	
 	@RequestMapping(value = "/addproject" ,method = RequestMethod.POST)
-	 public String addProject(@ModelAttribute("project") Project project) {
-		project.status="New";
-        project.timeSpend=0;
-	    dio.addProject(project); 
-	    return "redirect:manageprojectlist";
+	 public String addProject(@ModelAttribute("project") Project project,@Validated Project project1, BindingResult bindingResult) {
+		
+        project1.validate(project1, bindingResult); 
+		if (bindingResult.hasErrors()) {
+        	 return "redirect:manageprojectlist";
+        }
+        else{
+        	project.status="New";
+            project.timeSpend=0;
+		    dio.addProject(project); 
+		    return "redirect:manageprojectlist";
+        }
 	} 
 
 	@RequestMapping(value="/deleteproject")
@@ -400,13 +399,18 @@ public class MainController {
 	
 
 	@RequestMapping(value = "/addnewtask" ,method = RequestMethod.POST)
-
-	 public String addtask(@ModelAttribute("task") Task task) {
-		task.status="New";
-	    dio.addTask(task); 
-	  
-	    return "redirect:getproject?id="+task.project.id;
+	 public String addtask(@ModelAttribute("task") Task task,@Validated Task task1, BindingResult bindingResult) {
+		 task1.validate(task1, bindingResult); 
+			if (bindingResult.hasErrors()) {
+	        	 return "redirect:getproject?id="+task.project.id;
+	        }
+			else {
+				task.status="New";
+			    dio.addTask(task); 
+			    return "redirect:getproject?id="+task.project.id;
+			}
 	}
+	
 	@RequestMapping(value="/del&updatetask",method = RequestMethod.POST,params = { "delete" })
     public String  deletetask(@ModelAttribute("task") Task task) {
         dio.deleteTask(task.id);
@@ -533,7 +537,7 @@ public class MainController {
    }
    @RequestMapping(value="/addtimeoff",method = RequestMethod.POST)
    public String addTimeOff(@RequestParam(value="employeeId", required=true) int  employeeId,@RequestParam(value="date1", required=true) char[]  date1,@RequestParam(value="date2", required=true) char[]  date2  ) throws ParseException {  
-	   Day day=new Day();
+	 
 	   TimeOff timeOff=new TimeOff();
 	   
 	   String d1=String.valueOf(date1, 0, 10);
@@ -542,13 +546,18 @@ public class MainController {
 	   String d2=String.valueOf(date2, 0, 10);
 	   String t2=String.copyValueOf(date2, 11, 5);
 	   
-	   timeOff.from = day.toMillisecond(d1+" "+t1);
-	   timeOff.to = day.toMillisecond(d2+" "+t2);
+	   timeOff.from = df.toMillisecond(d1+" "+t1);
+	   timeOff.to = df.toMillisecond(d2+" "+t2);
 	   timeOff.employee_id= employeeId;
 	   
-       dio.addTimeOff(timeOff);
-       return "redirect:managetimeoff?employeeId="+timeOff.employee_id;	
+	   if ( timeOff.from >  timeOff.to) {
+		   return "redirect:managetimeoff?employeeId="+timeOff.employee_id;	
+	   }else {
+		   dio.addTimeOff(timeOff);
+	       return "redirect:managetimeoff?employeeId="+timeOff.employee_id;	
+	   }
    }
+   
    @RequestMapping(value="/allsuggestions",method = RequestMethod.GET)
    public ModelAndView  allsuggestion( HttpSession session) {  	
 	   	Log log = (Log)session.getAttribute("log");

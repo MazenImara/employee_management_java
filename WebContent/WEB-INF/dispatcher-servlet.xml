@@ -11,7 +11,8 @@
  
   
 	<context:component-scan base-package="em.controller" />
-	<context:component-scan base-package="em.model" />
+	<context:component-scan base-package="em.model" />	
+	<context:component-scan base-package="em.viewmodel" />
 	<context:component-scan base-package="em.dio" />
     
   

@@ -8,6 +8,14 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.PropertyException;
+import javax.xml.bind.ValidationEventHandler;
+import javax.xml.bind.Validator;
+
+import org.springframework.validation.Errors;
+import org.springframework.validation.ValidationUtils;
+
 import java.util.List;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
@@ -27,7 +35,7 @@ public class Employee implements Serializable{
     @Column(name="id")
 	public int id;
 	
-    @NotNull
+ 
     @Column(name="name")
 	public String name;
 
@@ -46,7 +54,6 @@ public class Employee implements Serializable{
 
    
     @Column(name="phone")
-   
 	public long phone;
 
 
@@ -110,8 +117,23 @@ public class Employee implements Serializable{
 	public void setTasks(List<Task> tasks) {
 		this.tasks = tasks;
 	}
-
-	
+    public void validate(Object target, Errors errors) {
+       ValidationUtils.rejectIfEmptyOrWhitespace(errors,"name", "field.required");
+       ValidationUtils.rejectIfEmptyOrWhitespace(errors,"email", "field.required");
+       ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "field.required");
+       ValidationUtils.rejectIfEmptyOrWhitespace(errors,"address", "field.required");
+    
+       
+       /*
+         int  MINIMUM_PASSWORD_LENGTH=6;
+       Employee employee = (Employee) target;
+       if (employee.getPassword() != null  && employee.getPassword().trim().length() < MINIMUM_PASSWORD_LENGTH) {
+          errors.rejectValue("password", "field.min.length",
+          new Object[]{Integer.valueOf(MINIMUM_PASSWORD_LENGTH)},
+          "The password must be at least [" + MINIMUM_PASSWORD_LENGTH + "] characters in length.");
+       }
+       */
+    }
 
 }
 

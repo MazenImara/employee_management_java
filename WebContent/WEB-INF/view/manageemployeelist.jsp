@@ -52,9 +52,9 @@
                         <td></td>
 	                    <td> <input type='text' name="name" value='${employee.name}' required/></td>
 	                    <td> <input type='text' name="email" value='${employee.email}' required/></td>
-	                    <td> <input type='text' name="password" value='${employee.password}' required/></td>
+	                    <td> <input type='text' name="password" value='${employee.password}'required/></td>
 	                    <td> <input type='text' name="address" value='${employee.address}' required/></td>
-	                    <td> <input type='text' name="phone" value='${employee.phone}' required/></td>
+	                    <td> <input type='text' name="phone" value='0' 	/></td>
 	                    <td ><input type="submit" value="ADD Employee     "/></td>            
                     </form:form>       
 	            </table>
