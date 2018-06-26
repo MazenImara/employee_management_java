@@ -88,7 +88,7 @@ $(document).ready(function(){
 			                      <input type='hidden' name="employeeId" value='${log.employee.id}'/>
 			                      <td><input type='datetime-local' id="dateFrom"   name = "date1" value='${date1}'required/></td>
 			                      <td><input type='datetime-local' id="dateTo"  name = "date2" value='${date2}'required/></td>
-			                      <td><span id="addTimeOff"> Add </span></td> 
+			                      <td ><span id="addTimeOff"> Add </span></td> 
 		                      </form:form>
 	                     </tr>
 	          </table> 
