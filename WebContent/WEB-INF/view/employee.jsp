@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 
-    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+	
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -41,10 +43,15 @@
 						<div class="col-sm-3">
 							Status Of Task
 						</div>
+
+						<div class="col-sm-3">
+							Timespend
+						</div>
 								
-						<div class="col-sm-6">
+						<div class="col-sm-2">
 							Start/Pause/Finish	
 						</div>
+						
 							
 					</div>
 
@@ -58,8 +65,27 @@
 							<div class="col-sm-3">
 								${task.status}
 							</div>
+
+							<div class="col-sm-3">
+								 <c:choose>
+									    <c:when test="${task.timespend<=999}">
+									       00:00
+									    </c:when> 
+									    <c:when test="${task.timespend >= 1000 && task.timespend <= 3599000 }">
+									      <jsp:useBean id="dateObject1" class="java.util.Date" />
+								    	  <jsp:setProperty name="dateObject1" property="time" value="${task.timespend}" />
+									      <b><fmt:formatDate value="${dateObject1 }" pattern=" 00:mm " /></b>
+									     
+									    </c:when>    
+									    <c:otherwise>
+						                  <jsp:useBean id="dateObject2" class="java.util.Date" />
+								    	  <jsp:setProperty name="dateObject2" property="time" value="${task.timespend-3600000}" />
+									      <b><fmt:formatDate value="${dateObject2 }" pattern="hh:mm " /></b>
+							            </c:otherwise>
+									 </c:choose>
+							</div>
 							
-							<div class="col-sm-6">
+							<div class="col-sm-2">
 								<c:if test="${task.status == 'New' || task.status == 'Paused' || task.status == 'Finished'}">
 								<a href="start?id=${task.id }"><button>Start</button></a>
 								</c:if>	
@@ -67,7 +93,9 @@
 								<a href="pause?id=${task.id }"><button>Pause</button></a>
 								<a href="finish?id=${task.id }"><button>Finish</button></a>
 								</c:if>
-							</div>								
+							</div>
+							
+							
 								
 						</c:forEach>
 						<div class="row"></div>
