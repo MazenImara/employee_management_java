@@ -91,8 +91,8 @@ $(document).ready(function(){
 			                      <td ><span id="addTimeOff"> Add </span></td> 
 		                      </form:form>
 	                     </tr>
-	          </table> 
-	          <div id='errorDiv' style='color:red'></div> 
+	           </table> 
+	         <div id='errorDiv' style='color:red'></div> 
    </div>
 </body>
 <!-- End MOHAMAD Code  -->
